@@ -41,17 +41,16 @@ abstract final class SMShadows {
   ];
 
   static final BoxShadow shadow0_4_4_0_30 = BoxShadow(
-    offset: const Offset(0, 4),
-    spreadRadius: 4,
-    blurRadius: 0,
     color: SMColors.neutral100.withOpacity(0.30),
+    blurRadius: 4,
+    offset: const Offset(0, 4),
   );
 
   static final BoxShadow shadow0_8_12_6_15 = BoxShadow(
-    offset: const Offset(0, 8),
-    spreadRadius: 12,
-    blurRadius: 6,
     color: SMColors.neutral100.withOpacity(0.15),
+    blurRadius: 12,
+    spreadRadius: 6,
+    offset: const Offset(0, 8),
   );
 
   static final List<BoxShadow> shadow3 = [
