@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos/layers/presentation/atoms/icon.dart';
-import 'package:ser_manos/layers/presentation/cells/cards/c_information_heading.dart';
+import 'package:ser_manos/layers/presentation/molecules/components/c_heading.dart';
 import 'package:ser_manos/layers/presentation/tokens/colors.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/t_body01.dart';
 
-class CInput extends CInformationHeading {
+class CInput extends CHeading {
   final String headingTitle;
   CInput({
     super.key,

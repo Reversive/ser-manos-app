@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ser_manos/layers/presentation/tokens/colors.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/t_subtitle01.dart';
 
-class CInformationHeading extends Container {
+class CHeading extends Container {
   final String title;
-  CInformationHeading({
+  CHeading({
     super.key,
     required Widget child,
     required this.title,

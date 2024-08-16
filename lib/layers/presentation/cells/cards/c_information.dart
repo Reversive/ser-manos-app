@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos/layers/domain/models/information.dart';
-import 'package:ser_manos/layers/presentation/cells/cards/c_information_heading.dart';
+import 'package:ser_manos/layers/presentation/molecules/components/c_heading.dart';
+import 'package:ser_manos/layers/presentation/molecules/components/c_labeled_content.dart';
 import 'package:ser_manos/layers/presentation/tokens/colors.dart';
-import 'package:ser_manos/layers/presentation/tokens/typographies/t_body01.dart';
-import 'package:ser_manos/layers/presentation/tokens/typographies/t_overline.dart';
 
-class CInfomation extends CInformationHeading {
+class CInfomation extends CHeading {
   final Information information;
   CInfomation({
     super.key,
@@ -22,22 +21,20 @@ class CInfomation extends CInformationHeading {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TOverline(
-                      information.label1,
-                      color: SMColors.neutral75,
+                    CLabeledContent(
+                      label: information.label1,
+                      content: information.content1,
                     ),
-                    TBody1(information.content1),
                   ],
                 ),
                 const SizedBox(height: 8),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TOverline(
-                      information.label1,
-                      color: SMColors.neutral75,
+                    CLabeledContent(
+                      label: information.label2,
+                      content: information.content2,
                     ),
-                    TBody1(information.content1),
                   ],
                 ),
               ],
