@@ -6,9 +6,9 @@ import 'package:ser_manos/layers/presentation/tokens/decorations/bd_card.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/t_overline.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/t_subtitle01.dart';
 
-class CActualVoluntary extends Container {
+class CCurrentVoluntary extends Container {
   final Voluntary voluntary;
-  CActualVoluntary({super.key, required this.voluntary})
+  CCurrentVoluntary({super.key, required this.voluntary})
       : super(
           decoration: BDCard(
             radius: 6.0,
