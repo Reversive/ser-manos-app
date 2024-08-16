@@ -18,24 +18,14 @@ class CInfomation extends CHeading {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CLabeledContent(
-                      label: information.label1,
-                      content: information.content1,
-                    ),
-                  ],
+                CLabeledContent(
+                  label: information.label1,
+                  content: information.content1,
                 ),
                 const SizedBox(height: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CLabeledContent(
-                      label: information.label2,
-                      content: information.content2,
-                    ),
-                  ],
+                CLabeledContent(
+                  label: information.label2,
+                  content: information.content2,
                 ),
               ],
             ),
