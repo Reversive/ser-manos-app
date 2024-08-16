@@ -1,4 +1,4 @@
-import 'package:ser_manos/layers/presentation/tokens/text_styles/ts_headline02.dart';
+import 'package:ser_manos/layers/presentation/tokens/typographies/styles/ts_headline02.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/t_base.dart';
 
 final class THeadline2 extends TBase {
