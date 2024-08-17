@@ -11,7 +11,7 @@ class BShort extends FilledButton {
     super.onPressed,
     bool disabled = false,
     EdgeInsets padding = const EdgeInsets.all(12),
-    required SMIcon icon,
+    SMIcon? icon,
   }) : super(
           style: BSSHort(
             disabled: disabled,
@@ -23,8 +23,8 @@ class BShort extends FilledButton {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              icon,
-              const SizedBox(width: 8),
+              if (icon != null) icon,
+              if (icon != null) const SizedBox(width: 8),
               TButton(
                 text,
                 color: disabled ? SMColors.neutral50 : SMColors.neutral0,
