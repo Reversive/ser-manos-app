@@ -3,6 +3,7 @@ import 'package:ser_manos/layers/domain/models/voluntary.dart';
 import 'package:ser_manos/layers/presentation/atoms/icon.dart';
 import 'package:ser_manos/layers/presentation/tokens/colors.dart';
 import 'package:ser_manos/layers/presentation/tokens/decorations/bd_card.dart';
+import 'package:ser_manos/layers/presentation/tokens/shadows.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/t_overline.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/t_subtitle01.dart';
 
@@ -13,6 +14,7 @@ class CCurrentVoluntary extends Container {
           decoration: BDCard(
             radius: 6.0,
             color: SMColors.primary5,
+            boxShadow: SMShadows.shadow2,
             border: Border.all(
               color: SMColors.primary100,
               width: 2.0,
