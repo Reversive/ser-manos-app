@@ -4,6 +4,7 @@ import 'package:ser_manos/layers/presentation/atoms/icon.dart';
 import 'package:ser_manos/layers/presentation/molecules/components/c_vacancy.dart';
 import 'package:ser_manos/layers/presentation/tokens/colors.dart';
 import 'package:ser_manos/layers/presentation/tokens/decorations/bd_card.dart';
+import 'package:ser_manos/layers/presentation/tokens/shadows.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/t_overline.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/t_subtitle01.dart';
 
@@ -12,7 +13,7 @@ final class CVoluntary extends Container {
   final int vacancies;
   CVoluntary({super.key, required this.voluntary, required this.vacancies})
       : super(
-          decoration: BDCard(),
+          decoration: BDCard(boxShadow: SMShadows.shadow2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,

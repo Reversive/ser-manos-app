@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ser_manos/layers/domain/models/news.dart';
 import 'package:ser_manos/layers/presentation/tokens/colors.dart';
 import 'package:ser_manos/layers/presentation/tokens/decorations/bd_card.dart';
+import 'package:ser_manos/layers/presentation/tokens/shadows.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/t_body02.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/t_button.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/t_overline.dart';
@@ -12,7 +13,7 @@ final class CNews extends IntrinsicHeight {
   CNews({super.key, required this.news})
       : super(
           child: Container(
-            decoration: BDCard(),
+            decoration: BDCard(boxShadow: SMShadows.shadow2),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

@@ -7,7 +7,7 @@ class BShortSmall extends BShort {
     super.key,
     super.onPressed,
     super.disabled = false,
-    required super.icon,
+    super.icon,
   }) : super(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         );
