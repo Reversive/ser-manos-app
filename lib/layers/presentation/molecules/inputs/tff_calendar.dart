@@ -30,6 +30,7 @@ class TffCalendar extends TFFBase {
             ),
             suffixIcon: IconButton(
               onPressed: () async {
+                // https://stackoverflow.com/questions/54127847/flutter-how-to-display-datepicker-when-textformfield-is-clicked
                 FocusScope.of(context).requestFocus(FocusNode());
                 final DateTime? picked = await showDatePicker(
                   context: context,
