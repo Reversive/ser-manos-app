@@ -5,24 +5,28 @@ import 'package:ser_manos/layers/presentation/tokens/typographies/styles/ts_capt
 import 'package:ser_manos/layers/presentation/tokens/typographies/styles/ts_subtitle01.dart';
 
 class IDBase extends InputDecoration {
-  const IDBase({
+  IDBase({
     super.labelText,
     super.hintText,
   }) : super(
-          disabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
+          disabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
               color: SMColors.neutral50,
             ),
+            borderRadius: BorderRadius.circular(4),
           ),
-          border: const OutlineInputBorder(
-            borderSide: BorderSide(
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(
               color: SMColors.neutral75,
             ),
+            borderRadius: BorderRadius.circular(4),
           ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
-              color: SMColors.secondary100,
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: SMColors.secondary200,
+              width: 2.0,
             ),
+            borderRadius: BorderRadius.circular(4),
           ),
           labelStyle: const TSSubtitle1(
             color: SMColors.neutral75,
@@ -33,10 +37,12 @@ class IDBase extends InputDecoration {
           hintStyle: const TSSubtitle1(
             color: SMColors.neutral50,
           ),
-          errorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
               color: SMColors.error100,
+              width: 2,
             ),
+            borderRadius: BorderRadius.circular(4),
           ),
           errorStyle: const TSBody2(
             color: SMColors.error100,
