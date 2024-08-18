@@ -8,6 +8,7 @@ class IDBase extends InputDecoration {
   IDBase({
     super.labelText,
     super.hintText,
+    super.suffixIcon,
   }) : super(
           disabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(
@@ -32,7 +33,7 @@ class IDBase extends InputDecoration {
             color: SMColors.neutral75,
           ),
           floatingLabelStyle: const TSCaption(
-            color: SMColors.neutral75,
+            color: SMColors.secondary200,
           ),
           hintStyle: const TSSubtitle1(
             color: SMColors.neutral50,
