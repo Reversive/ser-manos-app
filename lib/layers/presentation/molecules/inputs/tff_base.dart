@@ -9,6 +9,7 @@ class TFFBase extends TextFormField {
     required InputDecoration decoration,
     super.enabled,
     super.obscureText,
+    super.validator,
   }) : super(
           decoration: decoration,
           style: const TSSubtitle1(
