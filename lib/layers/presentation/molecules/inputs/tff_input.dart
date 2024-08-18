@@ -14,10 +14,14 @@ class TFFInput extends TFFBase {
           decoration: IDBase(
             labelText: label,
             hintText: hint,
-            suffixIcon: IconButton(
-              onPressed: controller?.clear,
-              icon: const SMIcon(icon: Icons.clear),
-            ),
+            suffixIcon: controller!.text.isNotEmpty
+                ? IconButton(
+                    onPressed: controller.clear,
+                    icon: const SMIcon(
+                      icon: Icons.clear,
+                      active: true,
+                    ))
+                : null,
           ),
         );
 }
