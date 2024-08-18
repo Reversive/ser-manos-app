@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ser_manos/layers/presentation/atoms/icon.dart';
 import 'package:ser_manos/layers/presentation/molecules/inputs/tff_base.dart';
-import 'package:ser_manos/layers/presentation/molecules/inputs/tif_date.dart';
+import 'package:ser_manos/layers/presentation/molecules/inputs/formatters/tif_date.dart';
 import 'package:ser_manos/layers/presentation/tokens/colors.dart';
 import 'package:ser_manos/layers/presentation/tokens/decorations/id_base.dart';
 import 'package:ser_manos/layers/presentation/tokens/typographies/styles/ts_body02.dart';
