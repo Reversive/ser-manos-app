@@ -7,6 +7,7 @@ class TFFInput extends TFFBase {
   TFFInput({
     super.key,
     super.enabled,
+    super.validator,
     required super.controller,
     required String hint,
     required String label,
