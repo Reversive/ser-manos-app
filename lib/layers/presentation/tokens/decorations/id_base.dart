@@ -9,6 +9,8 @@ class IDBase extends InputDecoration {
     super.labelText,
     super.hintText,
     super.suffixIcon,
+    super.helperText,
+    super.helperStyle,
   }) : super(
           disabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(

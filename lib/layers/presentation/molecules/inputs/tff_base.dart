@@ -10,6 +10,9 @@ class TFFBase extends TextFormField {
     super.enabled,
     super.obscureText,
     super.validator,
+    super.onTap,
+    super.keyboardType,
+    super.inputFormatters,
   }) : super(
           decoration: decoration,
           style: const TSSubtitle1(

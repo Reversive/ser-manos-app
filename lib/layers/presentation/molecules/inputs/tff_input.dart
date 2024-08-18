@@ -21,7 +21,8 @@ class TFFInput extends TFFBase {
                     icon: const SMIcon(
                       icon: Icons.clear,
                       active: true,
-                    ))
+                    ),
+                  )
                 : null,
           ),
         );
