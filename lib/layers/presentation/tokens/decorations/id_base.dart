@@ -8,9 +8,10 @@ class IDBase extends InputDecoration {
   IDBase({
     super.labelText,
     super.hintText,
-    super.suffixIcon,
     super.helperText,
-    super.helperStyle,
+    super.suffixIcon,
+    super.floatingLabelBehavior,
+    super.labelStyle,
   }) : super(
           disabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(
@@ -31,12 +32,6 @@ class IDBase extends InputDecoration {
             ),
             borderRadius: BorderRadius.circular(4),
           ),
-          labelStyle: const TSSubtitle1(
-            color: SMColors.neutral75,
-          ),
-          floatingLabelStyle: const TSCaption(
-            color: SMColors.secondary200,
-          ),
           hintStyle: const TSSubtitle1(
             color: SMColors.neutral50,
           ),
@@ -49,6 +44,9 @@ class IDBase extends InputDecoration {
           ),
           errorStyle: const TSBody2(
             color: SMColors.error100,
+          ),
+          helperStyle: const TSCaption(
+            color: SMColors.neutral75,
           ),
         );
 }
