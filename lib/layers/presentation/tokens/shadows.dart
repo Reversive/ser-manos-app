@@ -4,15 +4,15 @@ import 'package:ser_manos/layers/presentation/tokens/colors.dart';
 abstract final class SMShadows {
   static final BoxShadow shadow0_1_3_1_15 = BoxShadow(
     offset: const Offset(0, 1),
-    spreadRadius: 3,
-    blurRadius: 1,
+    spreadRadius: 1,
+    blurRadius: 3,
     color: SMColors.neutral100.withOpacity(0.15),
   );
 
   static final BoxShadow shadow0_1_2_0_30 = BoxShadow(
     offset: const Offset(0, 1),
-    spreadRadius: 2,
-    blurRadius: 0,
+    spreadRadius: 0,
+    blurRadius: 2,
     color: SMColors.neutral100.withOpacity(0.30),
   );
 
