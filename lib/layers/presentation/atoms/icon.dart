@@ -34,7 +34,7 @@ final class SMIcon extends BaseIcon {
     super.enabledColor,
   });
 
-  factory SMIcon.secondary({icon}) {
+  factory SMIcon.secondary({required icon}) {
     return SMIcon(
       icon: icon,
       enabledColor: SMColors.secondary200,
@@ -42,9 +42,9 @@ final class SMIcon extends BaseIcon {
     );
   }
 
-  factory SMIcon.error({icon}) {
-    return SMIcon(
-      icon: icon,
+  factory SMIcon.error() {
+    return const SMIcon(
+      icon: Icons.error,
       enabledColor: SMColors.error100,
     );
   }
