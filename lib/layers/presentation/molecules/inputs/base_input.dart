@@ -20,6 +20,8 @@ class BaseInput extends StatefulWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final FocusNode? focusNode;
+  final bool obscureText;
+  final bool shouldLoseFocusOnSuffixIconPressed;
 
   const BaseInput({
     super.key,
@@ -36,6 +38,8 @@ class BaseInput extends StatefulWidget {
     this.keyboardType,
     this.inputFormatters,
     this.focusNode,
+    this.obscureText = false,
+    this.shouldLoseFocusOnSuffixIconPressed = true,
   });
 
   @override
@@ -97,6 +101,7 @@ class _BaseInputState extends State<BaseInput> {
       validator: (value) => widget.validator(value),
       keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
+      obscureText: widget.obscureText,
     );
   }
 
@@ -123,7 +128,9 @@ class _BaseInputState extends State<BaseInput> {
               if (widget.onSuffixIconPressed != null) {
                 await widget.onSuffixIconPressed!();
               }
-              focusNode.unfocus();
+              if (widget.shouldLoseFocusOnSuffixIconPressed) {
+                focusNode.unfocus();
+              }
               _onChanged(widget.controller.text);
             },
             icon: widget.suffixIcon!,
@@ -134,7 +141,9 @@ class _BaseInputState extends State<BaseInput> {
                   if (widget.onSuffixIconPressed != null) {
                     await widget.onSuffixIconPressed!();
                   }
-                  focusNode.unfocus();
+                  if (widget.shouldLoseFocusOnSuffixIconPressed) {
+                    focusNode.unfocus();
+                  }
                   _onChanged(widget.controller.text);
                 },
                 icon: widget.suffixIcon!,
