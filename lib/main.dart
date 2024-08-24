@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ser_manos/layers/app_root.dart';
+import 'package:ser_manos/app_root.dart';
 
 void main() {
   runApp(const AppRoot());
