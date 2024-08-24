@@ -5,7 +5,6 @@ class RectangularLogo extends Image {
     super.key,
   }) : super(
           image: const AssetImage('assets/logos/rectangle-logo.png'),
-          height: 25,
         );
 }
 
