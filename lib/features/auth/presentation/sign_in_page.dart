@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ser_manos/features/auth/presentation/base_page.dart';
 import 'package:ser_manos/shared/atoms/logo.dart';
 import 'package:ser_manos/shared/cells/forms/c_sign_in.dart';
 import 'package:ser_manos/shared/cells/headers/ab_modal_header.dart';
 import 'package:ser_manos/shared/molecules/buttons/b_cta_filled.dart';
 import 'package:ser_manos/shared/molecules/buttons/b_cta_text.dart';
-import 'package:ser_manos/shared/tokens/grid.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -40,50 +40,50 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: ABModalHeader(
         implyLeading: false,
       ),
-      body: Form(
-        key: _formKey,
-        child: Grid(
-            child: Column(
-          children: [
-            const Spacer(),
-            const SquaredLogo(),
-            const SizedBox(
-              height: 32,
-            ),
-            CSignIn(
-              emailController: emailController,
-              passwordController: passwordController,
-              emailValidator: emailValidator,
-              passwordValidator: passwordValidator,
-            ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: BCtaFilled(
-                "Iniciar Sesión",
-                onPressed: () => print("TODO"),
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: BCtaText(
-                "Registrarse",
-                onPressed: () => print("TODO"),
-              ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-          ],
-        )),
-      ),
+      body: BasePage(content: [
+        const Spacer(),
+                        const SquaredLogo(),
+                        const SizedBox(
+                          height: 32,
+                        ),
+                        Form(
+                          key: _formKey,
+                          child: CSignIn(
+                            emailController: emailController,
+                            passwordController: passwordController,
+                            emailValidator: emailValidator,
+                            passwordValidator: passwordValidator,
+                          ),
+                        ),
+                        const Spacer(),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: BCtaFilled(
+                            "Iniciar Sesión",
+                            onPressed: () => print("TODO"),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: BCtaText(
+                            "Registrarse",
+                            onPressed: () => print("TODO"),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 32,
+                        ),
+      ]),
     );
   }
 }
