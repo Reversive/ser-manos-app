@@ -5,10 +5,13 @@ import 'package:ser_manos/shared/tokens/colors.dart';
 class ABModalHeader extends AppBar {
   ABModalHeader({
     super.key,
+    bool implyLeading = true,
   }) : super(
           systemOverlayStyle: const SUOSLight(),
-          leading: const CloseButton(
-            color: SMColors.neutral75,
-          ),
+          leading: implyLeading
+              ? const CloseButton(
+                  color: SMColors.neutral75,
+                )
+              : null,
         );
 }
