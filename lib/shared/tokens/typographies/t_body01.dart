@@ -6,5 +6,6 @@ final class TBody1 extends TBase {
     super.data, {
     super.key,
     super.color,
+    super.textAlign,
   }) : super(style: TSBody1(color: color));
 }

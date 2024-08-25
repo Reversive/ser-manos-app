@@ -6,5 +6,6 @@ final class TOverline extends TBase {
     super.data, {
     super.key,
     super.color,
+    super.textAlign,
   }) : super(style: TSOverline(color: color));
 }

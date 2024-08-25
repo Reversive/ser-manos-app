@@ -6,5 +6,6 @@ final class THeadline2 extends TBase {
     super.data, {
     super.key,
     super.color,
+    super.textAlign,
   }) : super(style: TSHeadline2(color: color));
 }
