@@ -6,6 +6,7 @@ abstract class TBase extends Text {
     super.data, {
     super.key,
     super.style,
+    super.textAlign,
     Color color = SMColors.neutral100,
   });
 }

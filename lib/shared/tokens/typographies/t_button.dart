@@ -6,5 +6,6 @@ final class TButton extends TBase {
     super.data, {
     super.key,
     super.color,
+    super.textAlign,
   }) : super(style: TSButton(color: color));
 }

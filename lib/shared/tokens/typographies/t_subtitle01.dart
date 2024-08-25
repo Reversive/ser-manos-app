@@ -6,5 +6,6 @@ final class TSubtitle1 extends TBase {
     super.data, {
     super.key,
     super.color,
+    super.textAlign,
   }) : super(style: TSSubtitle1(color: color));
 }
