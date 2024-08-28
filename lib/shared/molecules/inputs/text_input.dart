@@ -36,7 +36,6 @@ class _TextInputState extends State<TextInput> {
   @override
   void dispose() {
     widget.controller.removeListener(_setState);
-    widget.controller.dispose();
     super.dispose();
   }
 

@@ -38,7 +38,6 @@ class _PasswordInputState extends State<PasswordInput> {
   @override
   void dispose() {
     widget.controller.removeListener(_setState);
-    widget.controller.dispose();
     super.dispose();
   }
 

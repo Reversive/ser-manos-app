@@ -34,7 +34,6 @@ class _SearchInputState extends State<SearchInput> {
   @override
   void dispose() {
     widget.controller.removeListener(_setState);
-    widget.controller.dispose();
     super.dispose();
   }
 

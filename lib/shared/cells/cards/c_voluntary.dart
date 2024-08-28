@@ -24,34 +24,43 @@ final class CVoluntary extends Container {
                 height: 138,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                child: Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      TOverline(
-                        "ACCIÓN SOCIAL",
-                        color: SMColors.neutral75,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TOverline(
+                              "ACCIÓN SOCIAL",
+                              color: SMColors.neutral75,
+                            ),
+                            TSubtitle1(voluntary.name),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            CVacancy(vacancies: vacancies),
+                          ],
+                        ),
                       ),
-                      TSubtitle1(voluntary.name),
-                      const SizedBox(height: 4),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      const Row(
                         children: [
-                          CVacancy(vacancies: vacancies),
-                          const Row(
-                            children: [
-                              SMIcon(icon: Icons.favorite_border),
-                              SizedBox(width: 16),
-                              SMIcon(icon: Icons.location_on),
-                            ],
+                          SMIcon(
+                            icon: Icons.favorite_border,
+                            active: true,
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          SMIcon(
+                            icon: Icons.location_on,
+                            active: true,
                           )
                         ],
-                      ),
+                      )
                     ],
-                  ),
-                ),
-              ),
+                  )),
             ],
           ),
         );
