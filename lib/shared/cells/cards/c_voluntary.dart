@@ -9,28 +9,37 @@ import 'package:ser_manos/shared/tokens/typographies/t_overline.dart';
 import 'package:ser_manos/shared/tokens/typographies/t_subtitle01.dart';
 
 final class CVoluntary extends Container {
-  final Voluntary voluntary;
-  final int vacancies;
-  CVoluntary({super.key, required this.voluntary, required this.vacancies})
-      : super(
-          decoration: BDCard(boxShadow: SMShadows.shadow2),
+  CVoluntary({
+    super.key,
+    super.margin,
+    required Voluntary voluntary,
+    required int vacancies,
+  }) : super(
+          decoration: BDCard(
+            boxShadow: SMShadows.shadow2,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image(
-                image: NetworkImage(voluntary.imgURL),
-                fit: BoxFit.cover,
-                height: 138,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(2),
+                child: Image(
+                  image: NetworkImage(voluntary.imgURL),
+                  fit: BoxFit.cover,
+                  height: 138,
+                ),
               ),
               Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             TOverline(
                               "ACCIÓN SOCIAL",
@@ -45,6 +54,7 @@ final class CVoluntary extends Container {
                         ),
                       ),
                       const Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           SMIcon(
                             icon: Icons.favorite_border,
