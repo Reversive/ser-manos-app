@@ -33,7 +33,7 @@ class _VolunteerTabState extends State<VolunteerTab> {
 
   @override
   void initState() {
-    voluntaries = [voluntary1, voluntary2];
+    voluntaries = [];
     super.initState();
   }
 
@@ -42,11 +42,11 @@ class _VolunteerTabState extends State<VolunteerTab> {
     return showMapView
         ? MapFragment(
             onIconPressed: _onIconPressed,
-            voluntaries: voluntaries,
+            volunteers: voluntaries,
           )
         : VolunteerFragment(
             onIconPressed: _onIconPressed,
-            voluntaries: voluntaries,
+            volunteers: voluntaries,
           );
   }
 

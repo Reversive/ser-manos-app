@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos/features/volunteer/domain/voluntary.dart';
-import 'package:ser_manos/shared/cells/cards/c_voluntary.dart';
+import 'package:ser_manos/shared/cells/cards/c_no_volunteerings.dart';
+import 'package:ser_manos/shared/cells/cards/c_volunteer.dart';
 import 'package:ser_manos/shared/molecules/inputs/search_input.dart';
 import 'package:ser_manos/shared/tokens/colors.dart';
 import 'package:ser_manos/shared/tokens/grid.dart';
@@ -10,10 +11,10 @@ class VolunteerFragment extends StatefulWidget {
   const VolunteerFragment({
     super.key,
     required this.onIconPressed,
-    required this.voluntaries,
+    required this.volunteers,
   });
   final void Function() onIconPressed;
-  final List<Voluntary> voluntaries;
+  final List<Voluntary> volunteers;
 
   @override
   State<VolunteerFragment> createState() => _VolunteerFragmentState();
@@ -47,26 +48,27 @@ class _VolunteerFragmentState extends State<VolunteerFragment> {
               "Voluntariados",
               textAlign: TextAlign.start,
             ),
-            // TODO: ADD VOLUNTEER CHECK HERE
-            Expanded(
-              child: ListView.separated(
-                itemBuilder: (_, index) {
-                  return CVoluntary(
-                    voluntary: widget.voluntaries[index],
-                    vacancies: 10,
-                  );
-                },
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 25,
-                ),
-                itemCount: widget.voluntaries.length,
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 24,
-                ),
-              ),
+            SizedBox(
+              height: widget.volunteers.isEmpty ? 16 : 24,
             ),
+            widget.volunteers.isEmpty
+                ? CNoVolunteerings()
+                : Expanded(
+                    child: ListView.separated(
+                      itemBuilder: (_, index) {
+                        return CVolunteer(
+                          voluntary: widget.volunteers[index],
+                          vacancies: 10,
+                        );
+                      },
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 25,
+                      ),
+                      itemCount: widget.volunteers.length,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                    ),
+                  ),
           ],
         ),
       ),

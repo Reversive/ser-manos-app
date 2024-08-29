@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ser_manos/features/volunteer/domain/voluntary.dart';
 import 'package:ser_manos/shared/atoms/icon.dart';
-import 'package:ser_manos/shared/cells/cards/c_voluntary.dart';
+import 'package:ser_manos/shared/cells/cards/c_no_volunteerings.dart';
+import 'package:ser_manos/shared/cells/cards/c_volunteer.dart';
 import 'package:ser_manos/shared/molecules/buttons/b_floating.dart';
 import 'package:ser_manos/shared/molecules/inputs/search_input.dart';
 import 'package:ser_manos/shared/tokens/colors.dart';
@@ -12,10 +13,10 @@ import 'package:widget_to_marker/widget_to_marker.dart';
 class MapFragment extends StatefulWidget {
   const MapFragment({
     super.key,
-    required this.voluntaries,
+    required this.volunteers,
     required this.onIconPressed,
   });
-  final List<Voluntary> voluntaries;
+  final List<Voluntary> volunteers;
   final void Function() onIconPressed;
 
   @override
@@ -52,10 +53,10 @@ class _MapFragmentState extends State<MapFragment> {
       active: true,
     ).toBitmapDescriptor();
 
-    for (int i = 0; i < widget.voluntaries.length; i++) {
+    for (int i = 0; i < widget.volunteers.length; i++) {
       final marker = Marker(
-        markerId: MarkerId(widget.voluntaries[i].name),
-        position: LatLng(widget.voluntaries[i].lat, widget.voluntaries[i].lng),
+        markerId: MarkerId(widget.volunteers[i].name),
+        position: LatLng(widget.volunteers[i].lat, widget.volunteers[i].lng),
         icon: i == 0 ? locationOn : locationOnOutlined,
       );
       markers.add(marker);
@@ -70,7 +71,7 @@ class _MapFragmentState extends State<MapFragment> {
   }
 
   void onPageChanged(int index, CarouselPageChangedReason reason) {
-    final voluntary = widget.voluntaries[index];
+    final voluntary = widget.volunteers[index];
     final marker = markers.firstWhere(
       (element) => element.markerId.value == voluntary.name,
     );
@@ -135,23 +136,28 @@ class _MapFragmentState extends State<MapFragment> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
-                  child: CarouselSlider(
-                    items: widget.voluntaries
-                        .map(
-                          (voluntary) => CVoluntary(
-                            voluntary: voluntary,
-                            vacancies: 10,
-                            margin: const EdgeInsets.only(right: 8),
-                          ),
+                  child: widget.volunteers.isEmpty
+                      ? Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                          child: CNoVolunteerings(),
                         )
-                        .toList(),
-                    options: CarouselOptions(
-                      enableInfiniteScroll: false,
-                      height: 236,
-                      viewportFraction: 0.87,
-                      onPageChanged: onPageChanged,
-                    ),
-                  ),
+                      : CarouselSlider(
+                          items: widget.volunteers
+                              .map(
+                                (voluntary) => CVolunteer(
+                                  voluntary: voluntary,
+                                  vacancies: 10,
+                                  margin: const EdgeInsets.only(right: 8),
+                                ),
+                              )
+                              .toList(),
+                          options: CarouselOptions(
+                            enableInfiniteScroll: false,
+                            height: 236,
+                            viewportFraction: 0.87,
+                            onPageChanged: onPageChanged,
+                          ),
+                        ),
                 ),
               ],
             ),
