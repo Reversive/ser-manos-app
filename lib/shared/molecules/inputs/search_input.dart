@@ -10,17 +10,21 @@ class SearchInput extends StatefulWidget {
     super.key,
     required this.controller,
     required this.validator,
+    required this.onIconPressed,
+    required this.suffixIcon,
   });
 
   final TextEditingController controller;
   final Function(String?) validator;
+  final Function() onIconPressed;
+  final IconData suffixIcon;
 
   @override
   State<SearchInput> createState() => _SearchInputState();
 }
 
 class _SearchInputState extends State<SearchInput> {
-  FocusNode _focusNode = FocusNode();
+  final FocusNode _focusNode = FocusNode();
   void _setState() {
     setState(() {});
   }
@@ -78,11 +82,11 @@ class _SearchInputState extends State<SearchInput> {
       );
     }
     return IconButton(
-      icon: const SMIcon(
-        icon: Icons.map_outlined,
+      icon: SMIcon(
+        icon: widget.suffixIcon,
         active: true,
       ),
-      onPressed: () {},
+      onPressed: widget.onIconPressed,
     );
   }
 }

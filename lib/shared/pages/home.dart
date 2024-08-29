@@ -31,11 +31,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
       appBar: ABTabHeader(tabController: tabController, onTapTab: onTapTab),
       resizeToAvoidBottomInset: false,
-      body: TabBarView(controller: tabController, children: const [
-        VolunteerTab(),
-        ProfileTab(),
-        NewsTab(),
-      ]),
+      body: TabBarView(
+        controller: tabController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: const [
+          VolunteerTab(),
+          ProfileTab(),
+          NewsTab(),
+        ],
+      ),
     );
   }
 
