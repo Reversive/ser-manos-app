@@ -7,9 +7,9 @@ import 'package:ser_manos/shared/tokens/shadows.dart';
 import 'package:ser_manos/shared/tokens/typographies/t_overline.dart';
 import 'package:ser_manos/shared/tokens/typographies/t_subtitle01.dart';
 
-class CCurrentVoluntary extends Container {
+class CCurrentVolunteer extends Container {
   final Voluntary voluntary;
-  CCurrentVoluntary({super.key, required this.voluntary})
+  CCurrentVolunteer({super.key, required this.voluntary})
       : super(
           decoration: BDCard(
             radius: 6.0,

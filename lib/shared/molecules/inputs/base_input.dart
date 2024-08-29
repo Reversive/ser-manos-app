@@ -64,7 +64,7 @@ class _BaseInputState extends State<BaseInput> {
   @override
   void dispose() {
     _focusNode.removeListener(_setState);
-    widget.controller.dispose();
+    //widget.controller.dispose(); // Uncomment this line to dispose the controller
     super.dispose();
   }
 
