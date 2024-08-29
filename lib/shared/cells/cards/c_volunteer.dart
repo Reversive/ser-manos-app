@@ -8,8 +8,8 @@ import 'package:ser_manos/shared/tokens/shadows.dart';
 import 'package:ser_manos/shared/tokens/typographies/t_overline.dart';
 import 'package:ser_manos/shared/tokens/typographies/t_subtitle01.dart';
 
-final class CVoluntary extends Container {
-  CVoluntary({
+final class CVolunteer extends Container {
+  CVolunteer({
     super.key,
     super.margin,
     required Voluntary voluntary,
