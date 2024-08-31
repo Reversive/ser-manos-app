@@ -1,18 +1,23 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:ser_manos/src/features/auth/presentation/base_page.dart';
+import 'package:ser_manos/src/features/auth/presentation/base_screen.dart';
+import 'package:ser_manos/src/features/auth/presentation/sign_in_screen.dart';
+import 'package:ser_manos/src/features/auth/presentation/welcome_screen.dart';
 import 'package:ser_manos/src/shared/atoms/logo.dart';
 import 'package:ser_manos/src/shared/cells/forms/form.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignUpScreen extends StatefulWidget {
+  static const String route = "/sign-up";
+  static const String routeName = "Sign Up";
+  const SignUpScreen({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final surnameController = TextEditingController();
@@ -21,7 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BasePage(content: [
+    return BaseScreen(content: [
       const SquaredLogo(),
       const SMGap.vertical(
         height: 32,
@@ -44,7 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
         width: double.infinity,
         child: SMButton.filled(
           "Registrarse",
-          onPressed: () => print("TODO"),
+          onPressed: () => Beamer.of(context).beamToNamed(WelcomeScreen.route),
         ),
       ),
       const SMGap.vertical(
@@ -54,7 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
         width: double.infinity,
         child: SMButton.text(
           "Ya tengo cuenta",
-          onPressed: () => print("TODO"),
+          onPressed: () => Beamer.of(context).beamToNamed(SignInScreen.route),
         ),
       ),
       const SMGap.vertical(
