@@ -2,7 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:ser_manos/src/features/home/presentation/home_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/base_screen.dart';
-import 'package:ser_manos/src/features/news/presentation/news_screen.dart';
+import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/shared/atoms/logo.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
@@ -40,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
           child: SMButton.filled(
             "Comenzar",
             onPressed: () => Beamer.of(context)
-                .beamToNamed('${HomeScreen.route}${NewsScreen.route}'),
+                .beamToNamed('${HomeScreen.route}${VolunteerScreen.route}'),
           ),
         ),
         const Spacer(),
