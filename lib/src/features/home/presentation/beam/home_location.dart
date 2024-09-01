@@ -27,7 +27,7 @@ class HomeLocation extends BeamLocation {
         BeamPage(
           key: ValueKey('volunteer-${uri.queryParameters["id"]}'),
           title: 'Volunteer #${uri.queryParameters["id"]}',
-          child: const VolunteerDetailScreen(),
+          child: VolunteerDetailScreen(id: uri.queryParameters["id"]!),
         ),
       if (uri.path.contains(ProfileScreen.route))
         const BeamPage(
@@ -50,7 +50,7 @@ class HomeLocation extends BeamLocation {
         BeamPage(
           key: ValueKey('news-${uri.queryParameters["id"]}'),
           title: 'News #${uri.queryParameters["id"]}',
-          child: const NewsDetailScreen(),
+          child: NewsDetailScreen(id: uri.queryParameters["id"]),
         ),
     ];
   }
