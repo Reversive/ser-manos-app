@@ -14,7 +14,8 @@ class HomeLocation extends BeamLocation {
       BuildContext context, RouteInformationSerializable state) {
     final uri = state.routeInformation.uri;
     return [
-      if (uri.path.contains(VolunteerScreen.route))
+      if (uri.path.contains(VolunteerScreen.route) ||
+          uri.path.contains(HomeScreen.route))
         const BeamPage(
           key: ValueKey(VolunteerScreen.routeName),
           title: 'Home',
@@ -50,7 +51,7 @@ class HomeLocation extends BeamLocation {
         BeamPage(
           key: ValueKey('news-${uri.queryParameters["id"]}'),
           title: 'News #${uri.queryParameters["id"]}',
-          child: NewsDetailScreen(id: uri.queryParameters["id"]),
+          child: NewsDetailScreen(id: uri.queryParameters["id"]!),
         ),
     ];
   }
