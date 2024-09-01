@@ -87,4 +87,13 @@ class SMHeader extends AppBar {
                 )
               : null,
         );
+
+  SMHeader.transparent({super.key})
+      : super(
+          backgroundColor: SMColors.transparent,
+          elevation: 0,
+          leading: const BackButton(
+            color: SMColors.neutral0,
+          ),
+        );
 }
