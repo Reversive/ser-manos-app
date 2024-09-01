@@ -96,6 +96,22 @@ class SMComponent extends StatelessWidget {
     );
   }
 
+  factory SMComponent.bulletList({
+    Key? key,
+    required List<String> items,
+  }) {
+    return SMComponent(
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: items.length,
+        padding: EdgeInsets.zero,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) =>
+            SMTypography.body01("• ${items[index]}"),
+      ),
+    );
+  }
+
   factory SMComponent.heading({
     Key? key,
     required String title,
