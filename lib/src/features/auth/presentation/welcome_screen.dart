@@ -1,16 +1,21 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:ser_manos/src/features/auth/presentation/base_page.dart';
+import 'package:ser_manos/src/features/home/presentation/home_screen.dart';
+import 'package:ser_manos/src/features/auth/presentation/base_screen.dart';
+import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/shared/atoms/logo.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key});
+class WelcomeScreen extends StatelessWidget {
+  static const String route = "/welcome";
+  static const String routeName = "Welcome";
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BasePage(
+    return BaseScreen(
       content: [
         const Spacer(),
         Column(
@@ -34,7 +39,8 @@ class WelcomePage extends StatelessWidget {
           width: double.infinity,
           child: SMButton.filled(
             "Comenzar",
-            onPressed: () => print("TODO"),
+            onPressed: () => Beamer.of(context)
+                .beamToNamed('${HomeScreen.route}${VolunteerScreen.route}'),
           ),
         ),
         const Spacer(),

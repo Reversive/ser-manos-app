@@ -1,19 +1,24 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:ser_manos/src/features/auth/presentation/base_page.dart';
+import 'package:ser_manos/src/features/auth/presentation/base_screen.dart';
+import 'package:ser_manos/src/features/auth/presentation/sign_up_screen.dart';
+import 'package:ser_manos/src/features/auth/presentation/welcome_screen.dart';
 import 'package:ser_manos/src/shared/atoms/logo.dart';
 import 'package:ser_manos/src/shared/cells/forms/form.dart';
 import 'package:ser_manos/src/shared/cells/headers/header.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class SignInScreen extends StatefulWidget {
+  static const String route = "/sign-in";
+  static const String routeName = "Sign In";
+  const SignInScreen({super.key});
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -44,7 +49,7 @@ class _SignInPageState extends State<SignInPage> {
       appBar: SMHeader.modal(
         implyLeading: false,
       ),
-      body: BasePage(content: [
+      body: BaseScreen(content: [
         const Spacer(),
         const SquaredLogo(),
         const SMGap.vertical(
@@ -67,7 +72,7 @@ class _SignInPageState extends State<SignInPage> {
           width: double.infinity,
           child: SMButton.filled(
             "Iniciar Sesión",
-            onPressed: () => print("TODO"),
+            onPressed: () => Beamer.of(context).beamToNamed(WelcomeScreen.route),
           ),
         ),
         const SMGap.vertical(
@@ -76,8 +81,8 @@ class _SignInPageState extends State<SignInPage> {
         SizedBox(
           width: double.infinity,
           child: SMButton.text(
-            "Registrarse",
-            onPressed: () => print("TODO"),
+            "No tengo cuenta",
+            onPressed: () => Beamer.of(context).beamToNamed(SignUpScreen.route),
           ),
         ),
         const SMGap.vertical(

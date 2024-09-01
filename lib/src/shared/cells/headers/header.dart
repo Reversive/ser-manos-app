@@ -80,6 +80,7 @@ class SMHeader extends AppBar {
   SMHeader.modal({super.key, bool implyLeading = true})
       : super(
           systemOverlayStyle: const SUOSLight(),
+          backgroundColor: SMColors.neutral0,
           leading: implyLeading
               ? const CloseButton(
                   color: SMColors.neutral75,

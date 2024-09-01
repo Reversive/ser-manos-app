@@ -10,8 +10,8 @@ import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:widget_to_marker/widget_to_marker.dart';
 
-class MapFragment extends StatefulWidget {
-  const MapFragment({
+class VolunteerMapScreen extends StatefulWidget {
+  const VolunteerMapScreen({
     super.key,
     required this.volunteers,
     required this.onIconPressed,
@@ -20,10 +20,10 @@ class MapFragment extends StatefulWidget {
   final void Function() onIconPressed;
 
   @override
-  State<MapFragment> createState() => _MapFragmentState();
+  State<VolunteerMapScreen> createState() => _VolunteerMapScreenState();
 }
 
-class _MapFragmentState extends State<MapFragment> {
+class _VolunteerMapScreenState extends State<VolunteerMapScreen> {
   TextEditingController searchController = TextEditingController();
   late GoogleMapController mapController;
   final CameraPosition _initialPosition = const CameraPosition(

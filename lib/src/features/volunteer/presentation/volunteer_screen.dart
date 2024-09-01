@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:ser_manos/src/features/volunteer/presentation/map_fragment.dart';
+import 'package:ser_manos/src/features/volunteer/presentation/volunteer_map_screen.dart';
 import 'package:ser_manos/src/features/volunteer/domain/volunteer.dart';
-import 'package:ser_manos/src/features/volunteer/presentation/volunteer_list_fragment.dart';
+import 'package:ser_manos/src/features/volunteer/presentation/volunteer_list_screen.dart';
 
-class VolunteerTab extends StatefulWidget {
-  const VolunteerTab({super.key});
+class VolunteerScreen extends StatefulWidget {
+  static const String route = '/volunteers';
+  static const String routeName = 'volunteers';
+
+  const VolunteerScreen({super.key});
 
   @override
-  State<VolunteerTab> createState() => _VolunteerTabState();
+  State<VolunteerScreen> createState() => _VolunteerScreenState();
 }
 
-class _VolunteerTabState extends State<VolunteerTab> {
+class _VolunteerScreenState extends State<VolunteerScreen> {
   bool showMapView = false;
 
   Volunteer volunteer1 = Volunteer(
@@ -42,11 +45,11 @@ class _VolunteerTabState extends State<VolunteerTab> {
   @override
   Widget build(BuildContext context) {
     return showMapView
-        ? MapFragment(
+        ? VolunteerMapScreen(
             onIconPressed: _onIconPressed,
             volunteers: voluntaries,
           )
-        : VolunteerListFragment(
+        : VolunteerListScreen(
             onIconPressed: _onIconPressed,
             volunteers: voluntaries,
           );

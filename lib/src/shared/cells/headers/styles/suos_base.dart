@@ -4,7 +4,7 @@ class SUOSBase extends SystemUiOverlayStyle {
   const SUOSBase({
     required super.statusBarColor,
   }) : super(
-          statusBarIconBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.dark,
           statusBarBrightness: Brightness.dark,
         );
 }

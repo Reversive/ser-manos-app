@@ -7,8 +7,8 @@ import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/grid.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
-class VolunteerListFragment extends StatefulWidget {
-  const VolunteerListFragment({
+class VolunteerListScreen extends StatefulWidget {
+  const VolunteerListScreen({
     super.key,
     required this.onIconPressed,
     required this.volunteers,
@@ -17,10 +17,10 @@ class VolunteerListFragment extends StatefulWidget {
   final List<Volunteer> volunteers;
 
   @override
-  State<VolunteerListFragment> createState() => _VolunteerListFragmentState();
+  State<VolunteerListScreen> createState() => _VolunteerListScreenState();
 }
 
-class _VolunteerListFragmentState extends State<VolunteerListFragment> {
+class _VolunteerListScreenState extends State<VolunteerListScreen> {
   TextEditingController searchController = TextEditingController();
   String? validator(String? value) => null;
 
