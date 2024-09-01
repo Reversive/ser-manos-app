@@ -1,7 +1,10 @@
+import 'package:beamer/beamer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ser_manos/src/features/home/presentation/home_screen.dart';
 import 'package:ser_manos/src/features/volunteer/domain/volunteer.dart';
+import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
 import 'package:ser_manos/src/shared/cells/cards/card.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
@@ -56,7 +59,10 @@ class _VolunteerMapScreenState extends State<VolunteerMapScreen> {
     for (int i = 0; i < widget.volunteers.length; i++) {
       final marker = Marker(
         markerId: MarkerId(widget.volunteers[i].name),
-        position: LatLng(widget.volunteers[i].lat, widget.volunteers[i].lng),
+        position: LatLng(
+          widget.volunteers[i].location.lat,
+          widget.volunteers[i].location.lng,
+        ),
         icon: i == 0 ? locationOn : locationOnOutlined,
       );
       markers.add(marker);
@@ -147,6 +153,9 @@ class _VolunteerMapScreenState extends State<VolunteerMapScreen> {
                                 (voluntary) => SMCard.volunteer(
                                   volunteer: voluntary,
                                   margin: const EdgeInsets.only(right: 8),
+                                  onTap: () => Beamer.of(context).beamToNamed(
+                                    '${HomeScreen.route}${VolunteerScreen.route}?id=${widget.volunteers.indexOf(voluntary)}',
+                                  ),
                                 ),
                               )
                               .toList(),

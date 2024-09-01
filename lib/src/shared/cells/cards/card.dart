@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ser_manos/src/features/news/domain/news.dart';
 import 'package:ser_manos/src/features/volunteer/domain/volunteer.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
 import 'package:ser_manos/src/shared/molecules/components/component.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
+import 'package:ser_manos/src/shared/tokens/google_map.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/shadows.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
@@ -17,6 +19,7 @@ class SMCard extends StatelessWidget {
     this.padding,
     this.decoration,
     this.margin,
+    this.onTap,
     required this.child,
   });
 
@@ -173,12 +176,21 @@ class SMCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6.0),
                       ),
-                      child: const Image(
-                        image: NetworkImage(
-                          "https://s3-alpha-sig.figma.com/img/ebb0/4ca0/233a290789f277900cc8cf2219381673?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TYXB0jnV2-x0tQXO~cAZ6EHuj9luZ6luBzPrsK3PFT9QvPYiXwzmv~spxzhMDlP0TXETseJGYz7ExUYSGGhUoTa-uQsVyVajId7ZUm99PPpCx2bLAC9ALeAOMpKkW9wFGi3NrT4xcCh5~KnYym48jnXHQmSA3r8oVY-pZ7zLpcC0FUJ~6ZiKeYXMY3WOEmPucvdo~EhGktwGxl3jt-fTBXdWzD-oRuX4-2io1Yd0EsouCOA0~3HDPKtlIOx7spiU5eyC-hyEX2l4Pj6LjSdq6DK0oEzya3iYcklTrNJQq8nMQ82IVZNuP6H7F~XEAtS~rfeyTsewcJ53XGcy1WZUHw__",
-                        ),
-                        fit: BoxFit.cover,
+                      child: SizedBox(
                         height: 155,
+                        child: SMGoogleMap(
+                          location: LatLng(
+                            location.lat,
+                            location.lng,
+                          ),
+                          cameraPosition: CameraPosition(
+                            target: LatLng(
+                              location.lat,
+                              location.lng,
+                            ),
+                            zoom: 15,
+                          ),
+                        ),
                       ),
                     )
                   : Container(),
@@ -191,15 +203,18 @@ class SMCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SMComponent.labeledContent(
-                      label: "dirección",
-                      content:
-                          '${location.street} ${location.number}, ${location.city}, ${location.state}.',
+                    Expanded(
+                      child: SMComponent.labeledContent(
+                        label: "dirección",
+                        content:
+                            '${location.street} ${location.number}, ${location.city}, ${location.state}.',
+                      ),
                     ),
                     hasEmbeddedMap
                         ? Container()
                         : const SMIcon(
                             icon: Icons.location_on,
+                            active: true,
                           ),
                   ],
                 ),
@@ -334,9 +349,11 @@ class SMCard extends StatelessWidget {
     Key? key,
     required Volunteer volunteer,
     EdgeInsetsGeometry? margin,
+    void Function()? onTap,
   }) {
     return SMCard(
       key: key,
+      onTap: onTap,
       margin: margin,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(2.0),
@@ -408,14 +425,18 @@ class SMCard extends StatelessWidget {
   final Decoration? decoration;
   final EdgeInsetsGeometry? margin;
   final Widget child;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: padding,
-      margin: margin,
-      decoration: decoration,
-      child: child,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: padding,
+        margin: margin,
+        decoration: decoration,
+        child: child,
+      ),
     );
   }
 }
