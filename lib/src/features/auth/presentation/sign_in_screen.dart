@@ -7,6 +7,7 @@ import 'package:ser_manos/src/shared/atoms/logo.dart';
 import 'package:ser_manos/src/shared/cells/forms/form.dart';
 import 'package:ser_manos/src/shared/cells/headers/header.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
+import 'package:ser_manos/src/shared/tokens/fill.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -68,8 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
         const SMGap.vertical(
           height: 16,
         ),
-        SizedBox(
-          width: double.infinity,
+        SMFill.horizontal(
           child: SMButton.filled(
             "Iniciar Sesión",
             onPressed: () => Beamer.of(context).beamToNamed(WelcomeScreen.route),
@@ -78,8 +78,7 @@ class _SignInScreenState extends State<SignInScreen> {
         const SMGap.vertical(
           height: 16,
         ),
-        SizedBox(
-          width: double.infinity,
+        SMFill.horizontal(
           child: SMButton.text(
             "No tengo cuenta",
             onPressed: () => Beamer.of(context).beamToNamed(SignUpScreen.route),

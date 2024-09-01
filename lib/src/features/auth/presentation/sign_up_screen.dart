@@ -6,6 +6,7 @@ import 'package:ser_manos/src/features/auth/presentation/welcome_screen.dart';
 import 'package:ser_manos/src/shared/atoms/logo.dart';
 import 'package:ser_manos/src/shared/cells/forms/form.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
+import 'package:ser_manos/src/shared/tokens/fill.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -45,8 +46,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
       const Spacer(),
-      SizedBox(
-        width: double.infinity,
+      SMFill.horizontal(
         child: SMButton.filled(
           "Registrarse",
           onPressed: () => Beamer.of(context).beamToNamed(WelcomeScreen.route),
@@ -55,8 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       const SMGap.vertical(
         height: 16,
       ),
-      SizedBox(
-        width: double.infinity,
+      SMFill.horizontal(
         child: SMButton.text(
           "Ya tengo cuenta",
           onPressed: () => Beamer.of(context).beamToNamed(SignInScreen.route),

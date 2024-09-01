@@ -5,6 +5,7 @@ import 'package:ser_manos/src/features/auth/presentation/sign_in_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/sign_up_screen.dart';
 import 'package:ser_manos/src/shared/atoms/logo.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
+import 'package:ser_manos/src/shared/tokens/fill.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
@@ -32,8 +33,7 @@ class SplashScreen extends StatelessWidget {
         const Spacer(),
         Column(
           children: [
-            SizedBox(
-              width: double.infinity,
+            SMFill.horizontal(
               child: SMButton.filled(
                 "Iniciar Sesión",
                 onPressed: () => Beamer.of(context).beamToNamed(SignInScreen.route),
@@ -42,8 +42,7 @@ class SplashScreen extends StatelessWidget {
             const SMGap.vertical(
               height: 16,
             ),
-            SizedBox(
-              width: double.infinity,
+            SMFill.horizontal(
               child: SMButton.text(
                 "Registrarse",
                 onPressed: () => Beamer.of(context).beamToNamed(SignUpScreen.route),

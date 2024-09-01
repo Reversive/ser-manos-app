@@ -5,6 +5,7 @@ import 'package:ser_manos/src/features/auth/presentation/base_screen.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/shared/atoms/logo.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
+import 'package:ser_manos/src/shared/tokens/fill.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
@@ -35,8 +36,7 @@ class WelcomeScreen extends StatelessWidget {
           ],
         ),
         const Spacer(),
-        SizedBox(
-          width: double.infinity,
+        SMFill.horizontal(
           child: SMButton.filled(
             "Comenzar",
             onPressed: () => Beamer.of(context)
