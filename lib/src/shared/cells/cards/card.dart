@@ -229,11 +229,13 @@ class SMCard extends StatelessWidget {
   factory SMCard.news({
     Key? key,
     required News news,
+    required VoidCallback onPressed,
   }) {
     return SMCard(
       decoration: BoxDecoration(
         boxShadow: SMShadows.shadow2,
         color: SMColors.neutral0,
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: IntrinsicHeight(
         child: Row(
@@ -251,14 +253,16 @@ class SMCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SMTypography.overline(
-                      news.name,
+                      news.source.toUpperCase(),
                       color: SMColors.neutral75,
                     ),
                     const SMGap.vertical(height: 4),
                     SMTypography.subtitle01(news.title),
                     const SMGap.vertical(height: 4),
                     SMTypography.body02(
-                      news.description,
+                      news.summary,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                       color: SMColors.neutral75,
                     ),
                     const SMGap.vertical(
@@ -269,7 +273,10 @@ class SMCard extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
-                          child: SMTypography.button("Leer Más"),
+                          child: SMButton.text(
+                            "Leer Más",
+                            onPressed: onPressed,
+                          ),
                         ),
                       ],
                     )
