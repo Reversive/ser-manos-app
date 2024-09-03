@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 
 class SMTypography extends StatelessWidget {
-  const SMTypography(this.data, {super.key, this.style, this.align});
+  const SMTypography(this.data,
+      {super.key, this.style, this.align, this.maxLines, this.overflow});
 
   factory SMTypography.body01(
     String data, {
@@ -22,11 +23,15 @@ class SMTypography extends StatelessWidget {
     Key? key,
     TextAlign? align,
     Color? color,
+    int? maxLines,
+    TextOverflow? overflow,
   }) {
     return SMTypography(
       key: key,
       data,
       style: body02Style(color: color),
+      maxLines: maxLines,
+      overflow: overflow,
     );
   }
 
@@ -111,6 +116,8 @@ class SMTypography extends StatelessWidget {
   final String data;
   final TextStyle? style;
   final TextAlign? align;
+  final int? maxLines;
+  final TextOverflow? overflow;
 
   static TextStyle body01Style({Color? color}) => TextStyle(
         fontSize: 14,
@@ -170,6 +177,12 @@ class SMTypography extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(data, style: style, textAlign: align);
+    return Text(
+      data,
+      style: style,
+      textAlign: align,
+      maxLines: maxLines,
+      overflow: overflow,
+    );
   }
 }
