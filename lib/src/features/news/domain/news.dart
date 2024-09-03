@@ -1,13 +1,15 @@
 final class News {
   final String imgURL;
-  final String name;
+  final String source;
   final String title;
-  final String description;
+  final String summary;
+  final String content;
 
   News({
     required this.imgURL,
-    required this.name,
+    required this.source,
     required this.title,
-    required this.description,
+    required this.summary,
+    required this.content,
   });
 }
