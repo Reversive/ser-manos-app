@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ser_manos/src/features/news/domain/news.dart';
+import 'package:ser_manos/src/features/profile/domain/gender.dart';
 import 'package:ser_manos/src/features/volunteer/domain/volunteer.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
@@ -96,6 +97,8 @@ class SMCard extends StatelessWidget {
   factory SMCard.input({
     Key? key,
     required String title,
+    required Gender groupValue,
+    required void Function(Gender?) onChanged,
   }) {
     return SMCard(
       child: SMComponent.heading(
@@ -104,49 +107,54 @@ class SMCard extends StatelessWidget {
           color: SMColors.neutral10,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const SMIcon(icon: Icons.radio_button_unchecked),
-                        const SMGap.horizontal(width: 8),
-                        SMTypography.body01("Hombre"),
-                      ],
-                    ),
-                  ),
+            children: [
+              RadioListTile<Gender>(
+                title: SMTypography.body01(
+                  "Hombre",
+                  color: SMColors.neutral100,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const SMIcon(icon: Icons.radio_button_unchecked),
-                        const SMGap.horizontal(width: 8),
-                        SMTypography.body01("Mujer"),
-                      ],
-                    ),
-                  ),
+                dense: true,
+                groupValue: groupValue,
+                onChanged: onChanged,
+                value: Gender.male,
+                contentPadding: EdgeInsets.zero,
+                visualDensity:
+                    const VisualDensity(horizontal: -4, vertical: -4),
+                activeColor: SMColors.primary100,
+                fillColor: const WidgetStatePropertyAll(SMColors.primary100),
+              ),
+              RadioListTile<Gender>(
+                title: SMTypography.body01(
+                  "Mujer",
+                  color: SMColors.neutral100,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const SMIcon(icon: Icons.radio_button_unchecked),
-                        const SMGap.horizontal(width: 8),
-                        SMTypography.body01("No binario"),
-                      ],
-                    ),
-                  ),
+                groupValue: groupValue,
+                onChanged: onChanged,
+                dense: true,
+                value: Gender.female,
+                contentPadding: EdgeInsets.zero,
+                visualDensity:
+                    const VisualDensity(horizontal: -4, vertical: -4),
+                activeColor: SMColors.primary100,
+                fillColor: const WidgetStatePropertyAll(SMColors.primary100),
+              ),
+              RadioListTile<Gender>(
+                title: SMTypography.body01(
+                  "No binario",
+                  color: SMColors.neutral100,
                 ),
-              ]),
+                groupValue: groupValue,
+                dense: true,
+                onChanged: onChanged,
+                value: Gender.nonBinary,
+                contentPadding: EdgeInsets.zero,
+                visualDensity:
+                    const VisualDensity(horizontal: -4, vertical: -4),
+                activeColor: SMColors.primary100,
+                fillColor: const WidgetStatePropertyAll(SMColors.primary100),
+              ),
+            ],
+          ),
         ),
       ),
     );

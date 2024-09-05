@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
+import 'package:ser_manos/src/features/profile/domain/gender.dart';
 import 'package:ser_manos/src/shared/cells/cards/card.dart';
 import 'package:ser_manos/src/shared/cells/headers/header.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
@@ -25,6 +26,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController calendarController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController mailController = TextEditingController();
+  Gender gender = Gender.male;
+
+  void onGenderChanged(Gender? value) {
+    setState(() => gender = value ?? Gender.male);
+  }
 
   String? mailValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -79,7 +85,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     labelText: "Fecha de nacimiento",
                   ),
                   const SMGap.vertical(height: 24),
-                  SMCard.input(title: "Información de perfil"),
+                  SMCard.input(
+                    title: "Información de perfil",
+                    groupValue: gender,
+                    onChanged: onGenderChanged,
+                  ),
                   const SMGap.vertical(height: 24),
                   SMCard.profile(),
                   const SMGap.vertical(height: 32),

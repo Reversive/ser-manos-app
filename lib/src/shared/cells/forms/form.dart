@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ser_manos/src/features/profile/domain/gender.dart';
 import 'package:ser_manos/src/shared/cells/cards/card.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/calendar_input.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/password_input.dart';
@@ -42,6 +43,8 @@ class SMForm extends StatelessWidget {
   factory SMForm.personalDetails({
     required TextEditingController calendarController,
     required Function(String?) calendarValidator,
+    required Gender groupValue,
+    required void Function(Gender?) onChanged,
   }) {
     return SMForm(
       children: [
@@ -54,7 +57,7 @@ class SMForm extends StatelessWidget {
           labelText: "Fecha de nacimiento",
         ),
         const SMGap.vertical(height: 24),
-        SMCard.input(title: "Información de perfil"),
+        SMCard.input(title: "Información de perfil", groupValue: groupValue, onChanged: onChanged,),
         const SMGap.vertical(height: 24),
         SMCard.profile(),
       ],
