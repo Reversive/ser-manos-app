@@ -2,14 +2,16 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/features/auth/presentation/splash_screen.dart';
+import 'package:ser_manos/src/features/profile/presentation/edit_profile_screen.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
+import 'package:ser_manos/src/shared/tokens/fill.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/grid.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
-class MissingProfileScreen extends StatelessWidget {
-  const MissingProfileScreen({super.key});
+class SplashProfileScreen extends StatelessWidget {
+  const SplashProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,19 +49,23 @@ class MissingProfileScreen extends StatelessWidget {
                   active: true,
                   activeColor: SMColors.neutral0,
                 ),
-                onPressed: () {}, // route to edit profile screen
+                onPressed: () => Beamer.of(context).beamToNamed(
+                  EditProfileScreen.route,
+                ), // route to edit profile screen
               ),
             ],
           ),
           const SMGap.vertical(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 26),
-            child: SMButton.text(
-              "Cerrar sesión",
-              color: SMColors.error100,
-              onPressed: () =>
-                  Beamer.of(context).beamToNamed(SplashScreen.route) // TODO: Logout
-              ,
+          SMFill.horizontal(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 26),
+              child: SMButton.text(
+                "Cerrar sesión",
+                color: SMColors.error100,
+                onPressed: () => Beamer.of(context)
+                    .beamToNamed(SplashScreen.route) // TODO: Logout
+                ,
+              ),
             ),
           ),
         ],

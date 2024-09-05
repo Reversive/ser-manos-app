@@ -11,6 +11,7 @@ class SMHeader extends AppBar {
     required TabController tabController,
     required Function(int) onTap,
   }) : super(
+          scrolledUnderElevation: 0,
           systemOverlayStyle: const SUOSSecondary(),
           title: Container(
             margin: const EdgeInsets.only(
@@ -63,6 +64,7 @@ class SMHeader extends AppBar {
     bool hasBackButton = true,
     required String subtitle,
   }) : super(
+          scrolledUnderElevation: 0,
           systemOverlayStyle: const SUOSSecondary(),
           backgroundColor: SMColors.secondary90,
           leading: hasBackButton
@@ -79,6 +81,7 @@ class SMHeader extends AppBar {
 
   SMHeader.modal({super.key, bool implyLeading = true})
       : super(
+          scrolledUnderElevation: 0,
           systemOverlayStyle: const SUOSLight(),
           backgroundColor: SMColors.neutral0,
           leading: implyLeading
@@ -90,6 +93,7 @@ class SMHeader extends AppBar {
 
   SMHeader.transparent({super.key})
       : super(
+          scrolledUnderElevation: 0,
           backgroundColor: SMColors.transparent,
           elevation: 0,
           leading: const BackButton(

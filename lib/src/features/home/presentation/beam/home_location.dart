@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ser_manos/src/features/home/presentation/home_screen.dart';
 import 'package:ser_manos/src/features/news/presentation/news_detail_screen.dart';
 import 'package:ser_manos/src/features/news/presentation/news_screen.dart';
-import 'package:ser_manos/src/features/profile/presentation/profile_edit_screen.dart';
+import 'package:ser_manos/src/features/profile/presentation/edit_profile_screen.dart';
 import 'package:ser_manos/src/features/profile/presentation/profile_screen.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_detail_screen.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
@@ -40,11 +40,11 @@ class HomeLocation extends BeamLocation {
           ),
         ),
       if (uri.path.contains(ProfileScreen.route) &&
-          uri.path.contains(ProfileEditScreen.route))
+          uri.path.contains(EditProfileScreen.route))
         const BeamPage(
-          key: ValueKey(ProfileEditScreen.routeName),
+          key: ValueKey(EditProfileScreen.routeName),
           title: 'Profile edit',
-          child: ProfileEditScreen(),
+          child: EditProfileScreen(),
         ),
       if (uri.path.contains(NewsScreen.route))
         const BeamPage(

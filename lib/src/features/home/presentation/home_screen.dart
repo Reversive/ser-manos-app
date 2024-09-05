@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos/src/features/news/presentation/news_screen.dart';
-import 'package:ser_manos/src/features/profile/presentation/missing_profile_screen.dart';
+import 'package:ser_manos/src/features/profile/presentation/splash_profile_screen.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/shared/cells/headers/header.dart';
 
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         physics: const NeverScrollableScrollPhysics(),
         children: const [
           VolunteerScreen(),
-          MissingProfileScreen(),
+          SplashProfileScreen(),
           NewsScreen(),
         ],
       ),
