@@ -1,13 +1,12 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:ser_manos/src/features/home/presentation/home_screen.dart';
 import 'package:ser_manos/src/features/news/domain/news.dart';
 import 'package:ser_manos/src/shared/cells/cards/card.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/grid.dart';
 
 class NewsScreen extends StatefulWidget {
-  static const String route = '/news';
+  static const String route = '/home/news';
   static const String routeName = 'news';
   const NewsScreen({super.key});
 
@@ -49,7 +48,7 @@ class _NewsScreenState extends State<NewsScreen> {
             return SMCard.news(
               news: news[index],
               onPressed: () => Beamer.of(context).beamToNamed(
-                "${HomeScreen.route}${NewsScreen.route}?id=$index",
+                "${NewsScreen.route}?id=$index",
               ),
             );
           },
