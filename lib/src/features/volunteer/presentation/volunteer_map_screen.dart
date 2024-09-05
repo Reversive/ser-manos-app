@@ -154,6 +154,7 @@ class _VolunteerMapScreenState extends State<VolunteerMapScreen> {
                                   margin: const EdgeInsets.only(right: 8),
                                   onTap: () => Beamer.of(context).beamToNamed(
                                     '${VolunteerScreen.route}?id=${widget.volunteers.indexOf(voluntary)}',
+                                    beamBackOnPop: true,
                                   ),
                                 ),
                               )

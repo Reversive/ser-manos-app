@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/features/news/domain/news.dart';
 import 'package:ser_manos/src/shared/cells/cards/card.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
@@ -38,23 +39,27 @@ final news = [
 class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 16,
-      ),
-      child: SMGrid(
-        child: ListView.separated(
-          itemBuilder: (context, index) {
-            return SMCard.news(
-              news: news[index],
-              onPressed: () => Beamer.of(context).beamToNamed(
-                "${NewsScreen.route}?id=$index",
-              ),
-            );
-          },
-          separatorBuilder: (context, index) =>
-              const SMGap.vertical(height: 24),
-          itemCount: news.length,
+    return Material(
+      color: SMColors.secondary10,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 16,
+        ),
+        child: SMGrid(
+          child: ListView.separated(
+            itemBuilder: (context, index) {
+              return SMCard.news(
+                news: news[index],
+                onPressed: () => Beamer.of(context).beamToNamed(
+                  "${NewsScreen.route}?id=$index",
+                  beamBackOnPop: true,
+                ),
+              );
+            },
+            separatorBuilder: (context, index) =>
+                const SMGap.vertical(height: 24),
+            itemCount: news.length,
+          ),
         ),
       ),
     );

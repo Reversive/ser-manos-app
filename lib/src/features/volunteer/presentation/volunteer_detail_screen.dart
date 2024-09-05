@@ -22,6 +22,7 @@ class VolunteerDetailScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: SMHeader.transparent(),
+      backgroundColor: SMColors.neutral0,
       body: SingleChildScrollView(
         child: Column(
           children: [

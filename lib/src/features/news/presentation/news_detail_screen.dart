@@ -27,6 +27,7 @@ class NewsDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SMHeader.section(subtitle: "Novedades"),
+      backgroundColor: SMColors.neutral0,
       body: Padding(
         padding: const EdgeInsets.only(top: 24),
         child: SMGrid(

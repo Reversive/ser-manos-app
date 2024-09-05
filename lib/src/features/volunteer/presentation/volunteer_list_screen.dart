@@ -63,6 +63,7 @@ class _VolunteerListScreenState extends State<VolunteerListScreen> {
                           onTap: () {
                             Beamer.of(context).beamToNamed(
                               '${VolunteerScreen.route}?id=$index',
+                              beamBackOnPop: true,
                             );
                           },
                         );
