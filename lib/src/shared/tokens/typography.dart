@@ -15,6 +15,7 @@ class SMTypography extends StatelessWidget {
       key: key,
       data,
       style: body01Style(color: color),
+      align: align,
     );
   }
 
@@ -32,6 +33,7 @@ class SMTypography extends StatelessWidget {
       style: body02Style(color: color),
       maxLines: maxLines,
       overflow: overflow,
+      align: align,
     );
   }
 
@@ -45,6 +47,7 @@ class SMTypography extends StatelessWidget {
       key: key,
       data,
       style: buttonStyle(color: color),
+      align: align,
     );
   }
 
@@ -58,6 +61,7 @@ class SMTypography extends StatelessWidget {
       key: key,
       data,
       style: captionStyle(color: color),
+      align: align,
     );
   }
 
@@ -71,6 +75,7 @@ class SMTypography extends StatelessWidget {
       key: key,
       data,
       style: headline01Style(color: color),
+      align: align,
     );
   }
 
@@ -84,6 +89,7 @@ class SMTypography extends StatelessWidget {
       key: key,
       data,
       style: headline02Style(color: color),
+      align: align,
     );
   }
 
@@ -97,6 +103,7 @@ class SMTypography extends StatelessWidget {
       key: key,
       data,
       style: overlineStyle(color: color),
+      align: align,
     );
   }
 
@@ -110,6 +117,7 @@ class SMTypography extends StatelessWidget {
       key: key,
       data,
       style: subtitle01Style(color: color),
+      align: align,
     );
   }
 
