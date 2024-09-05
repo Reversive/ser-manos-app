@@ -79,6 +79,7 @@ class SMButton extends StatelessWidget {
     String text, {
     Key? key,
     bool disabled = false,
+    Color? color,
     void Function()? onPressed,
   }) {
     return SMButton(
@@ -95,7 +96,7 @@ class SMButton extends StatelessWidget {
       ),
       child: SMTypography.button(
         text,
-        color: disabled ? SMColors.neutral50 : SMColors.primary100,
+        color: color ?? (disabled ? SMColors.neutral50 : SMColors.primary100),
       ),
     );
   }
