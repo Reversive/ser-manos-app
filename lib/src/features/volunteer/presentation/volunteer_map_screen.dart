@@ -2,7 +2,6 @@ import 'package:beamer/beamer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ser_manos/src/features/home/presentation/home_screen.dart';
 import 'package:ser_manos/src/features/volunteer/domain/volunteer.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
@@ -154,7 +153,7 @@ class _VolunteerMapScreenState extends State<VolunteerMapScreen> {
                                   volunteer: voluntary,
                                   margin: const EdgeInsets.only(right: 8),
                                   onTap: () => Beamer.of(context).beamToNamed(
-                                    '${HomeScreen.route}${VolunteerScreen.route}?id=${widget.volunteers.indexOf(voluntary)}',
+                                    '${VolunteerScreen.route}?id=${widget.volunteers.indexOf(voluntary)}',
                                   ),
                                 ),
                               )

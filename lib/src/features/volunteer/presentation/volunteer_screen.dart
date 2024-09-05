@@ -5,7 +5,7 @@ import 'package:ser_manos/src/features/volunteer/domain/volunteer.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_list_screen.dart';
 
 class VolunteerScreen extends StatefulWidget {
-  static const String route = '/volunteers';
+  static const String route = '/home/volunteers';
   static const String routeName = 'volunteers';
 
   const VolunteerScreen({super.key});

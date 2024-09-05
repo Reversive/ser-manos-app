@@ -1,6 +1,5 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:ser_manos/src/features/home/presentation/home_screen.dart';
 import 'package:ser_manos/src/features/volunteer/domain/volunteer.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/shared/cells/cards/card.dart';
@@ -63,7 +62,7 @@ class _VolunteerListScreenState extends State<VolunteerListScreen> {
                           volunteer: widget.volunteers[index],
                           onTap: () {
                             Beamer.of(context).beamToNamed(
-                              '${HomeScreen.route}${VolunteerScreen.route}?id=$index',
+                              '${VolunteerScreen.route}?id=$index',
                             );
                           },
                         );
