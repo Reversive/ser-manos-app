@@ -51,6 +51,7 @@ class SplashProfileScreen extends StatelessWidget {
                 ),
                 onPressed: () => Beamer.of(context).beamToNamed(
                   EditProfileScreen.route,
+                  beamBackOnPop: true,
                 ), // route to edit profile screen
               ),
             ],
