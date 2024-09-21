@@ -5,7 +5,7 @@ final class News {
   final String summary;
   final String content;
 
-  News({
+  const News({
     required this.imgURL,
     required this.source,
     required this.title,
