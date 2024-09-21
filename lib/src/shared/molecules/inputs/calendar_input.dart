@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:intl/intl.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/base_input.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/formatters/date_formatter.dart';
 
-class SMCalendarInput extends StatefulWidget {
+class SMCalendarInput extends HookWidget {
   const SMCalendarInput({
     super.key,
     required this.controller,
@@ -19,21 +20,31 @@ class SMCalendarInput extends StatefulWidget {
   final String labelText;
 
   @override
-  State<SMCalendarInput> createState() => _SMCalendarInputState();
-}
-
-class _SMCalendarInputState extends State<SMCalendarInput> {
-  @override
   Widget build(BuildContext context) {
+    void onSuffixIconPressed() async {
+      FocusScope.of(context).requestFocus(FocusNode());
+      final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1930),
+        lastDate: DateTime.now(),
+      );
+
+      if (picked != null) {
+        final f = DateFormat('dd/MM/yyyy');
+        controller.text = f.format(picked);
+      }
+    }
+
     return BaseInput(
-      controller: widget.controller,
-      validator: widget.validator,
+      controller: controller,
+      validator: validator,
       keyboardType: TextInputType.datetime,
-      hintText: widget.hintText,
-      labelText: widget.labelText,
+      hintText: hintText,
+      labelText: labelText,
       helperText: "Día / Mes / Año",
       permaShowSuffixIcon: true,
-      onSuffixIconPressed: _onSuffixIconPressed,
+      onSuffixIconPressed: onSuffixIconPressed,
       suffixIcon: const SMIcon(
         icon: Icons.calendar_month,
         active: true,
@@ -42,20 +53,5 @@ class _SMCalendarInputState extends State<SMCalendarInput> {
         DateFormatter(),
       ],
     );
-  }
-
-  void _onSuffixIconPressed() async {
-    FocusScope.of(context).requestFocus(FocusNode());
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1930),
-      lastDate: DateTime.now(),
-    );
-
-    if (picked != null) {
-      final f = DateFormat('dd/MM/yyyy');
-      widget.controller.text = f.format(picked);
-    }
   }
 }
