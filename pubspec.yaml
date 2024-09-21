@@ -16,6 +16,7 @@ dependencies:
   carousel_slider: ^5.0.0
   widget_to_marker: ^1.0.6
   beamer: ^1.6.1
+  flutter_hooks: ^0.20.5
   
 
 dev_dependencies:

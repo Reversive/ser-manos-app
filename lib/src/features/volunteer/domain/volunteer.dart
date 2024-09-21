@@ -4,9 +4,9 @@ final class Volunteer {
   final String imgURL;
   final String name;
   final Location location;
-  int vacancies = 0;
+  final int vacancies;
 
-  Volunteer({
+  const Volunteer({
     required this.imgURL,
     required this.name,
     required this.location,

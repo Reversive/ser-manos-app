@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/base_input.dart';
 
-class SMPasswordInput extends StatefulWidget {
+class SMPasswordInput extends HookWidget {
   const SMPasswordInput({
     super.key,
     this.hintText,
@@ -19,46 +20,20 @@ class SMPasswordInput extends StatefulWidget {
   final Function(String?) validator;
 
   @override
-  State<SMPasswordInput> createState() => _SMPasswordInputState();
-}
-
-class _SMPasswordInputState extends State<SMPasswordInput> {
-  bool _passwordVisible = false;
-  void _setState() {
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    widget.controller.addListener(_setState);
-    _passwordVisible = false;
-  }
-
-  @override
-  void dispose() {
-    widget.controller.removeListener(_setState);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final passwordVisible = useState(false);
     return BaseInput(
-      controller: widget.controller,
-      hintText: widget.hintText,
-      labelText: widget.labelText,
-      enabled: widget.enabled,
-      validator: widget.validator,
-      suffixIcon: _passwordVisible
+      controller: controller,
+      hintText: hintText,
+      labelText: labelText,
+      enabled: enabled,
+      validator: validator,
+      suffixIcon: passwordVisible.value
           ? const SMIcon(icon: Icons.visibility)
           : const SMIcon(icon: Icons.visibility_off),
       permaShowSuffixIcon: true,
-      onSuffixIconPressed: () {
-        setState(() {
-          _passwordVisible = !_passwordVisible;
-        });
-      },
-      obscureText: !_passwordVisible,
+      onSuffixIconPressed: () => passwordVisible.value = !passwordVisible.value,
+      obscureText: !passwordVisible.value,
       shouldLoseFocusOnSuffixIconPressed: false,
     );
   }

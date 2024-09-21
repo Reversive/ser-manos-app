@@ -41,8 +41,8 @@ class HomeLocation extends BeamLocation {
         ),
       if (uri.path.contains(ProfileScreen.route) &&
           uri.path.contains(EditProfileScreen.route))
-        const BeamPage(
-          key: ValueKey(EditProfileScreen.routeName),
+        BeamPage(
+          key: const ValueKey(EditProfileScreen.routeName),
           title: 'Profile edit',
           child: EditProfileScreen(),
         ),

@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos/src/features/auth/presentation/base_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/sign_in_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/welcome_screen.dart';
@@ -9,62 +10,60 @@ import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
 import 'package:ser_manos/src/shared/tokens/fill.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends HookWidget {
   static const String route = "/sign-up";
   static const String routeName = "Sign Up";
-  const SignUpScreen({super.key});
+  SignUpScreen({super.key});
 
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  final nameController = TextEditingController();
-  final surnameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _surnameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BaseScreen(content: [
-      const SquaredLogo(),
-      const SMGap.vertical(
-        height: 32,
-      ),
-      Form(
-        key: _formKey,
-        child: SMForm.signUp(
-          nameController: nameController,
-          surnameController: surnameController,
-          emailController: emailController,
-          passwordController: passwordController,
-          nameValidator: nameValidator,
-          surnameValidator: surnameValidator,
-          emailValidator: emailValidator,
-          passwordValidator: passwordValidator,
+    return BaseScreen(
+      content: [
+        const SquaredLogo(),
+        const SMGap.vertical(
+          height: 32,
         ),
-      ),
-      const Spacer(),
-      SMFill.horizontal(
-        child: SMButton.filled(
-          "Registrarse",
-          onPressed: () => Beamer.of(context).beamToNamed(WelcomeScreen.route),
+        Form(
+          key: _formKey,
+          child: SMForm.signUp(
+            nameController: _nameController,
+            surnameController: _surnameController,
+            emailController: _emailController,
+            passwordController: _passwordController,
+            nameValidator: nameValidator,
+            surnameValidator: surnameValidator,
+            emailValidator: emailValidator,
+            passwordValidator: passwordValidator,
+          ),
         ),
-      ),
-      const SMGap.vertical(
-        height: 16,
-      ),
-      SMFill.horizontal(
-        child: SMButton.text(
-          "Ya tengo cuenta",
-          onPressed: () => Beamer.of(context).beamToNamed(SignInScreen.route),
+        const Spacer(),
+        SMFill.horizontal(
+          child: SMButton.filled(
+            "Registrarse",
+            onPressed: () =>
+                Beamer.of(context).beamToNamed(WelcomeScreen.route),
+          ),
         ),
-      ),
-      const SMGap.vertical(
-        height: 32,
-      ),
-    ]);
+        const SMGap.vertical(
+          height: 16,
+        ),
+        SMFill.horizontal(
+          child: SMButton.text(
+            "Ya tengo cuenta",
+            onPressed: () => Beamer.of(context).beamToNamed(SignInScreen.route),
+          ),
+        ),
+        const SMGap.vertical(
+          height: 32,
+        ),
+      ],
+    );
   }
 
   String? nameValidator(String? value) {

@@ -7,7 +7,7 @@ final class Location {
   final double lng;
 
 
-  Location({
+  const Location({
     required this.street,
     required this.number,
     required this.city,

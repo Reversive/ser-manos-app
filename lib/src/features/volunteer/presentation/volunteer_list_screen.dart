@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos/src/features/volunteer/domain/volunteer.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/shared/cells/cards/card.dart';
@@ -9,7 +10,7 @@ import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/grid.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
-class VolunteerListScreen extends StatefulWidget {
+class VolunteerListScreen extends HookWidget {
   const VolunteerListScreen({
     super.key,
     required this.onIconPressed,
@@ -18,16 +19,11 @@ class VolunteerListScreen extends StatefulWidget {
   final void Function() onIconPressed;
   final List<Volunteer> volunteers;
 
-  @override
-  State<VolunteerListScreen> createState() => _VolunteerListScreenState();
-}
-
-class _VolunteerListScreenState extends State<VolunteerListScreen> {
-  TextEditingController searchController = TextEditingController();
   String? validator(String? value) => null;
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController searchController = useTextEditingController();
     return Material(
       color: SMColors.secondary10,
       child: SMGrid(
@@ -40,7 +36,7 @@ class _VolunteerListScreenState extends State<VolunteerListScreen> {
             SMSearchInput(
               controller: searchController,
               validator: validator,
-              onIconPressed: widget.onIconPressed,
+              onIconPressed: onIconPressed,
               suffixIcon: Icons.map_outlined,
             ),
             const SMGap.vertical(
@@ -51,15 +47,15 @@ class _VolunteerListScreenState extends State<VolunteerListScreen> {
               align: TextAlign.start,
             ),
             SizedBox(
-              height: widget.volunteers.isEmpty ? 16 : 24,
+              height: volunteers.isEmpty ? 16 : 24,
             ),
-            widget.volunteers.isEmpty
+            volunteers.isEmpty
                 ? SMCard.noVolunteerings()
                 : Expanded(
                     child: ListView.separated(
                       itemBuilder: (_, index) {
                         return SMCard.volunteer(
-                          volunteer: widget.volunteers[index],
+                          volunteer: volunteers[index],
                           onTap: () {
                             Beamer.of(context).beamToNamed(
                               '${VolunteerScreen.route}?id=$index',
@@ -72,7 +68,7 @@ class _VolunteerListScreenState extends State<VolunteerListScreen> {
                           const SMGap.vertical(
                         height: 25,
                       ),
-                      itemCount: widget.volunteers.length,
+                      itemCount: volunteers.length,
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                     ),

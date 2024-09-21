@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/features/profile/domain/gender.dart';
 import 'package:ser_manos/src/shared/cells/cards/card.dart';
@@ -11,26 +12,15 @@ import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/grid.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
-class EditProfileScreen extends StatefulWidget {
+class EditProfileScreen extends HookWidget {
   static const String route = '/home/profile/edit';
   static const String routeName = 'profile_edit';
-  const EditProfileScreen({super.key});
+  EditProfileScreen({super.key});
 
-  @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
-}
-
-class _EditProfileScreenState extends State<EditProfileScreen> {
-  bool isFormValid = false;
-  final formKey = GlobalKey<FormState>();
-  TextEditingController calendarController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController mailController = TextEditingController();
-  Gender gender = Gender.male;
-
-  void onGenderChanged(Gender? value) {
-    setState(() => gender = value ?? Gender.male);
-  }
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _calendarController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _mailController = TextEditingController();
 
   String? mailValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -56,13 +46,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return null;
   }
 
-  void onFormChanged() {
-    isFormValid = formKey.currentState?.validate() ?? false;
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
+    final isFormValid = useState(false);
+    final currentGender = useState(Gender.male);
     return Scaffold(
       appBar: SMHeader.modal(),
       backgroundColor: SMColors.neutral0,
@@ -71,15 +58,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: SMGrid(
           child: SingleChildScrollView(
             child: Form(
-              onChanged: onFormChanged,
-              key: formKey,
+              onChanged: () => isFormValid.value =
+                  _formKey.currentState?.validate() ?? false,
+              key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SMTypography.headline01("Datos de perfil"),
                   const SMGap.vertical(height: 24),
                   SMCalendarInput(
-                    controller: calendarController,
+                    controller: _calendarController,
                     validator: calendarValidator,
                     hintText: "DD/MM/YYYY",
                     labelText: "Fecha de nacimiento",
@@ -87,8 +75,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const SMGap.vertical(height: 24),
                   SMCard.input(
                     title: "Información de perfil",
-                    groupValue: gender,
-                    onChanged: onGenderChanged,
+                    groupValue: currentGender.value,
+                    onChanged: (Gender? value) =>
+                        currentGender.value = value ?? Gender.male,
                   ),
                   const SMGap.vertical(height: 24),
                   SMCard.profile(),
@@ -100,14 +89,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   const SMGap.vertical(height: 24),
                   SMTextInput(
-                    controller: phoneController,
+                    controller: _phoneController,
                     labelText: "Teléfono",
                     hintText: "+5491141625944",
                     validator: phoneValidator,
                   ),
                   const SMGap.vertical(height: 24),
                   SMTextInput(
-                    controller: mailController,
+                    controller: _mailController,
                     labelText: "Mail",
                     hintText: "mimail@mail.com",
                     validator: mailValidator,
@@ -117,7 +106,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: SMButton.filled(
                       "Guardar datos",
                       onPressed: () {},
-                      disabled: !isFormValid,
+                      disabled: !isFormValid.value,
                     ),
                   ),
                 ],

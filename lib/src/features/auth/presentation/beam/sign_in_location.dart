@@ -7,8 +7,8 @@ class SignInLocation extends BeamLocation {
   List<BeamPage> buildPages(
           BuildContext context, RouteInformationSerializable state) =>
       [
-        const BeamPage(
-          key: ValueKey(SignInScreen.routeName),
+        BeamPage(
+          key: const ValueKey(SignInScreen.routeName),
           title: 'Sign In',
           child: SignInScreen(),
         ),

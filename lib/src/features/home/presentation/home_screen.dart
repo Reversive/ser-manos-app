@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos/src/features/news/presentation/news_screen.dart';
 import 'package:ser_manos/src/features/profile/presentation/profile_screen.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/shared/cells/headers/header.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends HookWidget {
   static const String route = '/home';
   static const String segment = 'home';
   static const String routeName = 'home';
@@ -13,34 +14,17 @@ class HomeScreen extends StatefulWidget {
     super.key,
     this.initialIndex = 0,
   });
+
   final int initialIndex;
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  late TabController tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    tabController = TabController(
-      length: 3,
-      vsync: this,
-      initialIndex: widget.initialIndex,
-    );
-  }
-
-  @override
-  void dispose() {
-    tabController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final TabController tabController = useTabController(
+      initialLength: 3,
+      initialIndex: initialIndex,
+    );
     return Scaffold(
-      appBar: SMHeader.tab(tabController: tabController, onTap: onTap),
+      appBar: SMHeader.tab(tabController: tabController),
       resizeToAvoidBottomInset: false,
       body: TabBarView(
         controller: tabController,
@@ -52,9 +36,5 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ],
       ),
     );
-  }
-
-  void onTap(int index) {
-    // TODO
   }
 }
