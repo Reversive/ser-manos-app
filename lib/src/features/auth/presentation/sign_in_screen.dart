@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos/src/features/auth/presentation/base_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/sign_up_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/welcome_screen.dart';
@@ -10,19 +11,15 @@ import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
 import 'package:ser_manos/src/shared/tokens/fill.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 
-class SignInScreen extends StatefulWidget {
+class SignInScreen extends HookWidget {
   static const String route = "/sign-in";
   static const String routeName = "Sign In";
-  const SignInScreen({super.key});
+  SignInScreen({super.key});
 
-  @override
-  State<SignInScreen> createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Por favor, ingrese su correo electrónico';
@@ -59,8 +56,8 @@ class _SignInScreenState extends State<SignInScreen> {
         Form(
           key: _formKey,
           child: SMForm.signIn(
-            emailController: emailController,
-            passwordController: passwordController,
+            emailController: _emailController,
+            passwordController: _passwordController,
             emailValidator: emailValidator,
             passwordValidator: passwordValidator,
           ),
@@ -72,7 +69,8 @@ class _SignInScreenState extends State<SignInScreen> {
         SMFill.horizontal(
           child: SMButton.filled(
             "Iniciar Sesión",
-            onPressed: () => Beamer.of(context).beamToNamed(WelcomeScreen.route),
+            onPressed: () =>
+                Beamer.of(context).beamToNamed(WelcomeScreen.route),
           ),
         ),
         const SMGap.vertical(
