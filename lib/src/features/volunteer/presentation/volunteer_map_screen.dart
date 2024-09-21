@@ -1,6 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ser_manos/src/features/volunteer/domain/volunteer.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
@@ -12,7 +13,7 @@ import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:widget_to_marker/widget_to_marker.dart';
 
-class VolunteerMapScreen extends StatefulWidget {
+class VolunteerMapScreen extends HookWidget {
   const VolunteerMapScreen({
     super.key,
     required this.volunteers,
@@ -21,14 +22,7 @@ class VolunteerMapScreen extends StatefulWidget {
   final List<Volunteer> volunteers;
   final void Function() onIconPressed;
 
-  @override
-  State<VolunteerMapScreen> createState() => _VolunteerMapScreenState();
-}
-
-class _VolunteerMapScreenState extends State<VolunteerMapScreen> {
-  TextEditingController searchController = TextEditingController();
-  late GoogleMapController mapController;
-  final CameraPosition _initialPosition = const CameraPosition(
+  static const CameraPosition _initialPosition = CameraPosition(
     target: LatLng(
       -34.62283169075434,
       -58.44644063941437,
@@ -36,76 +30,75 @@ class _VolunteerMapScreenState extends State<VolunteerMapScreen> {
     zoom: 14,
   );
   String? validator(String? value) => null;
-  Set<Marker> markers = {};
-  late BitmapDescriptor locationOn;
-  late BitmapDescriptor locationOnOutlined;
-
-  void initMarkers() async {
-    locationOn = await const SMIcon(
-      size: 32,
-      icon: Icons.location_on,
-      activeColor: SMColors.secondary200,
-      active: true,
-    ).toBitmapDescriptor();
-
-    locationOnOutlined = await const SMIcon(
-      size: 32,
-      icon: Icons.location_on_outlined,
-      activeColor: SMColors.secondary200,
-      active: true,
-    ).toBitmapDescriptor();
-
-    for (int i = 0; i < widget.volunteers.length; i++) {
-      final marker = Marker(
-        markerId: MarkerId(widget.volunteers[i].name),
-        position: LatLng(
-          widget.volunteers[i].location.lat,
-          widget.volunteers[i].location.lng,
-        ),
-        icon: i == 0 ? locationOn : locationOnOutlined,
-      );
-      markers.add(marker);
-    }
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    initMarkers();
-  }
-
-  void onPageChanged(int index, CarouselPageChangedReason reason) {
-    final voluntary = widget.volunteers[index];
-    final marker = markers.firstWhere(
-      (element) => element.markerId.value == voluntary.name,
-    );
-
-    mapController.animateCamera(
-      CameraUpdate.newLatLng(marker.position),
-    );
-
-    markers = markers.map((e) {
-      if (e.markerId.value == voluntary.name) {
-        return e.copyWith(iconParam: locationOn);
-      }
-      return e.copyWith(iconParam: locationOnOutlined);
-    }).toSet();
-
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController searchController = useTextEditingController();
+    final mapController = useState<GoogleMapController?>(null);
+    final markers = useState(<Marker>{});
+    final locationOn = useState(BitmapDescriptor.defaultMarker);
+    final locationOnOutlined = useState(BitmapDescriptor.defaultMarker);
+
+    void onPageChanged(int index, CarouselPageChangedReason reason) {
+      final voluntary = volunteers[index];
+      final marker = markers.value.firstWhere(
+        (element) => element.markerId.value == voluntary.name,
+      );
+
+      mapController.value!.animateCamera(
+        CameraUpdate.newLatLng(marker.position),
+      );
+
+      markers.value = markers.value.map((e) {
+        if (e.markerId.value == voluntary.name) {
+          return e.copyWith(iconParam: locationOn.value);
+        }
+        return e.copyWith(iconParam: locationOnOutlined.value);
+      }).toSet();
+    }
+
+    void initMarkers() async {
+      locationOn.value = await const SMIcon(
+        size: 32,
+        icon: Icons.location_on,
+        activeColor: SMColors.secondary200,
+        active: true,
+      ).toBitmapDescriptor();
+
+      locationOnOutlined.value = await const SMIcon(
+        size: 32,
+        icon: Icons.location_on_outlined,
+        activeColor: SMColors.secondary200,
+        active: true,
+      ).toBitmapDescriptor();
+
+      for (int i = 0; i < volunteers.length; i++) {
+        final marker = Marker(
+          markerId: MarkerId(volunteers[i].name),
+          position: LatLng(
+            volunteers[i].location.lat,
+            volunteers[i].location.lng,
+          ),
+          icon: i == 0 ? locationOn.value : locationOnOutlined.value,
+        );
+        markers.value.add(marker);
+      }
+    }
+
+    useEffect(() {
+      initMarkers();
+      return null;
+    }, const []);
+
     return Stack(
       children: [
         GoogleMap(
           initialCameraPosition: _initialPosition,
           zoomControlsEnabled: false,
           zoomGesturesEnabled: false,
-          markers: markers,
+          markers: markers.value,
           onMapCreated: (controller) {
-            mapController = controller;
+            mapController.value = controller;
           },
         ),
         Column(
@@ -120,7 +113,7 @@ class _VolunteerMapScreenState extends State<VolunteerMapScreen> {
               child: SMSearchInput(
                 controller: searchController,
                 validator: validator,
-                onIconPressed: widget.onIconPressed,
+                onIconPressed: onIconPressed,
                 suffixIcon: Icons.list,
               ),
             ),
@@ -141,19 +134,19 @@ class _VolunteerMapScreenState extends State<VolunteerMapScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
-                  child: widget.volunteers.isEmpty
+                  child: volunteers.isEmpty
                       ? Padding(
                           padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                           child: SMCard.noVolunteerings(),
                         )
                       : CarouselSlider(
-                          items: widget.volunteers
+                          items: volunteers
                               .map(
                                 (voluntary) => SMCard.volunteer(
                                   volunteer: voluntary,
                                   margin: const EdgeInsets.only(right: 8),
                                   onTap: () => Beamer.of(context).beamToNamed(
-                                    '${VolunteerScreen.route}?id=${widget.volunteers.indexOf(voluntary)}',
+                                    '${VolunteerScreen.route}?id=${volunteers.indexOf(voluntary)}',
                                     beamBackOnPop: true,
                                   ),
                                 ),
