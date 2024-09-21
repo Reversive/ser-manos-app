@@ -9,7 +9,7 @@ class SMHeader extends AppBar {
   SMHeader.tab({
     super.key,
     required TabController tabController,
-    required Function(int) onTap,
+    Function(int)? onTap,
   }) : super(
           scrolledUnderElevation: 0,
           systemOverlayStyle: const SUOSSecondary(),
