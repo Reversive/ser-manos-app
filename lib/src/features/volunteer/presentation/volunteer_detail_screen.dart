@@ -60,7 +60,7 @@ class VolunteerDetailScreen extends StatelessWidget {
                     const SMGap.vertical(height: 24),
                     SMCard.location(
                       hasEmbeddedMap: true,
-                      location: Location(
+                      location: const Location(
                         street: "Echeverria",
                         number: 3560,
                         city: "Capital Federal",

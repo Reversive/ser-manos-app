@@ -29,11 +29,9 @@ class VolunteerMapScreen extends HookWidget {
     ),
     zoom: 14,
   );
-  String? validator(String? value) => null;
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController searchController = useTextEditingController();
     final mapController = useState<GoogleMapController?>(null);
     final markers = useState(<Marker>{});
     final locationOn = useState(BitmapDescriptor.defaultMarker);
@@ -111,8 +109,6 @@ class VolunteerMapScreen extends HookWidget {
                 right: 16,
               ),
               child: SMSearchInput(
-                controller: searchController,
-                validator: validator,
                 onIconPressed: onIconPressed,
                 suffixIcon: Icons.list,
               ),

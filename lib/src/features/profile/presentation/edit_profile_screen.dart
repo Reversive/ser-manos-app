@@ -7,6 +7,7 @@ import 'package:ser_manos/src/shared/cells/headers/header.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/calendar_input.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/text_input.dart';
+import 'package:ser_manos/src/shared/molecules/inputs/validators/validator.dart';
 import 'package:ser_manos/src/shared/tokens/fill.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/grid.dart';
@@ -18,33 +19,6 @@ class EditProfileScreen extends HookWidget {
   EditProfileScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _calendarController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _mailController = TextEditingController();
-
-  String? mailValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return "El mail es requerido";
-    }
-    if (!value.contains("@")) {
-      return "El mail no es válido";
-    }
-    return null;
-  }
-
-  String? calendarValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return "La fecha es requerida";
-    }
-    return null;
-  }
-
-  String? phoneValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return "El teléfono es requerido";
-    }
-    return null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +40,7 @@ class EditProfileScreen extends HookWidget {
                 children: [
                   SMTypography.headline01("Datos de perfil"),
                   const SMGap.vertical(height: 24),
-                  SMCalendarInput(
-                    controller: _calendarController,
-                    validator: calendarValidator,
+                  const SMCalendarInput(
                     hintText: "DD/MM/YYYY",
                     labelText: "Fecha de nacimiento",
                   ),
@@ -88,18 +60,16 @@ class EditProfileScreen extends HookWidget {
                     "Estos datos serán compartidos con la organización para ponerse en contacto contigo",
                   ),
                   const SMGap.vertical(height: 24),
-                  SMTextInput(
-                    controller: _phoneController,
+                  const SMTextInput(
                     labelText: "Teléfono",
                     hintText: "+5491141625944",
-                    validator: phoneValidator,
+                    validator: SMValidator.required,
                   ),
                   const SMGap.vertical(height: 24),
-                  SMTextInput(
-                    controller: _mailController,
+                  const SMTextInput(
                     labelText: "Mail",
                     hintText: "mimail@mail.com",
-                    validator: mailValidator,
+                    validator: SMValidator.email,
                   ),
                   const SMGap.vertical(height: 32),
                   SMFill.horizontal(

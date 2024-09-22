@@ -16,10 +16,6 @@ class SignUpScreen extends HookWidget {
   SignUpScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _surnameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +25,8 @@ class SignUpScreen extends HookWidget {
         const SMGap.vertical(
           height: 32,
         ),
-        Form(
-          key: _formKey,
-          child: SMForm.signUp(
-            nameController: _nameController,
-            surnameController: _surnameController,
-            emailController: _emailController,
-            passwordController: _passwordController,
-            nameValidator: nameValidator,
-            surnameValidator: surnameValidator,
-            emailValidator: emailValidator,
-            passwordValidator: passwordValidator,
-          ),
+        SMForm.signUp(
+          formKey: _formKey,
         ),
         const Spacer(),
         SMFill.horizontal(
@@ -64,39 +50,5 @@ class SignUpScreen extends HookWidget {
         ),
       ],
     );
-  }
-
-  String? nameValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, ingrese su nombre';
-    }
-    return null;
-  }
-
-  String? surnameValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, ingrese su apellido';
-    }
-    return null;
-  }
-
-  String? emailValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, ingrese su correo electrónico';
-    }
-    if (!value.contains('@')) {
-      return 'Por favor, ingrese un correo electrónico válido';
-    }
-    return null;
-  }
-
-  String? passwordValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, ingrese su contraseña';
-    }
-    if (value.length < 8) {
-      return 'La contraseña debe tener al menos 8 caracteres';
-    }
-    return null;
   }
 }

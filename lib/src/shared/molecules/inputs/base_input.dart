@@ -46,19 +46,19 @@ class BaseInput extends HookWidget {
   Widget build(BuildContext context) {
     final focusNode = useFocusNode();
     final validationFailed = useState(false);
+    final isEmpty =
+        useListenableSelector(controller, () => controller.text.isEmpty);
 
     void onChanged(value) {
       validationFailed.value = validator(value) != null;
     }
 
-    IconButton? _buildSuffixIcon(FocusNode focusNode) {
+    IconButton? buildSuffixIcon(FocusNode focusNode) {
       if (suffixIcon == null) {
         return null;
       }
 
-      if (controller.text.isNotEmpty &&
-          !focusNode.hasFocus &&
-          !permaShowSuffixIcon) {
+      if (!isEmpty && !focusNode.hasFocus && !permaShowSuffixIcon) {
         return null;
       }
 
@@ -101,7 +101,7 @@ class BaseInput extends HookWidget {
             helperText: focusNode.hasFocus ? helperText : null,
             suffixIcon: validationFailed.value
                 ? SMIcon.error()
-                : _buildSuffixIcon(focusNode),
+                : buildSuffixIcon(focusNode),
             floatingLabelBehavior: hintText != null
                 ? FloatingLabelBehavior.always
                 : FloatingLabelBehavior.auto,
@@ -122,6 +122,7 @@ class BaseInput extends HookWidget {
       focusNode: focusNode,
       onChanged: onChanged,
       validator: (value) => validator(value),
+      textInputAction: TextInputAction.next,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
       obscureText: obscureText,

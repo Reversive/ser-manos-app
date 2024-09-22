@@ -17,29 +17,6 @@ class SignInScreen extends HookWidget {
   SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
-  String? emailValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, ingrese su correo electrónico';
-    }
-    if (!value.contains('@')) {
-      return 'Por favor, ingrese un correo electrónico válido';
-    }
-    return null;
-  }
-
-  String? passwordValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, ingrese su contraseña';
-    }
-    if (value.length < 8) {
-      return 'La contraseña debe tener al menos 8 caracteres';
-    }
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,45 +24,42 @@ class SignInScreen extends HookWidget {
       appBar: SMHeader.modal(
         implyLeading: false,
       ),
-      body: BaseScreen(content: [
-        const Spacer(),
-        const SquaredLogo(),
-        const SMGap.vertical(
-          height: 32,
-        ),
-        Form(
-          key: _formKey,
-          child: SMForm.signIn(
-            emailController: _emailController,
-            passwordController: _passwordController,
-            emailValidator: emailValidator,
-            passwordValidator: passwordValidator,
+      body: BaseScreen(
+        content: [
+          const Spacer(),
+          const SquaredLogo(),
+          const SMGap.vertical(
+            height: 32,
           ),
-        ),
-        const Spacer(),
-        const SMGap.vertical(
-          height: 16,
-        ),
-        SMFill.horizontal(
-          child: SMButton.filled(
-            "Iniciar Sesión",
-            onPressed: () =>
-                Beamer.of(context).beamToNamed(WelcomeScreen.route),
+          SMForm.signIn(
+            formKey: _formKey,
           ),
-        ),
-        const SMGap.vertical(
-          height: 16,
-        ),
-        SMFill.horizontal(
-          child: SMButton.text(
-            "No tengo cuenta",
-            onPressed: () => Beamer.of(context).beamToNamed(SignUpScreen.route),
+          const Spacer(),
+          const SMGap.vertical(
+            height: 16,
           ),
-        ),
-        const SMGap.vertical(
-          height: 32,
-        ),
-      ]),
+          SMFill.horizontal(
+            child: SMButton.filled(
+              "Iniciar Sesión",
+              onPressed: () =>
+                  Beamer.of(context).beamToNamed(WelcomeScreen.route),
+            ),
+          ),
+          const SMGap.vertical(
+            height: 16,
+          ),
+          SMFill.horizontal(
+            child: SMButton.text(
+              "No tengo cuenta",
+              onPressed: () =>
+                  Beamer.of(context).beamToNamed(SignUpScreen.route),
+            ),
+          ),
+          const SMGap.vertical(
+            height: 32,
+          ),
+        ],
+      ),
     );
   }
 }

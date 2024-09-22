@@ -4,35 +4,32 @@ import 'package:ser_manos/src/shared/cells/cards/card.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/calendar_input.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/password_input.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/text_input.dart';
+import 'package:ser_manos/src/shared/molecules/inputs/validators/validator.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
 class SMForm extends StatelessWidget {
-  const SMForm({super.key, required this.children});
+  const SMForm({super.key, required this.formKey, required this.children});
 
   factory SMForm.contactDetails({
-    required TextEditingController phoneController,
-    required TextEditingController mailController,
-    required Function(String?) phoneValidator,
-    required Function(String?) mailValidator,
+    required GlobalKey<FormState> formKey,
   }) {
     return SMForm(
+      formKey: formKey,
       children: [
         SMTypography.headline01("Datos de contacto"),
         const SMGap.vertical(height: 24.0),
         SMTypography.subtitle01(
             "Estos datos serán compartidos con la organización para ponerse en contacto contigo"),
         const SMGap.vertical(height: 24.0),
-        SMTextInput(
-          controller: phoneController,
+        const SMTextInput(
           labelText: "Teléfono",
           hintText: "Ej: +541178445459",
-          validator: phoneValidator,
+          validator: SMValidator.required,
         ),
         const SMGap.vertical(height: 24.0),
-        SMTextInput(
-          controller: mailController,
-          validator: mailValidator,
+        const SMTextInput(
+          validator: SMValidator.email,
           labelText: "Mail",
           hintText: "Ej: mimail@mail.com",
         )
@@ -41,89 +38,71 @@ class SMForm extends StatelessWidget {
   }
 
   factory SMForm.personalDetails({
-    required TextEditingController calendarController,
-    required Function(String?) calendarValidator,
+    required GlobalKey<FormState> formKey,
     required Gender groupValue,
     required void Function(Gender?) onChanged,
   }) {
     return SMForm(
+      formKey: formKey,
       children: [
         SMTypography.headline01("Datos de perfil"),
         const SMGap.vertical(height: 24),
-        SMCalendarInput(
-          controller: calendarController,
-          validator: calendarValidator,
+        const SMCalendarInput(
           hintText: "DD/MM/YYYY",
           labelText: "Fecha de nacimiento",
         ),
         const SMGap.vertical(height: 24),
-        SMCard.input(title: "Información de perfil", groupValue: groupValue, onChanged: onChanged,),
+        SMCard.input(
+          title: "Información de perfil",
+          groupValue: groupValue,
+          onChanged: onChanged,
+        ),
         const SMGap.vertical(height: 24),
         SMCard.profile(),
       ],
     );
   }
 
-  factory SMForm.signIn({
-    required TextEditingController emailController,
-    required TextEditingController passwordController,
-    required Function(String?) emailValidator,
-    required Function(String?) passwordValidator,
-  }) {
+  factory SMForm.signIn({required GlobalKey<FormState> formKey}) {
     return SMForm(
-      children: [
+      formKey: formKey,
+      children: const [
         SMTextInput(
-          controller: emailController,
           labelText: "Email",
-          validator: emailValidator,
+          validator: SMValidator.email,
         ),
-        const SMGap.vertical(height: 24),
+        SMGap.vertical(height: 24),
         SMPasswordInput(
-          controller: passwordController,
           labelText: "Contraseña",
-          validator: passwordValidator,
         ),
       ],
     );
   }
 
-  factory SMForm.signUp({
-    required TextEditingController nameController,
-    required TextEditingController surnameController,
-    required TextEditingController emailController,
-    required TextEditingController passwordController,
-    required Function(String?) nameValidator,
-    required Function(String?) surnameValidator,
-    required Function(String?) emailValidator,
-    required Function(String?) passwordValidator,
-  }) {
+  factory SMForm.signUp({required GlobalKey<FormState> formKey}) {
     return SMForm(
-      children: [
+      formKey: formKey,
+      children: const [
         SMTextInput(
-          controller: nameController,
           labelText: "Nombre",
-          validator: nameValidator,
+          validator: SMValidator.required,
           hintText: "Ej: Juan",
         ),
-        const SMGap.vertical(height: 24),
+        SMGap.vertical(height: 24),
         SMTextInput(
-          controller: surnameController,
           labelText: "Apellido",
-          validator: surnameValidator,
           hintText: "Ej: Barcena",
+          validator: SMValidator.required,
         ),
-        const SMGap.vertical(height: 24),
+        SMGap.vertical(height: 24),
         SMTextInput(
-          controller: emailController,
           labelText: "Email",
-          validator: emailValidator,
+          validator: SMValidator.email,
           hintText: "Ej: juanbarcena@mail.com",
         ),
-        const SMGap.vertical(height: 24),
+        SMGap.vertical(height: 24),
         SMPasswordInput(
-          controller: passwordController,
           labelText: "Contraseña",
-          validator: passwordValidator,
           hintText: "Ej: ABCD1234",
         ),
       ],
@@ -131,11 +110,15 @@ class SMForm extends StatelessWidget {
   }
 
   final List<Widget> children;
+  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: children,
+    return Form(
+      key: formKey,
+      child: Column(
+        children: children,
+      ),
     );
   }
 }
