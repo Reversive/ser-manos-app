@@ -23,7 +23,6 @@ class VolunteerListScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController searchController = useTextEditingController();
     return Material(
       color: SMColors.secondary10,
       child: SMGrid(
@@ -34,7 +33,6 @@ class VolunteerListScreen extends HookWidget {
               height: 24,
             ),
             SMSearchInput(
-              controller: searchController,
               validator: validator,
               onIconPressed: onIconPressed,
               suffixIcon: Icons.map_outlined,

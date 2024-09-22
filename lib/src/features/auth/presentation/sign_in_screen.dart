@@ -17,9 +17,6 @@ class SignInScreen extends HookWidget {
   SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
   String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Por favor, ingrese su correo electrónico';
@@ -56,7 +53,6 @@ class SignInScreen extends HookWidget {
         Form(
           key: _formKey,
           child: SMForm.signIn(
-            passwordController: _passwordController,
             emailValidator: emailValidator,
             passwordValidator: passwordValidator,
           ),

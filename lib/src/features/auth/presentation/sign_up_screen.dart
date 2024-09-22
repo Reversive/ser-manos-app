@@ -16,7 +16,6 @@ class SignUpScreen extends HookWidget {
   SignUpScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
-  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,6 @@ class SignUpScreen extends HookWidget {
         Form(
           key: _formKey,
           child: SMForm.signUp(
-            passwordController: _passwordController,
             nameValidator: nameValidator,
             surnameValidator: surnameValidator,
             emailValidator: emailValidator,

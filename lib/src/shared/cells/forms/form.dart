@@ -37,7 +37,6 @@ class SMForm extends StatelessWidget {
   }
 
   factory SMForm.personalDetails({
-    required TextEditingController calendarController,
     required Function(String?) calendarValidator,
     required Gender groupValue,
     required void Function(Gender?) onChanged,
@@ -47,7 +46,6 @@ class SMForm extends StatelessWidget {
         SMTypography.headline01("Datos de perfil"),
         const SMGap.vertical(height: 24),
         SMCalendarInput(
-          controller: calendarController,
           validator: calendarValidator,
           hintText: "DD/MM/YYYY",
           labelText: "Fecha de nacimiento",
@@ -61,7 +59,6 @@ class SMForm extends StatelessWidget {
   }
 
   factory SMForm.signIn({
-    required TextEditingController passwordController,
     required Function(String?) emailValidator,
     required Function(String?) passwordValidator,
   }) {
@@ -73,7 +70,6 @@ class SMForm extends StatelessWidget {
         ),
         const SMGap.vertical(height: 24),
         SMPasswordInput(
-          controller: passwordController,
           labelText: "Contraseña",
           validator: passwordValidator,
         ),
@@ -82,7 +78,6 @@ class SMForm extends StatelessWidget {
   }
 
   factory SMForm.signUp({
-    required TextEditingController passwordController,
     required Function(String?) nameValidator,
     required Function(String?) surnameValidator,
     required Function(String?) emailValidator,
@@ -109,7 +104,6 @@ class SMForm extends StatelessWidget {
         ),
         const SMGap.vertical(height: 24),
         SMPasswordInput(
-          controller: passwordController,
           labelText: "Contraseña",
           validator: passwordValidator,
           hintText: "Ej: ABCD1234",

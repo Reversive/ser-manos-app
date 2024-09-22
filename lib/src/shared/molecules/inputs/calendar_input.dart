@@ -8,19 +8,19 @@ import 'package:ser_manos/src/shared/molecules/inputs/formatters/date_formatter.
 class SMCalendarInput extends HookWidget {
   const SMCalendarInput({
     super.key,
-    required this.controller,
     required this.validator,
     required this.hintText,
     required this.labelText,
   });
 
-  final TextEditingController controller;
   final Function(String?) validator;
   final String hintText;
   final String labelText;
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController controller = useTextEditingController();
+
     void onSuffixIconPressed() async {
       FocusScope.of(context).requestFocus(FocusNode());
       final DateTime? picked = await showDatePicker(

@@ -18,7 +18,6 @@ class EditProfileScreen extends HookWidget {
   EditProfileScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _calendarController = TextEditingController();
 
   String? mailValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -65,7 +64,6 @@ class EditProfileScreen extends HookWidget {
                   SMTypography.headline01("Datos de perfil"),
                   const SMGap.vertical(height: 24),
                   SMCalendarInput(
-                    controller: _calendarController,
                     validator: calendarValidator,
                     hintText: "DD/MM/YYYY",
                     labelText: "Fecha de nacimiento",

@@ -1,48 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/base_input.dart';
 import 'package:ser_manos/src/shared/tokens/shadows.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
-class SMSearchInput extends StatefulWidget {
+class SMSearchInput extends HookWidget {
   const SMSearchInput({
     super.key,
-    required this.controller,
     required this.validator,
     required this.onIconPressed,
     required this.suffixIcon,
   });
 
-  final TextEditingController controller;
   final Function(String?) validator;
   final Function() onIconPressed;
   final IconData suffixIcon;
 
   @override
-  State<SMSearchInput> createState() => _SMSearchInputState();
-}
-
-class _SMSearchInputState extends State<SMSearchInput> {
-  final FocusNode _focusNode = FocusNode();
-  void _setState() {
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    widget.controller.addListener(_setState);
-  }
-
-  @override
-  void dispose() {
-    widget.controller.removeListener(_setState);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final TextEditingController controller = useTextEditingController();
+    final FocusNode focusNode = useFocusNode();
+    final bool isEmpty =
+        useListenableSelector(controller, () => controller.text.isEmpty);
+
+    Widget? buildSuffixIcon(FocusNode focusNode) {
+      if (isEmpty && focusNode.hasFocus) {
+        return null;
+      }
+      if (!isEmpty) {
+        return IconButton(
+          onPressed: () {
+            focusNode.unfocus();
+            controller.clear();
+          },
+          icon: const SMIcon(
+            icon: Icons.clear,
+          ),
+        );
+      }
+      return IconButton(
+        icon: SMIcon(
+          icon: suffixIcon,
+          active: true,
+        ),
+        onPressed: onIconPressed,
+      );
+    }
+
     return Container(
       decoration: BoxDecoration(
         boxShadow: SMShadows.shadow1,
@@ -50,12 +56,12 @@ class _SMSearchInputState extends State<SMSearchInput> {
         color: SMColors.neutral0,
       ),
       child: BaseInput(
-        focusNode: _focusNode,
-        controller: widget.controller,
-        validator: widget.validator,
+        focusNode: focusNode,
+        controller: controller,
+        validator: validator,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 12),
-          suffixIcon: _buildSuffixIcon(_focusNode),
+          suffixIcon: buildSuffixIcon(focusNode),
           focusedBorder: InputBorder.none,
           border: InputBorder.none,
           prefixIcon: const SMIcon(
@@ -65,30 +71,6 @@ class _SMSearchInputState extends State<SMSearchInput> {
           hintStyle: SMTypography.subtitle01Style(),
         ),
       ),
-    );
-  }
-
-  Widget? _buildSuffixIcon(FocusNode focusNode) {
-    if (widget.controller.text.isEmpty && focusNode.hasFocus) {
-      return null;
-    }
-    if (widget.controller.text.isNotEmpty) {
-      return IconButton(
-        onPressed: () {
-          focusNode.unfocus();
-          widget.controller.clear();
-        },
-        icon: const SMIcon(
-          icon: Icons.clear,
-        ),
-      );
-    }
-    return IconButton(
-      icon: SMIcon(
-        icon: widget.suffixIcon,
-        active: true,
-      ),
-      onPressed: widget.onIconPressed,
     );
   }
 }

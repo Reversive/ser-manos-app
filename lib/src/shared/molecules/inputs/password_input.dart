@@ -7,13 +7,11 @@ class SMPasswordInput extends HookWidget {
   const SMPasswordInput({
     super.key,
     this.hintText,
-    required this.controller,
     required this.labelText,
     required this.validator,
     this.enabled = true,
   });
 
-  final TextEditingController controller;
   final String? hintText;
   final String labelText;
   final bool enabled;
@@ -22,6 +20,8 @@ class SMPasswordInput extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final passwordVisible = useState(false);
+    final TextEditingController controller = useTextEditingController();
+
     return BaseInput(
       controller: controller,
       hintText: hintText,
