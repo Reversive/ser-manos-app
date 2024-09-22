@@ -18,9 +18,6 @@ class EditProfileScreen extends HookWidget {
   EditProfileScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _calendarController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _mailController = TextEditingController();
 
   String? mailValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -48,6 +45,9 @@ class EditProfileScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController calendarController = useTextEditingController();
+    final TextEditingController phoneController = useTextEditingController();
+    final TextEditingController mailController = useTextEditingController();
     final isFormValid = useState(false);
     final currentGender = useState(Gender.male);
     return Scaffold(
@@ -67,7 +67,7 @@ class EditProfileScreen extends HookWidget {
                   SMTypography.headline01("Datos de perfil"),
                   const SMGap.vertical(height: 24),
                   SMCalendarInput(
-                    controller: _calendarController,
+                    controller: calendarController,
                     validator: calendarValidator,
                     hintText: "DD/MM/YYYY",
                     labelText: "Fecha de nacimiento",
@@ -89,14 +89,14 @@ class EditProfileScreen extends HookWidget {
                   ),
                   const SMGap.vertical(height: 24),
                   SMTextInput(
-                    controller: _phoneController,
+                    controller: phoneController,
                     labelText: "Teléfono",
                     hintText: "+5491141625944",
                     validator: phoneValidator,
                   ),
                   const SMGap.vertical(height: 24),
                   SMTextInput(
-                    controller: _mailController,
+                    controller: mailController,
                     labelText: "Mail",
                     hintText: "mimail@mail.com",
                     validator: mailValidator,

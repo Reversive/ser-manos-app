@@ -17,8 +17,6 @@ class SignInScreen extends HookWidget {
   SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
 
   String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -42,6 +40,8 @@ class SignInScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: SMHeader.modal(
@@ -56,8 +56,8 @@ class SignInScreen extends HookWidget {
         Form(
           key: _formKey,
           child: SMForm.signIn(
-            emailController: _emailController,
-            passwordController: _passwordController,
+            emailController: emailController,
+            passwordController: passwordController,
             emailValidator: emailValidator,
             passwordValidator: passwordValidator,
           ),
