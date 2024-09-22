@@ -11,8 +11,6 @@ class SMForm extends StatelessWidget {
   const SMForm({super.key, required this.children});
 
   factory SMForm.contactDetails({
-    required TextEditingController phoneController,
-    required TextEditingController mailController,
     required Function(String?) phoneValidator,
     required Function(String?) mailValidator,
   }) {
@@ -24,14 +22,12 @@ class SMForm extends StatelessWidget {
             "Estos datos serán compartidos con la organización para ponerse en contacto contigo"),
         const SMGap.vertical(height: 24.0),
         SMTextInput(
-          controller: phoneController,
           labelText: "Teléfono",
           hintText: "Ej: +541178445459",
           validator: phoneValidator,
         ),
         const SMGap.vertical(height: 24.0),
         SMTextInput(
-          controller: mailController,
           validator: mailValidator,
           labelText: "Mail",
           hintText: "Ej: mimail@mail.com",
@@ -65,7 +61,6 @@ class SMForm extends StatelessWidget {
   }
 
   factory SMForm.signIn({
-    required TextEditingController emailController,
     required TextEditingController passwordController,
     required Function(String?) emailValidator,
     required Function(String?) passwordValidator,
@@ -73,7 +68,6 @@ class SMForm extends StatelessWidget {
     return SMForm(
       children: [
         SMTextInput(
-          controller: emailController,
           labelText: "Email",
           validator: emailValidator,
         ),
@@ -88,9 +82,6 @@ class SMForm extends StatelessWidget {
   }
 
   factory SMForm.signUp({
-    required TextEditingController nameController,
-    required TextEditingController surnameController,
-    required TextEditingController emailController,
     required TextEditingController passwordController,
     required Function(String?) nameValidator,
     required Function(String?) surnameValidator,
@@ -100,21 +91,18 @@ class SMForm extends StatelessWidget {
     return SMForm(
       children: [
         SMTextInput(
-          controller: nameController,
           labelText: "Nombre",
           validator: nameValidator,
           hintText: "Ej: Juan",
         ),
         const SMGap.vertical(height: 24),
         SMTextInput(
-          controller: surnameController,
           labelText: "Apellido",
           validator: surnameValidator,
           hintText: "Ej: Barcena",
         ),
         const SMGap.vertical(height: 24),
         SMTextInput(
-          controller: emailController,
           labelText: "Email",
           validator: emailValidator,
           hintText: "Ej: juanbarcena@mail.com",

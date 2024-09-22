@@ -19,8 +19,6 @@ class EditProfileScreen extends HookWidget {
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _calendarController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _mailController = TextEditingController();
 
   String? mailValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -89,14 +87,12 @@ class EditProfileScreen extends HookWidget {
                   ),
                   const SMGap.vertical(height: 24),
                   SMTextInput(
-                    controller: _phoneController,
                     labelText: "Teléfono",
                     hintText: "+5491141625944",
                     validator: phoneValidator,
                   ),
                   const SMGap.vertical(height: 24),
                   SMTextInput(
-                    controller: _mailController,
                     labelText: "Mail",
                     hintText: "mimail@mail.com",
                     validator: mailValidator,

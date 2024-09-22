@@ -56,7 +56,6 @@ class SignInScreen extends HookWidget {
         Form(
           key: _formKey,
           child: SMForm.signIn(
-            emailController: _emailController,
             passwordController: _passwordController,
             emailValidator: emailValidator,
             passwordValidator: passwordValidator,
