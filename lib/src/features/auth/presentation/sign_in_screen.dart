@@ -31,9 +31,8 @@ class SignInScreen extends HookWidget {
           const SMGap.vertical(
             height: 32,
           ),
-          Form(
-            key: _formKey,
-            child: SMForm.signIn(),
+          SMForm.signIn(
+            formKey: _formKey,
           ),
           const Spacer(),
           const SMGap.vertical(

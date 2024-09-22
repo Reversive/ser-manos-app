@@ -9,10 +9,13 @@ import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
 class SMForm extends StatelessWidget {
-  const SMForm({super.key, required this.children});
+  const SMForm({super.key, required this.formKey, required this.children});
 
-  factory SMForm.contactDetails() {
+  factory SMForm.contactDetails({
+    required GlobalKey<FormState> formKey,
+  }) {
     return SMForm(
+      formKey: formKey,
       children: [
         SMTypography.headline01("Datos de contacto"),
         const SMGap.vertical(height: 24.0),
@@ -35,10 +38,12 @@ class SMForm extends StatelessWidget {
   }
 
   factory SMForm.personalDetails({
+    required GlobalKey<FormState> formKey,
     required Gender groupValue,
     required void Function(Gender?) onChanged,
   }) {
     return SMForm(
+      formKey: formKey,
       children: [
         SMTypography.headline01("Datos de perfil"),
         const SMGap.vertical(height: 24),
@@ -58,9 +63,10 @@ class SMForm extends StatelessWidget {
     );
   }
 
-  factory SMForm.signIn() {
-    return const SMForm(
-      children: [
+  factory SMForm.signIn({required GlobalKey<FormState> formKey}) {
+    return SMForm(
+      formKey: formKey,
+      children: const [
         SMTextInput(
           labelText: "Email",
           validator: SMValidator.email,
@@ -73,9 +79,10 @@ class SMForm extends StatelessWidget {
     );
   }
 
-  factory SMForm.signUp() {
-    return const SMForm(
-      children: [
+  factory SMForm.signUp({required GlobalKey<FormState> formKey}) {
+    return SMForm(
+      formKey: formKey,
+      children: const [
         SMTextInput(
           labelText: "Nombre",
           validator: SMValidator.required,
@@ -103,11 +110,15 @@ class SMForm extends StatelessWidget {
   }
 
   final List<Widget> children;
+  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: children,
+    return Form(
+      key: formKey,
+      child: Column(
+        children: children,
+      ),
     );
   }
 }
