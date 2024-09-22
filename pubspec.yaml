@@ -17,6 +17,7 @@ dependencies:
   widget_to_marker: ^1.0.6
   beamer: ^1.6.1
   flutter_hooks: ^0.20.5
+  flutter_riverpod: ^2.5.1
   
 
 dev_dependencies:
