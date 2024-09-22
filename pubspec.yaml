@@ -18,6 +18,12 @@ dependencies:
   beamer: ^1.6.1
   flutter_hooks: ^0.20.5
   flutter_riverpod: ^2.5.1
+  riverpod_generator: ^2.4.3
+  riverpod_lint: ^2.3.13
+  custom_lint: ^0.6.7
+  firebase_core: ^3.5.0
+  build_runner: ^2.4.12
+  firebase_auth: ^5.3.0
   
 
 dev_dependencies:
