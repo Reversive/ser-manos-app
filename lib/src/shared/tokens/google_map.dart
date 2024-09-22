@@ -42,6 +42,7 @@ class SMGoogleMap extends HookWidget {
 
     useEffect(() {
       initMarkers();
+      return null;
     }, const []);
 
     return GoogleMap(

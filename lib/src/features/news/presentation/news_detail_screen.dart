@@ -9,9 +9,9 @@ import 'package:ser_manos/src/shared/tokens/grid.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
 class NewsDetailScreen extends StatelessWidget {
-  NewsDetailScreen({super.key, required this.id});
+  const NewsDetailScreen({super.key, required this.id});
 
-  final newsMock = News(
+  static const newsMock = News(
     imgURL:
         "https://s3-alpha-sig.figma.com/img/839a/009b/380a4b7407209dad0aeec257c6df7298?Expires=1726444800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=j5POrIzEFsSMEIFYDf7blz8btdgb9Dt80n78cWQhVPcmfuk2mpjBpnd62ZATiidDiV3t7o7CxZqKP2hQiNFVYBzwyV6u09Z9LrFltPCvQAcnLRJjbCRTBvxgEzIsWRdIQXTu7~ySIRrCHC~Y62MAa0a6D7bTh6MmoyHIajC-~clVN2dTziGyrqDfy7wkB3t5h9xhxEHSgFHkL2rqhp~6xPnwqwsd4SQi-Ks9r5pGRQYnLnsmOK5VmtbyIo~qC3rRHIRQHYupej6Y~QPZcSJSqyXEsBMZHzKtQjn7sKIXtYnOt0q1JUY8IxtnitGw-yBO61j1qFF4Nk-0KWQjvCojIA__",
     source: "REPORTE 2820",

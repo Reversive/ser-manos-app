@@ -51,7 +51,7 @@ class BaseInput extends HookWidget {
       validationFailed.value = validator(value) != null;
     }
 
-    IconButton? _buildSuffixIcon(FocusNode focusNode) {
+    IconButton? buildSuffixIcon(FocusNode focusNode) {
       if (suffixIcon == null) {
         return null;
       }
@@ -101,7 +101,7 @@ class BaseInput extends HookWidget {
             helperText: focusNode.hasFocus ? helperText : null,
             suffixIcon: validationFailed.value
                 ? SMIcon.error()
-                : _buildSuffixIcon(focusNode),
+                : buildSuffixIcon(focusNode),
             floatingLabelBehavior: hintText != null
                 ? FloatingLabelBehavior.always
                 : FloatingLabelBehavior.auto,
