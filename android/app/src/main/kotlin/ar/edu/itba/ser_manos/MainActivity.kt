@@ -1,4 +1,4 @@
-package ar.edu.itba.ser_manos
+package ar.edu.itba.sermanos
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,4 +1,5 @@
 import 'package:beamer/beamer.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ser_manos/src/features/auth/presentation/beam/sign_in_location.dart';
 import 'package:ser_manos/src/features/auth/presentation/beam/sign_up_location.dart';
 import 'package:ser_manos/src/features/auth/presentation/beam/splash_location.dart';
@@ -9,8 +10,11 @@ import 'package:ser_manos/src/features/auth/presentation/splash_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/welcome_screen.dart';
 import 'package:ser_manos/src/features/home/presentation/beam/home_location.dart';
 import 'package:ser_manos/src/features/home/presentation/home_screen.dart';
+part 'router.g.dart';
 
-final BeamerDelegate routerDelegate = BeamerDelegate(
+@Riverpod(keepAlive: true)
+Raw<BeamerDelegate> routerDelegate(RouterDelegateRef ref) {
+  return BeamerDelegate(
     initialPath: "/splash",
     locationBuilder: (routeInfo, _) {
       final path = routeInfo.uri.path;
@@ -29,3 +33,4 @@ final BeamerDelegate routerDelegate = BeamerDelegate(
       }
     },
   );
+}
