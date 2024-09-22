@@ -19,8 +19,6 @@ class VolunteerListScreen extends HookWidget {
   final void Function() onIconPressed;
   final List<Volunteer> volunteers;
 
-  String? validator(String? value) => null;
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -33,7 +31,6 @@ class VolunteerListScreen extends HookWidget {
               height: 24,
             ),
             SMSearchInput(
-              validator: validator,
               onIconPressed: onIconPressed,
               suffixIcon: Icons.map_outlined,
             ),

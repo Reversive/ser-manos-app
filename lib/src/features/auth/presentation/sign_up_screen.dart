@@ -28,10 +28,6 @@ class SignUpScreen extends HookWidget {
         Form(
           key: _formKey,
           child: SMForm.signUp(
-            nameValidator: nameValidator,
-            surnameValidator: surnameValidator,
-            emailValidator: emailValidator,
-            passwordValidator: passwordValidator,
           ),
         ),
         const Spacer(),
@@ -56,39 +52,5 @@ class SignUpScreen extends HookWidget {
         ),
       ],
     );
-  }
-
-  String? nameValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, ingrese su nombre';
-    }
-    return null;
-  }
-
-  String? surnameValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, ingrese su apellido';
-    }
-    return null;
-  }
-
-  String? emailValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, ingrese su correo electrónico';
-    }
-    if (!value.contains('@')) {
-      return 'Por favor, ingrese un correo electrónico válido';
-    }
-    return null;
-  }
-
-  String? passwordValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, ingrese su contraseña';
-    }
-    if (value.length < 8) {
-      return 'La contraseña debe tener al menos 8 caracteres';
-    }
-    return null;
   }
 }

@@ -4,16 +4,15 @@ import 'package:intl/intl.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/base_input.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/formatters/date_formatter.dart';
+import 'package:ser_manos/src/shared/molecules/inputs/validators/validator.dart';
 
 class SMCalendarInput extends HookWidget {
   const SMCalendarInput({
     super.key,
-    required this.validator,
     required this.hintText,
     required this.labelText,
   });
 
-  final Function(String?) validator;
   final String hintText;
   final String labelText;
 
@@ -38,7 +37,7 @@ class SMCalendarInput extends HookWidget {
 
     return BaseInput(
       controller: controller,
-      validator: validator,
+      validator: SMValidator.required,
       keyboardType: TextInputType.datetime,
       hintText: hintText,
       labelText: labelText,

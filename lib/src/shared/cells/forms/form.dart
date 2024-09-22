@@ -4,16 +4,14 @@ import 'package:ser_manos/src/shared/cells/cards/card.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/calendar_input.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/password_input.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/text_input.dart';
+import 'package:ser_manos/src/shared/molecules/inputs/validators/validator.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
 class SMForm extends StatelessWidget {
   const SMForm({super.key, required this.children});
 
-  factory SMForm.contactDetails({
-    required Function(String?) phoneValidator,
-    required Function(String?) mailValidator,
-  }) {
+  factory SMForm.contactDetails() {
     return SMForm(
       children: [
         SMTypography.headline01("Datos de contacto"),
@@ -21,14 +19,14 @@ class SMForm extends StatelessWidget {
         SMTypography.subtitle01(
             "Estos datos serán compartidos con la organización para ponerse en contacto contigo"),
         const SMGap.vertical(height: 24.0),
-        SMTextInput(
+        const SMTextInput(
           labelText: "Teléfono",
           hintText: "Ej: +541178445459",
-          validator: phoneValidator,
+          validator: SMValidator.required,
         ),
         const SMGap.vertical(height: 24.0),
-        SMTextInput(
-          validator: mailValidator,
+        const SMTextInput(
+          validator: SMValidator.email,
           labelText: "Mail",
           hintText: "Ej: mimail@mail.com",
         )
@@ -37,7 +35,6 @@ class SMForm extends StatelessWidget {
   }
 
   factory SMForm.personalDetails({
-    required Function(String?) calendarValidator,
     required Gender groupValue,
     required void Function(Gender?) onChanged,
   }) {
@@ -45,67 +42,60 @@ class SMForm extends StatelessWidget {
       children: [
         SMTypography.headline01("Datos de perfil"),
         const SMGap.vertical(height: 24),
-        SMCalendarInput(
-          validator: calendarValidator,
+        const SMCalendarInput(
           hintText: "DD/MM/YYYY",
           labelText: "Fecha de nacimiento",
         ),
         const SMGap.vertical(height: 24),
-        SMCard.input(title: "Información de perfil", groupValue: groupValue, onChanged: onChanged,),
+        SMCard.input(
+          title: "Información de perfil",
+          groupValue: groupValue,
+          onChanged: onChanged,
+        ),
         const SMGap.vertical(height: 24),
         SMCard.profile(),
       ],
     );
   }
 
-  factory SMForm.signIn({
-    required Function(String?) emailValidator,
-    required Function(String?) passwordValidator,
-  }) {
-    return SMForm(
+  factory SMForm.signIn() {
+    return const SMForm(
       children: [
         SMTextInput(
           labelText: "Email",
-          validator: emailValidator,
+          validator: SMValidator.email,
         ),
-        const SMGap.vertical(height: 24),
+        SMGap.vertical(height: 24),
         SMPasswordInput(
           labelText: "Contraseña",
-          validator: passwordValidator,
         ),
       ],
     );
   }
 
-  factory SMForm.signUp({
-    required Function(String?) nameValidator,
-    required Function(String?) surnameValidator,
-    required Function(String?) emailValidator,
-    required Function(String?) passwordValidator,
-  }) {
-    return SMForm(
+  factory SMForm.signUp() {
+    return const SMForm(
       children: [
         SMTextInput(
           labelText: "Nombre",
-          validator: nameValidator,
+          validator: SMValidator.required,
           hintText: "Ej: Juan",
         ),
-        const SMGap.vertical(height: 24),
+        SMGap.vertical(height: 24),
         SMTextInput(
           labelText: "Apellido",
-          validator: surnameValidator,
           hintText: "Ej: Barcena",
+          validator: SMValidator.required,
         ),
-        const SMGap.vertical(height: 24),
+        SMGap.vertical(height: 24),
         SMTextInput(
           labelText: "Email",
-          validator: emailValidator,
+          validator: SMValidator.email,
           hintText: "Ej: juanbarcena@mail.com",
         ),
-        const SMGap.vertical(height: 24),
+        SMGap.vertical(height: 24),
         SMPasswordInput(
           labelText: "Contraseña",
-          validator: passwordValidator,
           hintText: "Ej: ABCD1234",
         ),
       ],

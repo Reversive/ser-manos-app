@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/base_input.dart';
+import 'package:ser_manos/src/shared/molecules/inputs/validators/validator.dart';
 
 class SMPasswordInput extends HookWidget {
   const SMPasswordInput({
     super.key,
     this.hintText,
     required this.labelText,
-    required this.validator,
     this.enabled = true,
   });
 
   final String? hintText;
   final String labelText;
   final bool enabled;
-  final Function(String?) validator;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class SMPasswordInput extends HookWidget {
       hintText: hintText,
       labelText: labelText,
       enabled: enabled,
-      validator: validator,
+      validator: SMValidator.password,
       suffixIcon: passwordVisible.value
           ? const SMIcon(icon: Icons.visibility)
           : const SMIcon(icon: Icons.visibility_off),

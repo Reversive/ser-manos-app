@@ -29,7 +29,6 @@ class VolunteerMapScreen extends HookWidget {
     ),
     zoom: 14,
   );
-  String? validator(String? value) => null;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +109,6 @@ class VolunteerMapScreen extends HookWidget {
                 right: 16,
               ),
               child: SMSearchInput(
-                validator: validator,
                 onIconPressed: onIconPressed,
                 suffixIcon: Icons.list,
               ),

@@ -9,12 +9,10 @@ import 'package:ser_manos/src/shared/tokens/typography.dart';
 class SMSearchInput extends HookWidget {
   const SMSearchInput({
     super.key,
-    required this.validator,
     required this.onIconPressed,
     required this.suffixIcon,
   });
 
-  final Function(String?) validator;
   final Function() onIconPressed;
   final IconData suffixIcon;
 
@@ -58,7 +56,7 @@ class SMSearchInput extends HookWidget {
       child: BaseInput(
         focusNode: focusNode,
         controller: controller,
-        validator: validator,
+        validator: (value) => null,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 12),
           suffixIcon: buildSuffixIcon(focusNode),
