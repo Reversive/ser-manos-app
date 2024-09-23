@@ -17,8 +17,12 @@ class SignInScreen extends HookWidget {
   SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  
+
   @override
   Widget build(BuildContext context) {
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: SMHeader.modal(
@@ -32,6 +36,8 @@ class SignInScreen extends HookWidget {
             height: 32,
           ),
           SMForm.signIn(
+            emailController: emailController,
+            passwordController: passwordController,
             formKey: _formKey,
           ),
           const Spacer(),

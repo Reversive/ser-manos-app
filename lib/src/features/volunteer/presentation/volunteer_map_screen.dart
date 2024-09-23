@@ -88,6 +88,8 @@ class VolunteerMapScreen extends HookWidget {
       return null;
     }, const []);
 
+    final TextEditingController searchController = useTextEditingController();
+
     return Stack(
       children: [
         GoogleMap(
@@ -109,6 +111,7 @@ class VolunteerMapScreen extends HookWidget {
                 right: 16,
               ),
               child: SMSearchInput(
+                controller: searchController,
                 onIconPressed: onIconPressed,
                 suffixIcon: Icons.list,
               ),

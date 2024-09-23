@@ -16,9 +16,14 @@ class SignUpScreen extends HookWidget {
   SignUpScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  
 
   @override
   Widget build(BuildContext context) {
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final nameController = useTextEditingController();
+    final lastNameController = useTextEditingController();
     return BaseScreen(
       content: [
         const SquaredLogo(),
@@ -26,6 +31,10 @@ class SignUpScreen extends HookWidget {
           height: 32,
         ),
         SMForm.signUp(
+          emailController: emailController,
+          lastNameController: lastNameController,
+          nameController: nameController,
+          passwordController: passwordController,
           formKey: _formKey,
         ),
         const Spacer(),

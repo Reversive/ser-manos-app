@@ -24,6 +24,10 @@ class EditProfileScreen extends HookWidget {
   Widget build(BuildContext context) {
     final isFormValid = useState(false);
     final currentGender = useState(Gender.male);
+    final dateController = useTextEditingController();
+    final phoneController = useTextEditingController();
+    final emailController = useTextEditingController();
+
     return Scaffold(
       appBar: SMHeader.modal(),
       backgroundColor: SMColors.neutral0,
@@ -40,7 +44,8 @@ class EditProfileScreen extends HookWidget {
                 children: [
                   SMTypography.headline01("Datos de perfil"),
                   const SMGap.vertical(height: 24),
-                  const SMCalendarInput(
+                  SMCalendarInput(
+                    controller: dateController,
                     hintText: "DD/MM/YYYY",
                     labelText: "Fecha de nacimiento",
                   ),
@@ -60,13 +65,15 @@ class EditProfileScreen extends HookWidget {
                     "Estos datos serán compartidos con la organización para ponerse en contacto contigo",
                   ),
                   const SMGap.vertical(height: 24),
-                  const SMTextInput(
+                  SMTextInput(
+                    controller: phoneController,
                     labelText: "Teléfono",
                     hintText: "+5491141625944",
                     validator: SMValidator.required,
                   ),
                   const SMGap.vertical(height: 24),
-                  const SMTextInput(
+                  SMTextInput(
+                    controller: emailController,
                     labelText: "Mail",
                     hintText: "mimail@mail.com",
                     validator: SMValidator.email,

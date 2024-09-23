@@ -11,14 +11,14 @@ class SMCalendarInput extends HookWidget {
     super.key,
     required this.hintText,
     required this.labelText,
+    required this.controller,
   });
 
   final String hintText;
   final String labelText;
-
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = useTextEditingController();
 
     void onSuffixIconPressed() async {
       FocusScope.of(context).requestFocus(FocusNode());

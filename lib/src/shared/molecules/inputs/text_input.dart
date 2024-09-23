@@ -10,17 +10,17 @@ class SMTextInput extends HookWidget {
     required this.labelText,
     required this.validator,
     this.enabled = true,
+    required this.controller,
   });
 
   final String? hintText;
   final String labelText;
   final bool enabled;
   final Function(String?) validator;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
-    final controller = useTextEditingController();
-
     return BaseInput(
       controller: controller,
       hintText: hintText,

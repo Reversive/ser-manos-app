@@ -11,14 +11,14 @@ class SMSearchInput extends HookWidget {
     super.key,
     required this.onIconPressed,
     required this.suffixIcon,
+    required this.controller,
   });
 
   final Function() onIconPressed;
   final IconData suffixIcon;
-
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = useTextEditingController();
     final FocusNode focusNode = useFocusNode();
     final bool isEmpty =
         useListenableSelector(controller, () => controller.text.isEmpty);

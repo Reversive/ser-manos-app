@@ -13,6 +13,8 @@ class SMForm extends StatelessWidget {
 
   factory SMForm.contactDetails({
     required GlobalKey<FormState> formKey,
+    required TextEditingController phoneController,
+    required TextEditingController emailController,
   }) {
     return SMForm(
       formKey: formKey,
@@ -22,13 +24,15 @@ class SMForm extends StatelessWidget {
         SMTypography.subtitle01(
             "Estos datos serán compartidos con la organización para ponerse en contacto contigo"),
         const SMGap.vertical(height: 24.0),
-        const SMTextInput(
+        SMTextInput(
+          controller: phoneController,
           labelText: "Teléfono",
           hintText: "Ej: +541178445459",
           validator: SMValidator.required,
         ),
         const SMGap.vertical(height: 24.0),
-        const SMTextInput(
+        SMTextInput(
+          controller: emailController,
           validator: SMValidator.email,
           labelText: "Mail",
           hintText: "Ej: mimail@mail.com",
@@ -41,13 +45,15 @@ class SMForm extends StatelessWidget {
     required GlobalKey<FormState> formKey,
     required Gender groupValue,
     required void Function(Gender?) onChanged,
+    required TextEditingController calendarController,
   }) {
     return SMForm(
       formKey: formKey,
       children: [
         SMTypography.headline01("Datos de perfil"),
         const SMGap.vertical(height: 24),
-        const SMCalendarInput(
+        SMCalendarInput(
+          controller: calendarController,
           hintText: "DD/MM/YYYY",
           labelText: "Fecha de nacimiento",
         ),
@@ -63,45 +69,61 @@ class SMForm extends StatelessWidget {
     );
   }
 
-  factory SMForm.signIn({required GlobalKey<FormState> formKey}) {
+  factory SMForm.signIn({
+    required GlobalKey<FormState> formKey,
+    required TextEditingController emailController,
+    required TextEditingController passwordController,
+  }) {
     return SMForm(
       formKey: formKey,
-      children: const [
+      children: [
         SMTextInput(
+          controller: emailController,
           labelText: "Email",
           validator: SMValidator.email,
         ),
-        SMGap.vertical(height: 24),
+        const SMGap.vertical(height: 24),
         SMPasswordInput(
+          controller: passwordController,
           labelText: "Contraseña",
         ),
       ],
     );
   }
 
-  factory SMForm.signUp({required GlobalKey<FormState> formKey}) {
+  factory SMForm.signUp({
+    required GlobalKey<FormState> formKey,
+    required TextEditingController emailController,
+    required TextEditingController passwordController,
+    required TextEditingController nameController,
+    required TextEditingController lastNameController,
+  }) {
     return SMForm(
       formKey: formKey,
-      children: const [
+      children: [
         SMTextInput(
+          controller: nameController,
           labelText: "Nombre",
           validator: SMValidator.required,
           hintText: "Ej: Juan",
         ),
-        SMGap.vertical(height: 24),
+        const SMGap.vertical(height: 24),
         SMTextInput(
+          controller: lastNameController,
           labelText: "Apellido",
           hintText: "Ej: Barcena",
           validator: SMValidator.required,
         ),
-        SMGap.vertical(height: 24),
+        const SMGap.vertical(height: 24),
         SMTextInput(
+          controller: emailController,
           labelText: "Email",
           validator: SMValidator.email,
           hintText: "Ej: juanbarcena@mail.com",
         ),
-        SMGap.vertical(height: 24),
+        const SMGap.vertical(height: 24),
         SMPasswordInput(
+          controller: passwordController,
           labelText: "Contraseña",
           hintText: "Ej: ABCD1234",
         ),

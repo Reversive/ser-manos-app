@@ -10,16 +10,17 @@ class SMPasswordInput extends HookWidget {
     this.hintText,
     required this.labelText,
     this.enabled = true,
+    required this.controller,
   });
 
   final String? hintText;
   final String labelText;
   final bool enabled;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     final passwordVisible = useState(false);
-    final TextEditingController controller = useTextEditingController();
 
     return BaseInput(
       controller: controller,
