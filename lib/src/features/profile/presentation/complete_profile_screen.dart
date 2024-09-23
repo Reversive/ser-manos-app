@@ -2,7 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
-import 'package:ser_manos/src/features/auth/domain/information.dart';
+import 'package:ser_manos/src/features/auth/models/information.dart';
 import 'package:ser_manos/src/features/profile/presentation/edit_profile_screen.dart';
 import 'package:ser_manos/src/shared/cells/cards/card.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';

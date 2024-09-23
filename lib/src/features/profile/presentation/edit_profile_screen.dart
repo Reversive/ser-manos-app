@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
-import 'package:ser_manos/src/features/profile/domain/gender.dart';
+import 'package:ser_manos/src/features/profile/models/gender.dart';
 import 'package:ser_manos/src/shared/cells/cards/card.dart';
 import 'package:ser_manos/src/shared/cells/headers/header.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';

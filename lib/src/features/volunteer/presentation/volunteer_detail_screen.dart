@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
-import 'package:ser_manos/src/features/profile/domain/location.dart';
+import 'package:ser_manos/src/features/profile/models/location.dart';
 import 'package:ser_manos/src/shared/cells/cards/card.dart';
 import 'package:ser_manos/src/shared/cells/headers/header.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';

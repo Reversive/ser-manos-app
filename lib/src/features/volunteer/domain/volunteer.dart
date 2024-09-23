@@ -1,4 +1,4 @@
-import 'package:ser_manos/src/features/profile/domain/location.dart';
+import 'package:ser_manos/src/features/profile/models/location.dart';
 
 final class Volunteer {
   final String imgURL;

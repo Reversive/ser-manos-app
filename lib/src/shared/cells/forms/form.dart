@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ser_manos/src/features/profile/domain/gender.dart';
+import 'package:ser_manos/src/features/profile/models/gender.dart';
 import 'package:ser_manos/src/shared/cells/cards/card.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/calendar_input.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/password_input.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ser_manos/src/features/news/domain/news.dart';
-import 'package:ser_manos/src/features/profile/domain/gender.dart';
+import 'package:ser_manos/src/features/profile/models/gender.dart';
 import 'package:ser_manos/src/features/volunteer/domain/volunteer.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
@@ -11,8 +11,8 @@ import 'package:ser_manos/src/shared/tokens/google_map.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/shadows.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
-import 'package:ser_manos/src/features/profile/domain/location.dart';
-import 'package:ser_manos/src/features/auth/domain/information.dart';
+import 'package:ser_manos/src/features/profile/models/location.dart';
+import 'package:ser_manos/src/features/auth/models/information.dart';
 
 class SMCard extends StatelessWidget {
   const SMCard({
