@@ -80,7 +80,10 @@ class VolunteerListScreen extends HookConsumerWidget {
         child: CircularProgressIndicator(),
       ),
       error: (error, _) => Center(
-        child: Text('Error: $error'),
+        child: SMTypography.body01(
+          'Error: $error',
+          color: SMColors.error100,
+        ),
       ),
     );
   }

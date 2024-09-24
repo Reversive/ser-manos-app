@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ser_manos/src/features/news/domain/news.dart';
+import 'package:ser_manos/src/features/news/models/news.dart';
 import 'package:ser_manos/src/features/profile/models/gender.dart';
 import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
@@ -250,7 +250,7 @@ class SMCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Image(
-              image: NetworkImage(news.imgURL),
+              image: NetworkImage(news.imageUrl),
               fit: BoxFit.cover,
               width: 118,
             ),

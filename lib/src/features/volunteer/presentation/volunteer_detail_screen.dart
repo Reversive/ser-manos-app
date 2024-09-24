@@ -100,7 +100,10 @@ class VolunteerDetailScreen extends HookConsumerWidget {
           child: CircularProgressIndicator(),
         ),
         error: (error, stackTrace) => Center(
-          child: Text('Error: $error'),
+          child: SMTypography.body01(
+            'Error: $error',
+            color: SMColors.error100,
+          ),
         ),
       ),
     );

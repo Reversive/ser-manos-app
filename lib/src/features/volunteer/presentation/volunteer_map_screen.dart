@@ -13,6 +13,7 @@ import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
 import 'package:ser_manos/src/shared/molecules/inputs/search_input.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/shared/tokens/gap.dart';
+import 'package:ser_manos/src/shared/tokens/typography.dart';
 import 'package:widget_to_marker/widget_to_marker.dart';
 
 class VolunteerMapScreen extends HookConsumerWidget {
@@ -181,7 +182,10 @@ class VolunteerMapScreen extends HookConsumerWidget {
         child: CircularProgressIndicator(),
       ),
       error: (error, stack) => Center(
-        child: Text('Error: $error'),
+        child: SMTypography.body01(
+          'Error: $error',
+          color: SMColors.error100,
+        ),
       ),
     );
   }
