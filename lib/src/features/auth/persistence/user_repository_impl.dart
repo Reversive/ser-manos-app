@@ -6,6 +6,8 @@ class UserRepositoryImpl implements UserRepository {
   const UserRepositoryImpl({required this.store});
   final FirebaseFirestore store;
 
+  static const String userCollection = 'users';
+
   @override
   Future<void> postUser(String uuid, String name, String surname) {
     User user = User(
@@ -13,7 +15,7 @@ class UserRepositoryImpl implements UserRepository {
       name: name,
       surname: surname,
     );
-    final ref = store.collection('users').doc(uuid);
+    final ref = store.collection(userCollection).doc(uuid);
     return ref.set(user.toJson());
   }
 }

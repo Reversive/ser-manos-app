@@ -12,7 +12,7 @@ part 'auth_provider.g.dart';
 @Riverpod(keepAlive: true)
 AuthRepository<UserCredential> authRepository(AuthRepositoryRef ref) {
   return AuthRepositoryImpl(
-    auth: ref.read(
+    auth: ref.watch(
       firebaseAuthProvider,
     ),
   );
@@ -21,10 +21,10 @@ AuthRepository<UserCredential> authRepository(AuthRepositoryRef ref) {
 @Riverpod(keepAlive: true)
 AuthService authService(AuthServiceRef ref) {
   return AuthServiceImpl(
-    authRepository: ref.read(
+    authRepository: ref.watch(
       authRepositoryProvider,
     ),
-    userService: ref.read(
+    userService: ref.watch(
       userServiceProvider,
     ),
   );

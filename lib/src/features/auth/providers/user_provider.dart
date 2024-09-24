@@ -9,7 +9,7 @@ part 'user_provider.g.dart';
 @Riverpod(keepAlive: true)
 UserRepository userRepository(UserRepositoryRef ref) {
   return UserRepositoryImpl(
-    store: ref.read(
+    store: ref.watch(
       firebaseFirestoreProvider,
     ),
   );
@@ -18,7 +18,7 @@ UserRepository userRepository(UserRepositoryRef ref) {
 @Riverpod(keepAlive: true)
 UserService userService(UserServiceRef ref) {
   return UserServiceImpl(
-    userRepository: ref.read(
+    userRepository: ref.watch(
       userRepositoryProvider,
     ),
   );

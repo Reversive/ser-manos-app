@@ -6,7 +6,7 @@ part of 'user_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userRepositoryHash() => r'2f4f28b5cc06cef5f578ff6eac0d203e3f87cd70';
+String _$userRepositoryHash() => r'9ee6323a43cb3dfbf05af101c0aa21c1402113b2';
 
 /// See also [userRepository].
 @ProviderFor(userRepository)
@@ -21,7 +21,7 @@ final userRepositoryProvider = Provider<UserRepository>.internal(
 );
 
 typedef UserRepositoryRef = ProviderRef<UserRepository>;
-String _$userServiceHash() => r'931b94b64dfd6c83f89da9786441b632cfc098b1';
+String _$userServiceHash() => r'e4e287889bc1149e7a3331b2a4f5dc14eefe9909';
 
 /// See also [userService].
 @ProviderFor(userService)

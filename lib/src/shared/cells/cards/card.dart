@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ser_manos/src/features/news/domain/news.dart';
 import 'package:ser_manos/src/features/profile/models/gender.dart';
-import 'package:ser_manos/src/features/volunteer/domain/volunteer.dart';
+import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
 import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
 import 'package:ser_manos/src/shared/molecules/components/component.dart';
@@ -26,7 +26,7 @@ class SMCard extends StatelessWidget {
 
   factory SMCard.currentVolunteer({
     Key? key,
-    required Volunteer volunteer,
+    required Volunteering volunteering,
   }) {
     return SMCard(
       decoration: BoxDecoration(
@@ -53,7 +53,7 @@ class SMCard extends StatelessWidget {
                     "ACCIÓN SOCIAL",
                     color: SMColors.neutral75,
                   ),
-                  SMTypography.subtitle01(volunteer.name),
+                  SMTypography.subtitle01(volunteering.name),
                 ],
               ),
             ),
@@ -362,7 +362,7 @@ class SMCard extends StatelessWidget {
 
   factory SMCard.volunteer({
     Key? key,
-    required Volunteer volunteer,
+    required Volunteering volunteer,
     EdgeInsetsGeometry? margin,
     void Function()? onTap,
   }) {
@@ -382,7 +382,7 @@ class SMCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(2),
             child: Image(
-              image: NetworkImage(volunteer.imgURL),
+              image: NetworkImage(volunteer.imageUrl),
               fit: BoxFit.cover,
               height: 138,
             ),
