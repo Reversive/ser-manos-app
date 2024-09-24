@@ -38,8 +38,8 @@ class WelcomeScreen extends StatelessWidget {
         SMFill.horizontal(
           child: SMButton.filled(
             "Comenzar",
-            onPressed: () => Beamer.of(context)
-                .beamToNamed(VolunteerScreen.route),
+            onPressed: () =>
+                Beamer.of(context).beamToNamed(VolunteerScreen.route),
           ),
         ),
         const Spacer(),

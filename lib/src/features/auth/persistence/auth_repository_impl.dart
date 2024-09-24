@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ser_manos/src/features/auth/interfaces/auth_repository.dart';
+import 'package:ser_manos/src/features/auth/models/auth_exception.dart';
 
 class AuthRepositoryImpl implements AuthRepository<UserCredential> {
   const AuthRepositoryImpl({required this.auth});
   final FirebaseAuth auth;
-  
+
   @override
   Future<void> signIn(
     String email,
@@ -16,7 +17,7 @@ class AuthRepositoryImpl implements AuthRepository<UserCredential> {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      throw Exception(translateErrorMessage(e));
+      throw AuthException(translateErrorMessage(e));
     }
   }
 
@@ -36,7 +37,7 @@ class AuthRepositoryImpl implements AuthRepository<UserCredential> {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      throw Exception(translateErrorMessage(e));
+      throw AuthException(translateErrorMessage(e));
     }
   }
 }
@@ -44,18 +45,10 @@ class AuthRepositoryImpl implements AuthRepository<UserCredential> {
 String translateErrorMessage(FirebaseAuthException e) {
   switch (e.code) {
     case 'email-already-in-use':
-      return 'Email already in use';
-    case 'invalid-email':
-      return 'Invalid email';
-    case 'operation-not-allowed':
-      return 'Operation not allowed';
+      return 'Email en uso';
     case 'weak-password':
-      return 'Weak password';
-    case 'user-not-found':
-      return 'User not found';
-    case 'wrong-password':
-      return 'Wrong password';
+      return 'Contraseña débil';
     default:
-      return 'An error occurred';
+      return '';
   }
 }

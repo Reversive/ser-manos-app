@@ -13,6 +13,7 @@ import 'package:ser_manos/src/shared/tokens/typography.dart';
 // TODO: Dynamically get the volunteer data from the API
 class VolunteerDetailScreen extends StatelessWidget {
   const VolunteerDetailScreen({super.key, required this.id});
+  static const String route = '/home/volunteers/:id';
 
   final String id;
 

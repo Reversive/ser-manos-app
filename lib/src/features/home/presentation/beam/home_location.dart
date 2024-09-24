@@ -68,6 +68,9 @@ class HomeLocation extends BeamLocation {
   List<Pattern> get pathPatterns => [
         VolunteerScreen.route,
         NewsScreen.route,
+        VolunteerDetailScreen.route,
+        NewsDetailScreen.route,
         ProfileScreen.route,
+        EditProfileScreen.route,
       ];
 }

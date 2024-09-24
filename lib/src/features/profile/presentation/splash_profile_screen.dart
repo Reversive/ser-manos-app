@@ -1,6 +1,8 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
+import 'package:ser_manos/src/features/auth/controllers/auth_controller.dart';
 import 'package:ser_manos/src/features/auth/presentation/splash_screen.dart';
 import 'package:ser_manos/src/features/profile/presentation/edit_profile_screen.dart';
 import 'package:ser_manos/src/shared/atoms/icon.dart';
@@ -10,11 +12,12 @@ import 'package:ser_manos/src/shared/tokens/gap.dart';
 import 'package:ser_manos/src/shared/tokens/grid.dart';
 import 'package:ser_manos/src/shared/tokens/typography.dart';
 
-class SplashProfileScreen extends StatelessWidget {
+class SplashProfileScreen extends HookConsumerWidget {
   const SplashProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authController = ref.read(authControllerProvider.notifier);
     return SMGrid(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -63,9 +66,10 @@ class SplashProfileScreen extends StatelessWidget {
               child: SMButton.text(
                 "Cerrar sesión",
                 color: SMColors.error100,
-                onPressed: () => Beamer.of(context)
-                    .beamToNamed(SplashScreen.route) // TODO: Logout
-                ,
+                onPressed: () {
+                  authController.signOut();
+                  Beamer.of(context).beamToNamed(SplashScreen.route);
+                },
               ),
             ),
           ),

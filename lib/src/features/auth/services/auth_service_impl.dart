@@ -12,7 +12,7 @@ class AuthServiceImpl implements AuthService {
   final UserService userService;
 
   @override
-  Future<void> signIn(String email, String password) async {
+  Future<void> signIn({required String email, required String password}) async {
     await authRepository.signIn(email, password);
   }
 
@@ -22,12 +22,12 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  Future<void> signUp(
-    String name,
-    String surname,
-    String email,
-    String password,
-  ) async {
+  Future<void> signUp({
+    required String name,
+    required String surname,
+    required String email,
+    required String password,
+  }) async {
     UserCredential credential = await authRepository.signUp(
       email,
       password,

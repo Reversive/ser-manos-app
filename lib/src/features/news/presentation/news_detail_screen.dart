@@ -10,6 +10,7 @@ import 'package:ser_manos/src/shared/tokens/typography.dart';
 
 class NewsDetailScreen extends StatelessWidget {
   const NewsDetailScreen({super.key, required this.id});
+  static const String route = '/home/news/:id';
 
   static const newsMock = News(
     imgURL:
