@@ -13,13 +13,15 @@ Raw<BeamerDelegate> routerDelegate(RouterDelegateRef ref) {
   final authGuard = ref.read(authGuardProvider);
   return BeamerDelegate(
     initialPath: "/splash",
-    locationBuilder: BeamerLocationBuilder(beamLocations: [
-      SplashLocation(),
-      WelcomeLocation(),
-      SignInLocation(),
-      SignUpLocation(),
-      HomeLocation(),
-    ]).call,
+    locationBuilder: BeamerLocationBuilder(
+      beamLocations: [
+        SplashLocation(),
+        WelcomeLocation(),
+        SignInLocation(),
+        SignUpLocation(),
+        HomeLocation(),
+      ],
+    ).call,
     guards: [
       authGuard,
     ],

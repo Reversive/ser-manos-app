@@ -48,7 +48,9 @@ String translateErrorMessage(FirebaseAuthException e) {
       return 'Email en uso';
     case 'weak-password':
       return 'Contraseña débil';
+    case 'user-not-found' || 'wrong-password' || 'invalid-credential':
+      return 'Usuario o contraseña incorrectos';
     default:
-      return '';
+      return 'Error desconocido ${e.code}';
   }
 }
