@@ -22,6 +22,7 @@ class BaseInput extends HookWidget {
   final FocusNode? focusNode;
   final bool obscureText;
   final bool shouldLoseFocusOnSuffixIconPressed;
+  final Function(String)? onChanged;
 
   const BaseInput({
     super.key,
@@ -40,6 +41,7 @@ class BaseInput extends HookWidget {
     this.focusNode,
     this.obscureText = false,
     this.shouldLoseFocusOnSuffixIconPressed = true,
+    this.onChanged,
   });
 
   @override
@@ -49,8 +51,9 @@ class BaseInput extends HookWidget {
     final isEmpty =
         useListenableSelector(controller, () => controller.text.isEmpty);
 
-    void onChanged(value) {
+    void onInputChanged(value) {
       validationFailed.value = validator(value) != null;
+      onChanged?.call(value);
     }
 
     IconButton? buildSuffixIcon(FocusNode focusNode) {
@@ -71,7 +74,7 @@ class BaseInput extends HookWidget {
                 if (shouldLoseFocusOnSuffixIconPressed) {
                   focusNode.unfocus();
                 }
-                onChanged(controller.text);
+                onInputChanged(controller.text);
               },
               icon: suffixIcon!,
             )
@@ -84,7 +87,7 @@ class BaseInput extends HookWidget {
                     if (shouldLoseFocusOnSuffixIconPressed) {
                       focusNode.unfocus();
                     }
-                    onChanged(controller.text);
+                    onInputChanged(controller.text);
                   },
                   icon: suffixIcon!,
                 )
@@ -120,7 +123,7 @@ class BaseInput extends HookWidget {
       controller: controller,
       enabled: enabled,
       focusNode: focusNode,
-      onChanged: onChanged,
+      onChanged: onInputChanged,
       validator: (value) => validator(value),
       textInputAction: TextInputAction.next,
       keyboardType: keyboardType,

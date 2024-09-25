@@ -9,14 +9,16 @@ import 'package:ser_manos/src/shared/tokens/typography.dart';
 class SMSearchInput extends HookWidget {
   const SMSearchInput({
     super.key,
+    this.onChanged,
     required this.onIconPressed,
     required this.suffixIcon,
     required this.controller,
   });
-
   final Function() onIconPressed;
   final IconData suffixIcon;
   final TextEditingController controller;
+  final Function(String)? onChanged;
+
   @override
   Widget build(BuildContext context) {
     final FocusNode focusNode = useFocusNode();
