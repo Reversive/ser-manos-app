@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ser_manos/src/core/providers/firebase_provider.dart';
+import 'package:ser_manos/src/features/profile/models/location.dart';
 import 'package:ser_manos/src/features/volunteer/interfaces/volunteering_repository.dart';
 import 'package:ser_manos/src/features/volunteer/interfaces/volunteering_service.dart';
 import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
@@ -23,8 +24,15 @@ VolunteeringService volunteeringService(VolunteeringServiceRef ref) {
 }
 
 @riverpod
-Future<List<Volunteering>> volunteeringList(VolunteeringListRef ref) {
-  return ref.watch(volunteeringServiceProvider).getVolunteerings();
+Future<List<Volunteering>> volunteeringList(
+  VolunteeringListRef ref,
+  Location? location,
+  String? search,
+) {
+  return ref.watch(volunteeringServiceProvider).getVolunteerings(
+        location,
+        search,
+      );
 }
 
 @riverpod

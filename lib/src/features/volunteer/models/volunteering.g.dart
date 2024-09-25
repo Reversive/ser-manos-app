@@ -21,6 +21,7 @@ _$VolunteeringImpl _$$VolunteeringImplFromJson(Map<String, dynamic> json) =>
           .map((e) => e as String)
           .toList(),
       vacancies: (json['vacancies'] as num).toInt(),
+      creationDate: (json['creationDate'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$VolunteeringImplToJson(_$VolunteeringImpl instance) =>
@@ -34,4 +35,5 @@ Map<String, dynamic> _$$VolunteeringImplToJson(_$VolunteeringImpl instance) =>
       'purpose': instance.purpose,
       'requirements': instance.requirements,
       'vacancies': instance.vacancies,
+      'creationDate': instance.creationDate,
     };

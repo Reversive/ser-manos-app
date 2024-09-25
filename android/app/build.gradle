@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "ar.edu.itba.sermanos"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 34
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

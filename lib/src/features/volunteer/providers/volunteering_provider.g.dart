@@ -39,24 +39,7 @@ final volunteeringServiceProvider = Provider<VolunteeringService>.internal(
 );
 
 typedef VolunteeringServiceRef = ProviderRef<VolunteeringService>;
-String _$volunteeringListHash() => r'8b36af926700c3fd8be84f4bf01c5bbaab383e1a';
-
-/// See also [volunteeringList].
-@ProviderFor(volunteeringList)
-final volunteeringListProvider =
-    AutoDisposeFutureProvider<List<Volunteering>>.internal(
-  volunteeringList,
-  name: r'volunteeringListProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$volunteeringListHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef VolunteeringListRef = AutoDisposeFutureProviderRef<List<Volunteering>>;
-String _$volunteeringDetailHash() =>
-    r'7e241273a389b07e81b64aeb2bad62a4ac4e4ab9';
+String _$volunteeringListHash() => r'08d8c360ded26f08c4eb5adf0299f0dc2ce4dd7a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -78,6 +61,154 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+/// See also [volunteeringList].
+@ProviderFor(volunteeringList)
+const volunteeringListProvider = VolunteeringListFamily();
+
+/// See also [volunteeringList].
+class VolunteeringListFamily extends Family<AsyncValue<List<Volunteering>>> {
+  /// See also [volunteeringList].
+  const VolunteeringListFamily();
+
+  /// See also [volunteeringList].
+  VolunteeringListProvider call(
+    Location? location,
+    String? search,
+  ) {
+    return VolunteeringListProvider(
+      location,
+      search,
+    );
+  }
+
+  @override
+  VolunteeringListProvider getProviderOverride(
+    covariant VolunteeringListProvider provider,
+  ) {
+    return call(
+      provider.location,
+      provider.search,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'volunteeringListProvider';
+}
+
+/// See also [volunteeringList].
+class VolunteeringListProvider
+    extends AutoDisposeFutureProvider<List<Volunteering>> {
+  /// See also [volunteeringList].
+  VolunteeringListProvider(
+    Location? location,
+    String? search,
+  ) : this._internal(
+          (ref) => volunteeringList(
+            ref as VolunteeringListRef,
+            location,
+            search,
+          ),
+          from: volunteeringListProvider,
+          name: r'volunteeringListProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$volunteeringListHash,
+          dependencies: VolunteeringListFamily._dependencies,
+          allTransitiveDependencies:
+              VolunteeringListFamily._allTransitiveDependencies,
+          location: location,
+          search: search,
+        );
+
+  VolunteeringListProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.location,
+    required this.search,
+  }) : super.internal();
+
+  final Location? location;
+  final String? search;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<Volunteering>> Function(VolunteeringListRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: VolunteeringListProvider._internal(
+        (ref) => create(ref as VolunteeringListRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        location: location,
+        search: search,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<Volunteering>> createElement() {
+    return _VolunteeringListProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is VolunteeringListProvider &&
+        other.location == location &&
+        other.search == search;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, location.hashCode);
+    hash = _SystemHash.combine(hash, search.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin VolunteeringListRef on AutoDisposeFutureProviderRef<List<Volunteering>> {
+  /// The parameter `location` of this provider.
+  Location? get location;
+
+  /// The parameter `search` of this provider.
+  String? get search;
+}
+
+class _VolunteeringListProviderElement
+    extends AutoDisposeFutureProviderElement<List<Volunteering>>
+    with VolunteeringListRef {
+  _VolunteeringListProviderElement(super.provider);
+
+  @override
+  Location? get location => (origin as VolunteeringListProvider).location;
+  @override
+  String? get search => (origin as VolunteeringListProvider).search;
+}
+
+String _$volunteeringDetailHash() =>
+    r'7e241273a389b07e81b64aeb2bad62a4ac4e4ab9';
 
 /// See also [volunteeringDetail].
 @ProviderFor(volunteeringDetail)

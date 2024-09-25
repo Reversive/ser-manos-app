@@ -1,4 +1,4 @@
-// import freezed lib
+import 'dart:math';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'location.freezed.dart';
 part 'location.g.dart';
@@ -26,5 +26,18 @@ class Location with _$Location {
       state: '',
       street: '',
     );
+  }
+}
+
+extension LocationDistance on Location {
+  double distanceTo(Location other) {
+    const p = 0.017453292519943295;
+    final a = 0.5 -
+        cos((other.lat - lat) * p) / 2 +
+        cos(lat * p) *
+            cos(other.lat * p) *
+            (1 - cos((other.lng - lng) * p)) /
+            2;
+    return 12742 * asin(sqrt(a));
   }
 }

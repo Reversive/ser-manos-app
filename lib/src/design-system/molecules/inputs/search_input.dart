@@ -34,6 +34,7 @@ class SMSearchInput extends HookWidget {
           onPressed: () {
             focusNode.unfocus();
             controller.clear();
+            onChanged?.call('');
           },
           icon: const SMIcon(
             icon: Icons.clear,
@@ -58,6 +59,7 @@ class SMSearchInput extends HookWidget {
       child: BaseInput(
         focusNode: focusNode,
         controller: controller,
+        onChanged: onChanged,
         validator: (value) => null,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 12),

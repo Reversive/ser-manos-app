@@ -15,9 +15,16 @@ class VolunteeringRepositoryImpl implements VolunteeringRepository {
           );
 
   @override
-  Future<List<Volunteering>> getVolunteerings() async {
+  Future<List<Volunteering>> getVolunteerings(String? search) async {
     final volunteerings = await queryVolunteerings().get();
-    return volunteerings.docs.map((doc) => doc.data()).toList();
+    search = search?.toLowerCase();
+    return volunteerings.docs
+        .map((document) => document.data())
+        .where((volunteering) => search == null ||
+            volunteering.name.toLowerCase().contains(search) ||
+            volunteering.about.toLowerCase().contains(search) ||
+            volunteering.purpose.toLowerCase().contains(search))
+        .toList();
   }
 
   @override

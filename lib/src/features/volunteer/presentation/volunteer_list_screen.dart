@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos/src/features/volunteer/controller/volunteering_search_controller.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
 import 'package:ser_manos/src/design-system/cells/cards/card.dart';
@@ -21,11 +22,12 @@ class VolunteerListScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchController = useTextEditingController();
-    final volunteerings = ref.watch(volunteeringListProvider);
+    final volunteerings = ref.watch(volunteeringSearchControllerProvider);
 
     return volunteerings.when(
       data: (volunteers) => RefreshIndicator(
-        onRefresh: () async => ref.refresh(volunteeringListProvider),
+        onRefresh: () async =>
+            ref.refresh(volunteeringSearchControllerProvider),
         color: SMColors.primary100,
         child: Material(
           color: SMColors.secondary10,
@@ -40,6 +42,9 @@ class VolunteerListScreen extends HookConsumerWidget {
                   controller: searchController,
                   onIconPressed: onIconPressed,
                   suffixIcon: Icons.map_outlined,
+                  onChanged: (value) => ref
+                      .read(volunteeringSearchControllerProvider.notifier)
+                      .search(searchController.text),
                 ),
                 const SMGap.vertical(
                   height: 24,

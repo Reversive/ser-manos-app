@@ -29,6 +29,7 @@ mixin _$Volunteering {
   String get purpose => throw _privateConstructorUsedError;
   List<String> get requirements => throw _privateConstructorUsedError;
   int get vacancies => throw _privateConstructorUsedError;
+  double get creationDate => throw _privateConstructorUsedError;
 
   /// Serializes this Volunteering to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,7 +56,8 @@ abstract class $VolunteeringCopyWith<$Res> {
       String name,
       String purpose,
       List<String> requirements,
-      int vacancies});
+      int vacancies,
+      double creationDate});
 
   $LocationCopyWith<$Res> get location;
 }
@@ -84,6 +86,7 @@ class _$VolunteeringCopyWithImpl<$Res, $Val extends Volunteering>
     Object? purpose = null,
     Object? requirements = null,
     Object? vacancies = null,
+    Object? creationDate = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -122,6 +125,10 @@ class _$VolunteeringCopyWithImpl<$Res, $Val extends Volunteering>
           ? _value.vacancies
           : vacancies // ignore: cast_nullable_to_non_nullable
               as int,
+      creationDate: null == creationDate
+          ? _value.creationDate
+          : creationDate // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 
@@ -153,7 +160,8 @@ abstract class _$$VolunteeringImplCopyWith<$Res>
       String name,
       String purpose,
       List<String> requirements,
-      int vacancies});
+      int vacancies,
+      double creationDate});
 
   @override
   $LocationCopyWith<$Res> get location;
@@ -181,6 +189,7 @@ class __$$VolunteeringImplCopyWithImpl<$Res>
     Object? purpose = null,
     Object? requirements = null,
     Object? vacancies = null,
+    Object? creationDate = null,
   }) {
     return _then(_$VolunteeringImpl(
       id: null == id
@@ -219,6 +228,10 @@ class __$$VolunteeringImplCopyWithImpl<$Res>
           ? _value.vacancies
           : vacancies // ignore: cast_nullable_to_non_nullable
               as int,
+      creationDate: null == creationDate
+          ? _value.creationDate
+          : creationDate // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -235,7 +248,8 @@ class _$VolunteeringImpl implements _Volunteering {
       required this.name,
       required this.purpose,
       required final List<String> requirements,
-      required this.vacancies})
+      required this.vacancies,
+      required this.creationDate})
       : _availability = availability,
         _requirements = requirements;
 
@@ -272,10 +286,12 @@ class _$VolunteeringImpl implements _Volunteering {
 
   @override
   final int vacancies;
+  @override
+  final double creationDate;
 
   @override
   String toString() {
-    return 'Volunteering(id: $id, about: $about, availability: $availability, imageUrl: $imageUrl, location: $location, name: $name, purpose: $purpose, requirements: $requirements, vacancies: $vacancies)';
+    return 'Volunteering(id: $id, about: $about, availability: $availability, imageUrl: $imageUrl, location: $location, name: $name, purpose: $purpose, requirements: $requirements, vacancies: $vacancies, creationDate: $creationDate)';
   }
 
   @override
@@ -296,7 +312,9 @@ class _$VolunteeringImpl implements _Volunteering {
             const DeepCollectionEquality()
                 .equals(other._requirements, _requirements) &&
             (identical(other.vacancies, vacancies) ||
-                other.vacancies == vacancies));
+                other.vacancies == vacancies) &&
+            (identical(other.creationDate, creationDate) ||
+                other.creationDate == creationDate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -311,7 +329,8 @@ class _$VolunteeringImpl implements _Volunteering {
       name,
       purpose,
       const DeepCollectionEquality().hash(_requirements),
-      vacancies);
+      vacancies,
+      creationDate);
 
   /// Create a copy of Volunteering
   /// with the given fields replaced by the non-null parameter values.
@@ -339,7 +358,8 @@ abstract class _Volunteering implements Volunteering {
       required final String name,
       required final String purpose,
       required final List<String> requirements,
-      required final int vacancies}) = _$VolunteeringImpl;
+      required final int vacancies,
+      required final double creationDate}) = _$VolunteeringImpl;
 
   factory _Volunteering.fromJson(Map<String, dynamic> json) =
       _$VolunteeringImpl.fromJson;
@@ -362,6 +382,8 @@ abstract class _Volunteering implements Volunteering {
   List<String> get requirements;
   @override
   int get vacancies;
+  @override
+  double get creationDate;
 
   /// Create a copy of Volunteering
   /// with the given fields replaced by the non-null parameter values.

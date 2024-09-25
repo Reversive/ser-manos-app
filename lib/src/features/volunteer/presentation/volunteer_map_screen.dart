@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos/src/features/volunteer/controller/volunteering_search_controller.dart';
 import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
@@ -37,7 +38,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
     final markers = useState(<Marker>{});
     final locationOn = useState(BitmapDescriptor.defaultMarker);
     final locationOnOutlined = useState(BitmapDescriptor.defaultMarker);
-    final volunteerings = ref.watch(volunteeringListProvider);
+    final volunteerings = ref.watch(volunteeringSearchControllerProvider);
 
     void onPageChanged(
       int index,
@@ -61,7 +62,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
       }).toSet();
     }
 
-    void initMarkers(List<Volunteering> volunteers) async {
+    void initMarkers() async {
       locationOn.value = await const SMIcon(
         size: 32,
         icon: Icons.location_on,
@@ -75,7 +76,15 @@ class VolunteerMapScreen extends HookConsumerWidget {
         activeColor: SMColors.secondary200,
         active: true,
       ).toBitmapDescriptor();
+    }
 
+    useEffect(() {
+      initMarkers();
+      return null;
+    }, const []);
+
+    volunteerings.whenData((volunteers) {
+      markers.value.clear();
       for (int i = 0; i < volunteers.length; i++) {
         final marker = Marker(
           markerId: MarkerId(volunteers[i].name),
@@ -85,16 +94,19 @@ class VolunteerMapScreen extends HookConsumerWidget {
           ),
           icon: i == 0 ? locationOn.value : locationOnOutlined.value,
         );
+
         markers.value.add(marker);
       }
-    }
 
-    useEffect(() {
-      volunteerings.whenData((volunteers) {
-        initMarkers(volunteers);
-      });
-      return null;
-    }, const []);
+      mapController.value!.animateCamera(
+        CameraUpdate.newLatLng(
+          LatLng(
+            volunteers[0].location.lat,
+            volunteers[0].location.lng,
+          ),
+        ),
+      );
+    });
 
     final TextEditingController searchController = useTextEditingController();
 
@@ -123,6 +135,9 @@ class VolunteerMapScreen extends HookConsumerWidget {
                   controller: searchController,
                   onIconPressed: onIconPressed,
                   suffixIcon: Icons.list,
+                  onChanged: (value) => ref
+                      .read(volunteeringSearchControllerProvider.notifier)
+                      .search(searchController.text),
                 ),
               ),
               Column(

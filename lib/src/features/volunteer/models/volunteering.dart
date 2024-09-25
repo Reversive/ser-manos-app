@@ -16,6 +16,7 @@ class Volunteering with _$Volunteering {
     required String purpose,
     required List<String> requirements,
     required int vacancies,
+    required double creationDate,
   }) = _Volunteering;
 
   factory Volunteering.fromJson(Map<String, dynamic> json) =>
