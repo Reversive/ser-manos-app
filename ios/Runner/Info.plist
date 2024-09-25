@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We use your location data to send you notifications when you check in to certain places to enhance your experience in our app.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Our app may also use your location in the background to send you timely notifications about important community alerts and updates relevant to your area, even when you're not actively using the app.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Our app uses your location to connect you with your local community, allowing you to discover nearby events, groups, and marketplace listings. For example, enabling location helps us show you the neighborhood happenings and items for sale in your vicinity.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
