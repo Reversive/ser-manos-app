@@ -7,7 +7,7 @@ class VolunteeringServiceImpl implements VolunteeringService {
   final VolunteeringRepository repository;
 
   @override
-  Stream<List<Volunteering>> getVolunteerings() {
+  Future<List<Volunteering>> getVolunteerings() {
     return repository.getVolunteerings();
   }
 

@@ -7,6 +7,18 @@ class VolunteeringRepositoryImpl implements VolunteeringRepository {
   final FirebaseFirestore store;
   static const String collectionName = 'volunteerings';
 
+  Query<Volunteering> queryVolunteerings() =>
+      store.collection(collectionName).withConverter<Volunteering>(
+            fromFirestore: (snapshot, _) => Volunteering.fromJson(snapshot.data()!),
+            toFirestore: (volunteering, _) => volunteering.toJson(),
+          );
+
+  @override
+  Future<List<Volunteering>> getVolunteerings() async {
+    final volunteerings = await queryVolunteerings().get();
+    return volunteerings.docs.map((doc) => doc.data()).toList();
+  }
+
   @override
   Future<Volunteering> getVolunteeringById(String id) async {
     final collection = store.collection(collectionName);
@@ -16,15 +28,5 @@ class VolunteeringRepositoryImpl implements VolunteeringRepository {
     }
     throw Exception('Volunteering not found');
   }
-
-  @override
-  Stream<List<Volunteering>> getVolunteerings() {
-    final snapshot = store.collection(collectionName).snapshots();
-
-    return snapshot.map(
-      (query) => [
-        for (final item in query.docs) Volunteering.fromJson(item.data()),
-      ],
-    );
-  }
 }
+

@@ -24,55 +24,59 @@ class VolunteerListScreen extends HookConsumerWidget {
     final volunteerings = ref.watch(volunteeringListProvider);
 
     return volunteerings.when(
-      data: (volunteers) => Material(
-        color: SMColors.secondary10,
-        child: SMGrid(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SMGap.vertical(
-                height: 24,
-              ),
-              SMSearchInput(
-                controller: searchController,
-                onIconPressed: onIconPressed,
-                suffixIcon: Icons.map_outlined,
-              ),
-              const SMGap.vertical(
-                height: 24,
-              ),
-              SMTypography.headline01(
-                "Voluntariados",
-                align: TextAlign.start,
-              ),
-              SizedBox(
-                height: volunteers.isEmpty ? 16 : 24,
-              ),
-              volunteers.isEmpty
-                  ? SMCard.noVolunteerings()
-                  : Expanded(
-                      child: ListView.separated(
-                        itemBuilder: (_, index) {
-                          return SMCard.volunteer(
-                            volunteer: volunteers[index],
-                            onTap: () {
-                              Beamer.of(context).beamToNamed(
-                                '${VolunteerScreen.route}?id=$index',
-                                beamBackOnPop: true,
-                              );
-                            },
-                          );
-                        },
-                        separatorBuilder: (context, index) =>
-                            const SMGap.vertical(
-                          height: 25,
+      data: (volunteers) => RefreshIndicator(
+        onRefresh: () async => ref.refresh(volunteeringListProvider),
+        color: SMColors.primary100,
+        child: Material(
+          color: SMColors.secondary10,
+          child: SMGrid(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SMGap.vertical(
+                  height: 24,
+                ),
+                SMSearchInput(
+                  controller: searchController,
+                  onIconPressed: onIconPressed,
+                  suffixIcon: Icons.map_outlined,
+                ),
+                const SMGap.vertical(
+                  height: 24,
+                ),
+                SMTypography.headline01(
+                  "Voluntariados",
+                  align: TextAlign.start,
+                ),
+                SizedBox(
+                  height: volunteers.isEmpty ? 16 : 24,
+                ),
+                volunteers.isEmpty
+                    ? SMCard.noVolunteerings()
+                    : Expanded(
+                        child: ListView.separated(
+                          itemBuilder: (_, index) {
+                            return SMCard.volunteer(
+                              volunteer: volunteers[index],
+                              onTap: () {
+                                Beamer.of(context).beamToNamed(
+                                  '${VolunteerScreen.route}?id=$index',
+                                  beamBackOnPop: true,
+                                );
+                              },
+                            );
+                          },
+                          separatorBuilder: (context, index) =>
+                              const SMGap.vertical(
+                            height: 25,
+                          ),
+                          itemCount: volunteers.length,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
                         ),
-                        itemCount: volunteers.length,
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
                       ),
-                    ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

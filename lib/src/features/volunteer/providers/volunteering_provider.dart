@@ -23,7 +23,7 @@ VolunteeringService volunteeringService(VolunteeringServiceRef ref) {
 }
 
 @riverpod
-Stream<List<Volunteering>> volunteeringList(VolunteeringListRef ref) {
+Future<List<Volunteering>> volunteeringList(VolunteeringListRef ref) {
   return ref.watch(volunteeringServiceProvider).getVolunteerings();
 }
 

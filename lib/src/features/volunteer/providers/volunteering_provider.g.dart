@@ -39,12 +39,12 @@ final volunteeringServiceProvider = Provider<VolunteeringService>.internal(
 );
 
 typedef VolunteeringServiceRef = ProviderRef<VolunteeringService>;
-String _$volunteeringListHash() => r'b7ff3b2501ff864e32288a4b450226b4bd246361';
+String _$volunteeringListHash() => r'8b36af926700c3fd8be84f4bf01c5bbaab383e1a';
 
 /// See also [volunteeringList].
 @ProviderFor(volunteeringList)
 final volunteeringListProvider =
-    AutoDisposeStreamProvider<List<Volunteering>>.internal(
+    AutoDisposeFutureProvider<List<Volunteering>>.internal(
   volunteeringList,
   name: r'volunteeringListProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -54,7 +54,7 @@ final volunteeringListProvider =
   allTransitiveDependencies: null,
 );
 
-typedef VolunteeringListRef = AutoDisposeStreamProviderRef<List<Volunteering>>;
+typedef VolunteeringListRef = AutoDisposeFutureProviderRef<List<Volunteering>>;
 String _$volunteeringDetailHash() =>
     r'7e241273a389b07e81b64aeb2bad62a4ac4e4ab9';
 
