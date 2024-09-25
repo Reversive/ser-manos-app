@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/features/news/providers/news_provider.dart';
-import 'package:ser_manos/src/shared/cells/cards/card.dart';
-import 'package:ser_manos/src/shared/tokens/gap.dart';
-import 'package:ser_manos/src/shared/tokens/grid.dart';
-import 'package:ser_manos/src/shared/tokens/typography.dart';
+import 'package:ser_manos/src/design-system/cells/cards/card.dart';
+import 'package:ser_manos/src/design-system/tokens/gap.dart';
+import 'package:ser_manos/src/design-system/tokens/grid.dart';
+import 'package:ser_manos/src/design-system/tokens/typography.dart';
 
 class NewsScreen extends HookConsumerWidget {
   static const String route = '/home/news';

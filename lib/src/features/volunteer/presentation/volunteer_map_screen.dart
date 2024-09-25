@@ -7,13 +7,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
-import 'package:ser_manos/src/shared/atoms/icon.dart';
-import 'package:ser_manos/src/shared/cells/cards/card.dart';
-import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
-import 'package:ser_manos/src/shared/molecules/inputs/search_input.dart';
+import 'package:ser_manos/src/design-system/atoms/icon.dart';
+import 'package:ser_manos/src/design-system/cells/cards/card.dart';
+import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
+import 'package:ser_manos/src/design-system/molecules/inputs/search_input.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
-import 'package:ser_manos/src/shared/tokens/gap.dart';
-import 'package:ser_manos/src/shared/tokens/typography.dart';
+import 'package:ser_manos/src/design-system/tokens/gap.dart';
+import 'package:ser_manos/src/design-system/tokens/typography.dart';
 import 'package:widget_to_marker/widget_to_marker.dart';
 
 class VolunteerMapScreen extends HookConsumerWidget {

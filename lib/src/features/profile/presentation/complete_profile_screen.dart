@@ -6,13 +6,13 @@ import 'package:ser_manos/src/features/auth/controllers/auth_controller.dart';
 import 'package:ser_manos/src/features/auth/models/information.dart';
 import 'package:ser_manos/src/features/auth/presentation/splash_screen.dart';
 import 'package:ser_manos/src/features/profile/presentation/edit_profile_screen.dart';
-import 'package:ser_manos/src/shared/cells/cards/card.dart';
-import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
-import 'package:ser_manos/src/shared/molecules/components/component.dart';
-import 'package:ser_manos/src/shared/tokens/fill.dart';
-import 'package:ser_manos/src/shared/tokens/gap.dart';
-import 'package:ser_manos/src/shared/tokens/grid.dart';
-import 'package:ser_manos/src/shared/tokens/typography.dart';
+import 'package:ser_manos/src/design-system/cells/cards/card.dart';
+import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
+import 'package:ser_manos/src/design-system/molecules/components/component.dart';
+import 'package:ser_manos/src/design-system/tokens/fill.dart';
+import 'package:ser_manos/src/design-system/tokens/gap.dart';
+import 'package:ser_manos/src/design-system/tokens/grid.dart';
+import 'package:ser_manos/src/design-system/tokens/typography.dart';
 
 class CompleteProfileScreen extends HookConsumerWidget {
   const CompleteProfileScreen({super.key});

@@ -16,4 +16,15 @@ class Location with _$Location {
 
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);
+
+  factory Location.fromCoords(double lat, double lng) {
+    return Location(
+      city: '',
+      lat: lat,
+      lng: lng,
+      number: 0,
+      state: '',
+      street: '',
+    );
+  }
 }

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/features/news/providers/news_provider.dart';
-import 'package:ser_manos/src/shared/cells/headers/header.dart';
-import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
-import 'package:ser_manos/src/shared/tokens/fill.dart';
-import 'package:ser_manos/src/shared/tokens/gap.dart';
-import 'package:ser_manos/src/shared/tokens/grid.dart';
-import 'package:ser_manos/src/shared/tokens/typography.dart';
+import 'package:ser_manos/src/design-system/cells/headers/header.dart';
+import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
+import 'package:ser_manos/src/design-system/tokens/fill.dart';
+import 'package:ser_manos/src/design-system/tokens/gap.dart';
+import 'package:ser_manos/src/design-system/tokens/grid.dart';
+import 'package:ser_manos/src/design-system/tokens/typography.dart';
 
 class NewsDetailScreen extends HookConsumerWidget {
   const NewsDetailScreen({super.key, required this.id});

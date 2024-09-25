@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos/src/features/news/presentation/news_screen.dart';
 import 'package:ser_manos/src/features/profile/presentation/profile_screen.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
-import 'package:ser_manos/src/shared/cells/headers/header.dart';
+import 'package:ser_manos/src/design-system/cells/headers/header.dart';
 
 class HomeScreen extends HookWidget {
   static const String route = '/home';

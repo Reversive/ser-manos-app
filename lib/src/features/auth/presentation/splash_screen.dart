@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:ser_manos/src/features/auth/presentation/base_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/sign_in_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/sign_up_screen.dart';
-import 'package:ser_manos/src/shared/atoms/logo.dart';
-import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
-import 'package:ser_manos/src/shared/tokens/fill.dart';
-import 'package:ser_manos/src/shared/tokens/gap.dart';
-import 'package:ser_manos/src/shared/tokens/typography.dart';
+import 'package:ser_manos/src/design-system/atoms/logo.dart';
+import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
+import 'package:ser_manos/src/design-system/tokens/fill.dart';
+import 'package:ser_manos/src/design-system/tokens/gap.dart';
+import 'package:ser_manos/src/design-system/tokens/typography.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String route = "/splash";

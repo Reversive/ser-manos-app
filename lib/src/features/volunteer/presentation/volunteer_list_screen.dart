@@ -4,12 +4,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
-import 'package:ser_manos/src/shared/cells/cards/card.dart';
-import 'package:ser_manos/src/shared/molecules/inputs/search_input.dart';
+import 'package:ser_manos/src/design-system/cells/cards/card.dart';
+import 'package:ser_manos/src/design-system/molecules/inputs/search_input.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
-import 'package:ser_manos/src/shared/tokens/gap.dart';
-import 'package:ser_manos/src/shared/tokens/grid.dart';
-import 'package:ser_manos/src/shared/tokens/typography.dart';
+import 'package:ser_manos/src/design-system/tokens/gap.dart';
+import 'package:ser_manos/src/design-system/tokens/grid.dart';
+import 'package:ser_manos/src/design-system/tokens/typography.dart';
 
 class VolunteerListScreen extends HookConsumerWidget {
   const VolunteerListScreen({

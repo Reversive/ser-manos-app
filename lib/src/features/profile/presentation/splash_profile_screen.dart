@@ -5,12 +5,12 @@ import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/features/auth/controllers/auth_controller.dart';
 import 'package:ser_manos/src/features/auth/presentation/splash_screen.dart';
 import 'package:ser_manos/src/features/profile/presentation/edit_profile_screen.dart';
-import 'package:ser_manos/src/shared/atoms/icon.dart';
-import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
-import 'package:ser_manos/src/shared/tokens/fill.dart';
-import 'package:ser_manos/src/shared/tokens/gap.dart';
-import 'package:ser_manos/src/shared/tokens/grid.dart';
-import 'package:ser_manos/src/shared/tokens/typography.dart';
+import 'package:ser_manos/src/design-system/atoms/icon.dart';
+import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
+import 'package:ser_manos/src/design-system/tokens/fill.dart';
+import 'package:ser_manos/src/design-system/tokens/gap.dart';
+import 'package:ser_manos/src/design-system/tokens/grid.dart';
+import 'package:ser_manos/src/design-system/tokens/typography.dart';
 
 class SplashProfileScreen extends HookConsumerWidget {
   const SplashProfileScreen({super.key});

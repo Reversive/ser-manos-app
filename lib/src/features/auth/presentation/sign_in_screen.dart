@@ -8,13 +8,13 @@ import 'package:ser_manos/src/features/auth/models/auth_state.dart';
 import 'package:ser_manos/src/features/auth/presentation/base_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/sign_up_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/welcome_screen.dart';
-import 'package:ser_manos/src/shared/atoms/logo.dart';
-import 'package:ser_manos/src/shared/cells/forms/form.dart';
-import 'package:ser_manos/src/shared/cells/headers/header.dart';
-import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
-import 'package:ser_manos/src/shared/tokens/fill.dart';
-import 'package:ser_manos/src/shared/tokens/gap.dart';
-import 'package:ser_manos/src/shared/tokens/typography.dart';
+import 'package:ser_manos/src/design-system/atoms/logo.dart';
+import 'package:ser_manos/src/design-system/cells/forms/form.dart';
+import 'package:ser_manos/src/design-system/cells/headers/header.dart';
+import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
+import 'package:ser_manos/src/design-system/tokens/fill.dart';
+import 'package:ser_manos/src/design-system/tokens/gap.dart';
+import 'package:ser_manos/src/design-system/tokens/typography.dart';
 
 class SignInScreen extends HookConsumerWidget {
   static const String route = "/sign-in";

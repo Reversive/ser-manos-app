@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/features/profile/models/gender.dart';
-import 'package:ser_manos/src/shared/cells/cards/card.dart';
-import 'package:ser_manos/src/shared/cells/headers/header.dart';
-import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
-import 'package:ser_manos/src/shared/molecules/inputs/calendar_input.dart';
-import 'package:ser_manos/src/shared/molecules/inputs/text_input.dart';
-import 'package:ser_manos/src/shared/molecules/inputs/validators/validator.dart';
-import 'package:ser_manos/src/shared/tokens/fill.dart';
-import 'package:ser_manos/src/shared/tokens/gap.dart';
-import 'package:ser_manos/src/shared/tokens/grid.dart';
-import 'package:ser_manos/src/shared/tokens/typography.dart';
+import 'package:ser_manos/src/design-system/cells/cards/card.dart';
+import 'package:ser_manos/src/design-system/cells/headers/header.dart';
+import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
+import 'package:ser_manos/src/design-system/molecules/inputs/calendar_input.dart';
+import 'package:ser_manos/src/design-system/molecules/inputs/text_input.dart';
+import 'package:ser_manos/src/design-system/molecules/inputs/validators/validator.dart';
+import 'package:ser_manos/src/design-system/tokens/fill.dart';
+import 'package:ser_manos/src/design-system/tokens/gap.dart';
+import 'package:ser_manos/src/design-system/tokens/grid.dart';
+import 'package:ser_manos/src/design-system/tokens/typography.dart';
 
 class EditProfileScreen extends HookWidget {
   static const String route = '/home/profile/edit';
