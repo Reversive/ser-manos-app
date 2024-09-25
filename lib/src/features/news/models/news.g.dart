@@ -13,6 +13,7 @@ _$NewsImpl _$$NewsImplFromJson(Map<String, dynamic> json) => _$NewsImpl(
       title: json['title'] as String,
       summary: json['summary'] as String,
       content: json['content'] as String,
+      createdAt: (json['createdAt'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$NewsImplToJson(_$NewsImpl instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$$NewsImplToJson(_$NewsImpl instance) =>
       'title': instance.title,
       'summary': instance.summary,
       'content': instance.content,
+      'createdAt': instance.createdAt,
     };

@@ -26,6 +26,7 @@ mixin _$News {
   String get title => throw _privateConstructorUsedError;
   String get summary => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
+  double get createdAt => throw _privateConstructorUsedError;
 
   /// Serializes this News to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +48,8 @@ abstract class $NewsCopyWith<$Res> {
       String source,
       String title,
       String summary,
-      String content});
+      String content,
+      double createdAt});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$NewsCopyWithImpl<$Res, $Val extends News>
     Object? title = null,
     Object? summary = null,
     Object? content = null,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -97,6 +100,10 @@ class _$NewsCopyWithImpl<$Res, $Val extends News>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -114,7 +121,8 @@ abstract class _$$NewsImplCopyWith<$Res> implements $NewsCopyWith<$Res> {
       String source,
       String title,
       String summary,
-      String content});
+      String content,
+      double createdAt});
 }
 
 /// @nodoc
@@ -135,6 +143,7 @@ class __$$NewsImplCopyWithImpl<$Res>
     Object? title = null,
     Object? summary = null,
     Object? content = null,
+    Object? createdAt = null,
   }) {
     return _then(_$NewsImpl(
       id: null == id
@@ -161,6 +170,10 @@ class __$$NewsImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -174,7 +187,8 @@ class _$NewsImpl implements _News {
       required this.source,
       required this.title,
       required this.summary,
-      required this.content});
+      required this.content,
+      required this.createdAt});
 
   factory _$NewsImpl.fromJson(Map<String, dynamic> json) =>
       _$$NewsImplFromJson(json);
@@ -191,10 +205,12 @@ class _$NewsImpl implements _News {
   final String summary;
   @override
   final String content;
+  @override
+  final double createdAt;
 
   @override
   String toString() {
-    return 'News(id: $id, imageUrl: $imageUrl, source: $source, title: $title, summary: $summary, content: $content)';
+    return 'News(id: $id, imageUrl: $imageUrl, source: $source, title: $title, summary: $summary, content: $content, createdAt: $createdAt)';
   }
 
   @override
@@ -208,13 +224,15 @@ class _$NewsImpl implements _News {
             (identical(other.source, source) || other.source == source) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.summary, summary) || other.summary == summary) &&
-            (identical(other.content, content) || other.content == content));
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, imageUrl, source, title, summary, content);
+  int get hashCode => Object.hash(
+      runtimeType, id, imageUrl, source, title, summary, content, createdAt);
 
   /// Create a copy of News
   /// with the given fields replaced by the non-null parameter values.
@@ -239,7 +257,8 @@ abstract class _News implements News {
       required final String source,
       required final String title,
       required final String summary,
-      required final String content}) = _$NewsImpl;
+      required final String content,
+      required final double createdAt}) = _$NewsImpl;
 
   factory _News.fromJson(Map<String, dynamic> json) = _$NewsImpl.fromJson;
 
@@ -255,6 +274,8 @@ abstract class _News implements News {
   String get summary;
   @override
   String get content;
+  @override
+  double get createdAt;
 
   /// Create a copy of News
   /// with the given fields replaced by the non-null parameter values.

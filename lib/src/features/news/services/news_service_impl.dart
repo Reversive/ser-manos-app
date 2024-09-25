@@ -7,8 +7,10 @@ class NewsServiceImpl implements NewsService {
   final NewsRepository repository;
 
   @override
-  Future<List<News>> getNews() {
-    return repository.getNews();
+  Future<List<News>> getNews() async {
+    final news = await repository.getNews();
+    news.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return news;
   }
 
   @override

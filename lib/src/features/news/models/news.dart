@@ -11,6 +11,7 @@ class News with _$News {
     required String title,
     required String summary,
     required String content,
+    required double createdAt,
   }) = _News;
 
   factory News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
