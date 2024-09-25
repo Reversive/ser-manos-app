@@ -363,6 +363,7 @@ class SMCard extends StatelessWidget {
   factory SMCard.volunteer({
     Key? key,
     required Volunteering volunteer,
+    required int vacancies,
     EdgeInsetsGeometry? margin,
     void Function()? onTap,
   }) {
@@ -407,7 +408,7 @@ class SMCard extends StatelessWidget {
                         height: 4,
                       ),
                       SMComponent.vacancy(
-                        vacancies: volunteer.vacancies,
+                        vacancies: vacancies,
                       ),
                     ],
                   ),

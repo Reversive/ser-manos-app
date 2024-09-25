@@ -206,5 +206,135 @@ class _VolunteeringDetailProviderElement
   @override
   String get id => (origin as VolunteeringDetailProvider).id;
 }
+
+String _$volunteeringVacanciesHash() =>
+    r'16781378a9e78bca73e2be2e4e2e7eb402d4965d';
+
+/// See also [volunteeringVacancies].
+@ProviderFor(volunteeringVacancies)
+const volunteeringVacanciesProvider = VolunteeringVacanciesFamily();
+
+/// See also [volunteeringVacancies].
+class VolunteeringVacanciesFamily extends Family<AsyncValue<int>> {
+  /// See also [volunteeringVacancies].
+  const VolunteeringVacanciesFamily();
+
+  /// See also [volunteeringVacancies].
+  VolunteeringVacanciesProvider call(
+    String id,
+  ) {
+    return VolunteeringVacanciesProvider(
+      id,
+    );
+  }
+
+  @override
+  VolunteeringVacanciesProvider getProviderOverride(
+    covariant VolunteeringVacanciesProvider provider,
+  ) {
+    return call(
+      provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'volunteeringVacanciesProvider';
+}
+
+/// See also [volunteeringVacancies].
+class VolunteeringVacanciesProvider extends AutoDisposeStreamProvider<int> {
+  /// See also [volunteeringVacancies].
+  VolunteeringVacanciesProvider(
+    String id,
+  ) : this._internal(
+          (ref) => volunteeringVacancies(
+            ref as VolunteeringVacanciesRef,
+            id,
+          ),
+          from: volunteeringVacanciesProvider,
+          name: r'volunteeringVacanciesProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$volunteeringVacanciesHash,
+          dependencies: VolunteeringVacanciesFamily._dependencies,
+          allTransitiveDependencies:
+              VolunteeringVacanciesFamily._allTransitiveDependencies,
+          id: id,
+        );
+
+  VolunteeringVacanciesProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
+  final String id;
+
+  @override
+  Override overrideWith(
+    Stream<int> Function(VolunteeringVacanciesRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: VolunteeringVacanciesProvider._internal(
+        (ref) => create(ref as VolunteeringVacanciesRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<int> createElement() {
+    return _VolunteeringVacanciesProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is VolunteeringVacanciesProvider && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin VolunteeringVacanciesRef on AutoDisposeStreamProviderRef<int> {
+  /// The parameter `id` of this provider.
+  String get id;
+}
+
+class _VolunteeringVacanciesProviderElement
+    extends AutoDisposeStreamProviderElement<int>
+    with VolunteeringVacanciesRef {
+  _VolunteeringVacanciesProviderElement(super.provider);
+
+  @override
+  String get id => (origin as VolunteeringVacanciesProvider).id;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

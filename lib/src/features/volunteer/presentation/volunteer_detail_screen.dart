@@ -84,7 +84,15 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                           items: volunteering.availability,
                         ),
                         const SMGap.vertical(height: 8),
-                        SMComponent.vacancy(vacancies: 10),
+                        SMComponent.vacancy(
+                            vacancies: ref
+                                .watch(volunteeringVacanciesProvider(
+                                    volunteering.id))
+                                .when(
+                                  data: (vacancies) => vacancies,
+                                  error: (e, s) => 0,
+                                  loading: () => 0,
+                                )),
                         const SMGap.vertical(height: 24),
                         SMFill.horizontal(
                           child: SMButton.filled(

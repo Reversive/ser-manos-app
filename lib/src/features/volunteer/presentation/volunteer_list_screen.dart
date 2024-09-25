@@ -64,6 +64,14 @@ class VolunteerListScreen extends HookConsumerWidget {
                                   beamBackOnPop: true,
                                 );
                               },
+                              vacancies: ref
+                                  .watch(volunteeringVacanciesProvider(
+                                      volunteers[index].id))
+                                  .when(
+                                    data: (vacancies) => vacancies,
+                                    error: (e, s) => 0,
+                                    loading: () => 0,
+                                  ),
                             );
                           },
                           separatorBuilder: (context, index) =>

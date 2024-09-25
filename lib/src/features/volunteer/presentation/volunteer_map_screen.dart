@@ -157,6 +157,14 @@ class VolunteerMapScreen extends HookConsumerWidget {
                                       '${VolunteerScreen.route}?id=${volunteers.indexOf(voluntary)}',
                                       beamBackOnPop: true,
                                     ),
+                                    vacancies: ref
+                                        .watch(volunteeringVacanciesProvider(
+                                            voluntary.id))
+                                        .when(
+                                          data: (vacancies) => vacancies,
+                                          error: (e, s) => 0,
+                                          loading: () => 0,
+                                        ),
                                   ),
                                 )
                                 .toList(),

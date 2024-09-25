@@ -31,3 +31,8 @@ Future<List<Volunteering>> volunteeringList(VolunteeringListRef ref) {
 Future<Volunteering> volunteeringDetail(VolunteeringDetailRef ref, String id) {
   return ref.watch(volunteeringServiceProvider).getVolunteeringById(id);
 }
+
+@riverpod
+Stream<int> volunteeringVacancies(VolunteeringVacanciesRef ref, String id) {
+  return ref.watch(volunteeringServiceProvider).getVacanciesStreamById(id);
+}

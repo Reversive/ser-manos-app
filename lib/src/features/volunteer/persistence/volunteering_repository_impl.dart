@@ -9,7 +9,8 @@ class VolunteeringRepositoryImpl implements VolunteeringRepository {
 
   Query<Volunteering> queryVolunteerings() =>
       store.collection(collectionName).withConverter<Volunteering>(
-            fromFirestore: (snapshot, _) => Volunteering.fromJson(snapshot.data()!),
+            fromFirestore: (snapshot, _) =>
+                Volunteering.fromJson(snapshot.data()!),
             toFirestore: (volunteering, _) => volunteering.toJson(),
           );
 
@@ -28,5 +29,13 @@ class VolunteeringRepositoryImpl implements VolunteeringRepository {
     }
     throw Exception('Volunteering not found');
   }
-}
 
+  @override
+  Stream<int> getVacanciesStreamById(String id) {
+    final collection = store.collection(collectionName);
+    final document = collection.doc(id);
+    return document.snapshots().map(
+          (snapshot) => Volunteering.fromJson(snapshot.data()!).vacancies,
+        );
+  }
+}

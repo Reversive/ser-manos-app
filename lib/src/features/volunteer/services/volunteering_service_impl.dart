@@ -15,4 +15,9 @@ class VolunteeringServiceImpl implements VolunteeringService {
   Future<Volunteering> getVolunteeringById(String id) {
     return repository.getVolunteeringById(id);
   }
+  
+  @override
+  Stream<int> getVacanciesStreamById(String id) {
+    return repository.getVacanciesStreamById(id);
+  }
 }
