@@ -5,7 +5,7 @@ part 'news.g.dart';
 @freezed
 class News with _$News {
   const factory News({
-    required int? id,
+    required String id,
     required String imageUrl,
     required String source,
     required String title,

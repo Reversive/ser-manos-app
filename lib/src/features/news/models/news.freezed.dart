@@ -20,7 +20,7 @@ News _$NewsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$News {
-  int? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   String get source => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $NewsCopyWith<$Res> {
       _$NewsCopyWithImpl<$Res, News>;
   @useResult
   $Res call(
-      {int? id,
+      {String id,
       String imageUrl,
       String source,
       String title,
@@ -65,7 +65,7 @@ class _$NewsCopyWithImpl<$Res, $Val extends News>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? imageUrl = null,
     Object? source = null,
     Object? title = null,
@@ -73,10 +73,10 @@ class _$NewsCopyWithImpl<$Res, $Val extends News>
     Object? content = null,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String,
       imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -109,7 +109,7 @@ abstract class _$$NewsImplCopyWith<$Res> implements $NewsCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String id,
       String imageUrl,
       String source,
       String title,
@@ -129,7 +129,7 @@ class __$$NewsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? imageUrl = null,
     Object? source = null,
     Object? title = null,
@@ -137,10 +137,10 @@ class __$$NewsImplCopyWithImpl<$Res>
     Object? content = null,
   }) {
     return _then(_$NewsImpl(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String,
       imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -180,7 +180,7 @@ class _$NewsImpl implements _News {
       _$$NewsImplFromJson(json);
 
   @override
-  final int? id;
+  final String id;
   @override
   final String imageUrl;
   @override
@@ -234,7 +234,7 @@ class _$NewsImpl implements _News {
 
 abstract class _News implements News {
   const factory _News(
-      {required final int? id,
+      {required final String id,
       required final String imageUrl,
       required final String source,
       required final String title,
@@ -244,7 +244,7 @@ abstract class _News implements News {
   factory _News.fromJson(Map<String, dynamic> json) = _$NewsImpl.fromJson;
 
   @override
-  int? get id;
+  String get id;
   @override
   String get imageUrl;
   @override

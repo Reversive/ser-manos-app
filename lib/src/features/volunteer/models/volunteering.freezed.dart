@@ -20,7 +20,7 @@ Volunteering _$VolunteeringFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Volunteering {
-  int? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get about => throw _privateConstructorUsedError;
   List<String> get availability => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
@@ -47,7 +47,7 @@ abstract class $VolunteeringCopyWith<$Res> {
       _$VolunteeringCopyWithImpl<$Res, Volunteering>;
   @useResult
   $Res call(
-      {int? id,
+      {String id,
       String about,
       List<String> availability,
       String imageUrl,
@@ -75,7 +75,7 @@ class _$VolunteeringCopyWithImpl<$Res, $Val extends Volunteering>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? about = null,
     Object? availability = null,
     Object? imageUrl = null,
@@ -86,10 +86,10 @@ class _$VolunteeringCopyWithImpl<$Res, $Val extends Volunteering>
     Object? vacancies = null,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String,
       about: null == about
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
@@ -145,7 +145,7 @@ abstract class _$$VolunteeringImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String id,
       String about,
       List<String> availability,
       String imageUrl,
@@ -172,7 +172,7 @@ class __$$VolunteeringImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? about = null,
     Object? availability = null,
     Object? imageUrl = null,
@@ -183,10 +183,10 @@ class __$$VolunteeringImplCopyWithImpl<$Res>
     Object? vacancies = null,
   }) {
     return _then(_$VolunteeringImpl(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String,
       about: null == about
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
@@ -243,7 +243,7 @@ class _$VolunteeringImpl implements _Volunteering {
       _$$VolunteeringImplFromJson(json);
 
   @override
-  final int? id;
+  final String id;
   @override
   final String about;
   final List<String> _availability;
@@ -331,7 +331,7 @@ class _$VolunteeringImpl implements _Volunteering {
 
 abstract class _Volunteering implements Volunteering {
   const factory _Volunteering(
-      {required final int? id,
+      {required final String id,
       required final String about,
       required final List<String> availability,
       required final String imageUrl,
@@ -345,7 +345,7 @@ abstract class _Volunteering implements Volunteering {
       _$VolunteeringImpl.fromJson;
 
   @override
-  int? get id;
+  String get id;
   @override
   String get about;
   @override

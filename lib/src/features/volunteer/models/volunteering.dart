@@ -7,7 +7,7 @@ part 'volunteering.g.dart';
 @freezed
 class Volunteering with _$Volunteering {
   const factory Volunteering({
-    required int? id,
+    required String id,
     required String about,
     required List<String> availability,
     required String imageUrl,

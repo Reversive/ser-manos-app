@@ -8,7 +8,7 @@ part of 'volunteering.dart';
 
 _$VolunteeringImpl _$$VolunteeringImplFromJson(Map<String, dynamic> json) =>
     _$VolunteeringImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String,
       about: json['about'] as String,
       availability: (json['availability'] as List<dynamic>)
           .map((e) => e as String)

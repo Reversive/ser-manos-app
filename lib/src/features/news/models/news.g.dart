@@ -7,7 +7,7 @@ part of 'news.dart';
 // **************************************************************************
 
 _$NewsImpl _$$NewsImplFromJson(Map<String, dynamic> json) => _$NewsImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String,
       imageUrl: json['imageUrl'] as String,
       source: json['source'] as String,
       title: json['title'] as String,
