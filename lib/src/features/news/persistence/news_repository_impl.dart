@@ -5,8 +5,13 @@ import 'package:ser_manos/src/features/news/models/news.dart';
 class NewsRepositoryImpl implements NewsRepository {
   const NewsRepositoryImpl({required this.source});
   final FirebaseFirestore source;
-
   static const String collectionName = 'news';
+
+  Query<News> queryNews() =>
+      source.collection(collectionName).withConverter<News>(
+            fromFirestore: (snapshot, _) => News.fromJson(snapshot.data()!),
+            toFirestore: (news, _) => news.toJson(),
+          );
 
   @override
   Future<News> getNewsById(String id) async {
@@ -19,13 +24,8 @@ class NewsRepositoryImpl implements NewsRepository {
   }
 
   @override
-  Stream<List<News>> getNews() {
-    final snapshot = source.collection(collectionName).snapshots();
-
-    return snapshot.map(
-      (query) => [
-        for (final item in query.docs) News.fromJson(item.data()),
-      ],
-    );
+  Future<List<News>> getNews() async {
+    final news = await queryNews().get();
+    return news.docs.map((doc) => doc.data()).toList();
   }
 }

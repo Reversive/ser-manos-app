@@ -7,7 +7,7 @@ class NewsServiceImpl implements NewsService {
   final NewsRepository repository;
 
   @override
-  Stream<List<News>> getNews() {
+  Future<List<News>> getNews() {
     return repository.getNews();
   }
 

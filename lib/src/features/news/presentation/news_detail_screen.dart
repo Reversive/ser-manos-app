@@ -22,51 +22,55 @@ class NewsDetailScreen extends HookConsumerWidget {
       appBar: SMHeader.section(subtitle: "Novedades"),
       backgroundColor: SMColors.neutral0,
       body: newsDetail.when(
-        data: (news) => Padding(
-          padding: const EdgeInsets.only(top: 24),
-          child: SMGrid(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SMTypography.overline(
-                    news.source.toUpperCase(),
-                    color: SMColors.neutral75,
-                  ),
-                  SMTypography.headline02(news.title),
-                  const SMGap.vertical(height: 16),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: Image.network(
-                      news.imageUrl,
-                      fit: BoxFit.fitWidth,
+        data: (news) => RefreshIndicator(
+          onRefresh: () async => ref.refresh(newsDetailProvider(id)),
+          color: SMColors.primary100,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 24),
+            child: SMGrid(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SMTypography.overline(
+                      news.source.toUpperCase(),
+                      color: SMColors.neutral75,
                     ),
-                  ),
-                  const SMGap.vertical(height: 16),
-                  SMTypography.subtitle01(
-                    news.summary,
-                    color: SMColors.secondary200,
-                  ),
-                  const SMGap.vertical(height: 16),
-                  SMTypography.body01(news.content),
-                  const SMGap.vertical(height: 16),
-                  Align(
-                    alignment: Alignment.center,
-                    child: SMTypography.headline02("Comparte esta nota"),
-                  ),
-                  const SMGap.vertical(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 32),
-                    child: SMFill.horizontal(
-                      child: SMButton.filled(
-                        "Compartir",
-                        onPressed: () {
-                          // TODO: implement share functionality
-                        },
+                    SMTypography.headline02(news.title),
+                    const SMGap.vertical(height: 16),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: Image.network(
+                        news.imageUrl,
+                        fit: BoxFit.fitWidth,
                       ),
                     ),
-                  )
-                ],
+                    const SMGap.vertical(height: 16),
+                    SMTypography.subtitle01(
+                      news.summary,
+                      color: SMColors.secondary200,
+                    ),
+                    const SMGap.vertical(height: 16),
+                    SMTypography.body01(news.content),
+                    const SMGap.vertical(height: 16),
+                    Align(
+                      alignment: Alignment.center,
+                      child: SMTypography.headline02("Comparte esta nota"),
+                    ),
+                    const SMGap.vertical(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 32),
+                      child: SMFill.horizontal(
+                        child: SMButton.filled(
+                          "Compartir",
+                          onPressed: () {
+                            // TODO: implement share functionality
+                          },
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

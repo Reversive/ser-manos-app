@@ -18,7 +18,7 @@ NewsService newsService(NewsServiceRef ref) {
 }
 
 @riverpod
-Stream<List<News>> newsList(NewsListRef ref) {
+Future<List<News>> newsList(NewsListRef ref) {
   return ref.watch(newsServiceProvider).getNews();
 }
 

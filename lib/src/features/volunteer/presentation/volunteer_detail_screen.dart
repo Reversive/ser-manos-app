@@ -27,73 +27,77 @@ class VolunteerDetailScreen extends HookConsumerWidget {
       appBar: SMHeader.transparent(),
       backgroundColor: SMColors.neutral0,
       body: volunteeringDetail.when(
-        data: (volunteering) => SingleChildScrollView(
-          child: Column(
-            children: [
-              SMFill.horizontal(
-                child: Image.network(
-                  volunteering.imageUrl,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SMGrid(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 24,
-                    bottom: 32,
+        data: (volunteering) => RefreshIndicator(
+          onRefresh: () async => ref.refresh(volunteeringDetailProvider(id)),
+          color: SMColors.primary100,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SMFill.horizontal(
+                  child: Image.network(
+                    volunteering.imageUrl,
+                    fit: BoxFit.cover,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SMTypography.overline(
-                        "ACCIÓN SOCIAL",
-                        color: SMColors.neutral75,
-                      ),
-                      SMTypography.headline01(volunteering.name),
-                      const SMGap.vertical(height: 16),
-                      SMTypography.body01(
-                        volunteering.purpose,
-                        color: SMColors.secondary200,
-                      ),
-                      const SMGap.vertical(height: 24),
-                      SMTypography.headline02("Sobre la actividad"),
-                      const SMGap.vertical(height: 8),
-                      SMTypography.body01(
-                        volunteering.about,
-                      ),
-                      const SMGap.vertical(height: 24),
-                      SMCard.location(
-                        hasEmbeddedMap: true,
-                        location: volunteering.location,
-                      ),
-                      const SMGap.vertical(height: 32),
-                      SMTypography.headline02("Participar del voluntariado"),
-                      const SMGap.vertical(height: 8),
-                      SMTypography.subtitle01("Requisitos"),
-                      const SMGap.vertical(height: 8),
-                      SMComponent.bulletList(
-                        items: volunteering.requirements,
-                      ),
-                      const SMGap.vertical(height: 8),
-                      SMTypography.subtitle01("Dispobilidad"),
-                      const SMGap.vertical(height: 8),
-                      SMComponent.bulletList(
-                        items: volunteering.availability,
-                      ),
-                      const SMGap.vertical(height: 8),
-                      SMComponent.vacancy(vacancies: 10),
-                      const SMGap.vertical(height: 24),
-                      SMFill.horizontal(
-                        child: SMButton.filled(
-                          "Postularme",
-                          onPressed: () {},
+                ),
+                SMGrid(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 24,
+                      bottom: 32,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SMTypography.overline(
+                          "ACCIÓN SOCIAL",
+                          color: SMColors.neutral75,
                         ),
-                      ),
-                    ],
+                        SMTypography.headline01(volunteering.name),
+                        const SMGap.vertical(height: 16),
+                        SMTypography.body01(
+                          volunteering.purpose,
+                          color: SMColors.secondary200,
+                        ),
+                        const SMGap.vertical(height: 24),
+                        SMTypography.headline02("Sobre la actividad"),
+                        const SMGap.vertical(height: 8),
+                        SMTypography.body01(
+                          volunteering.about,
+                        ),
+                        const SMGap.vertical(height: 24),
+                        SMCard.location(
+                          hasEmbeddedMap: true,
+                          location: volunteering.location,
+                        ),
+                        const SMGap.vertical(height: 32),
+                        SMTypography.headline02("Participar del voluntariado"),
+                        const SMGap.vertical(height: 8),
+                        SMTypography.subtitle01("Requisitos"),
+                        const SMGap.vertical(height: 8),
+                        SMComponent.bulletList(
+                          items: volunteering.requirements,
+                        ),
+                        const SMGap.vertical(height: 8),
+                        SMTypography.subtitle01("Dispobilidad"),
+                        const SMGap.vertical(height: 8),
+                        SMComponent.bulletList(
+                          items: volunteering.availability,
+                        ),
+                        const SMGap.vertical(height: 8),
+                        SMComponent.vacancy(vacancies: 10),
+                        const SMGap.vertical(height: 24),
+                        SMFill.horizontal(
+                          child: SMButton.filled(
+                            "Postularme",
+                            onPressed: () {},
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         loading: () => const Center(

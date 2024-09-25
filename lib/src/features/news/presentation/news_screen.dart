@@ -17,26 +17,30 @@ class NewsScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final newsList = ref.watch(newsListProvider);
     return newsList.when(
-      data: (news) => Material(
-        color: SMColors.secondary10,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 16,
-          ),
-          child: SMGrid(
-            child: ListView.separated(
-              itemBuilder: (context, index) {
-                return SMCard.news(
-                  news: news[index],
-                  onPressed: () => Beamer.of(context).beamToNamed(
-                    "${NewsScreen.route}?id=$index",
-                    beamBackOnPop: true,
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) =>
-                  const SMGap.vertical(height: 24),
-              itemCount: news.length,
+      data: (news) => RefreshIndicator(
+        onRefresh: () async => ref.refresh(newsListProvider),
+        color: SMColors.primary100,
+        child: Material(
+          color: SMColors.secondary10,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 16,
+            ),
+            child: SMGrid(
+              child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return SMCard.news(
+                    news: news[index],
+                    onPressed: () => Beamer.of(context).beamToNamed(
+                      "${NewsScreen.route}?id=$index",
+                      beamBackOnPop: true,
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) =>
+                    const SMGap.vertical(height: 24),
+                itemCount: news.length,
+              ),
             ),
           ),
         ),

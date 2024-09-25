@@ -35,11 +35,11 @@ final newsServiceProvider = Provider<NewsService>.internal(
 );
 
 typedef NewsServiceRef = ProviderRef<NewsService>;
-String _$newsListHash() => r'63018ae487ffba54fe2a21f626294b3bedd30253';
+String _$newsListHash() => r'59996897e2a266bfae6e80b1746c7945639adc45';
 
 /// See also [newsList].
 @ProviderFor(newsList)
-final newsListProvider = AutoDisposeStreamProvider<List<News>>.internal(
+final newsListProvider = AutoDisposeFutureProvider<List<News>>.internal(
   newsList,
   name: r'newsListProvider',
   debugGetCreateSourceHash:
@@ -48,7 +48,7 @@ final newsListProvider = AutoDisposeStreamProvider<List<News>>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef NewsListRef = AutoDisposeStreamProviderRef<List<News>>;
+typedef NewsListRef = AutoDisposeFutureProviderRef<List<News>>;
 String _$newsDetailHash() => r'daf5584fcd60faa3643cbe39ce8137d54f4bfa18';
 
 /// Copied from Dart SDK
