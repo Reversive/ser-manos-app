@@ -7,7 +7,6 @@ import 'package:ser_manos/src/features/auth/controllers/auth_controller.dart';
 import 'package:ser_manos/src/features/auth/models/auth_state.dart';
 import 'package:ser_manos/src/features/auth/presentation/base_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/sign_up_screen.dart';
-import 'package:ser_manos/src/features/auth/presentation/welcome_screen.dart';
 import 'package:ser_manos/src/design-system/atoms/logo.dart';
 import 'package:ser_manos/src/design-system/cells/forms/form.dart';
 import 'package:ser_manos/src/design-system/cells/headers/header.dart';
@@ -15,6 +14,7 @@ import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
 import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 
 class SignInScreen extends HookConsumerWidget {
   static const String route = "/sign-in";
@@ -43,7 +43,7 @@ class SignInScreen extends HookConsumerWidget {
         );
         if (!context.mounted) return;
         if (!authState.value.isAuthenticated) return;
-        Beamer.of(context).beamToNamed(WelcomeScreen.route);
+        Beamer.of(context).beamToNamed(VolunteerScreen.route);
       }
     }
 
@@ -67,12 +67,14 @@ class SignInScreen extends HookConsumerWidget {
           ...authState.value.maybeWhen(
             loading: () => [
               const Spacer(),
+              const SMGap.vertical(height: 16),
               const Center(
                 child: CircularProgressIndicator(),
               ),
             ],
             unauthenticated: (message) => [
               const Spacer(),
+              const SMGap.vertical(height: 16),
               Center(
                 child: SMTypography.body02(
                   message ?? "",

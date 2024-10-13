@@ -27,6 +27,7 @@ class SplashScreen extends StatelessWidget {
             const SMGap.vertical(height: 32),
             SMTypography.subtitle01(
               "“El esfuerzo desinteresado para llevar alegría a los demás será el comienzo de una vida más feliz para nosotros”",
+              align: TextAlign.center,
             ),
           ],
         ),
@@ -36,7 +37,8 @@ class SplashScreen extends StatelessWidget {
             SMFill.horizontal(
               child: SMButton.filled(
                 "Iniciar Sesión",
-                onPressed: () => Beamer.of(context).beamToNamed(SignInScreen.route),
+                onPressed: () =>
+                    Beamer.of(context).beamToNamed(SignInScreen.route),
               ),
             ),
             const SMGap.vertical(
@@ -45,7 +47,8 @@ class SplashScreen extends StatelessWidget {
             SMFill.horizontal(
               child: SMButton.text(
                 "Registrarse",
-                onPressed: () => Beamer.of(context).beamToNamed(SignUpScreen.route),
+                onPressed: () =>
+                    Beamer.of(context).beamToNamed(SignUpScreen.route),
               ),
             ),
             const SMGap.vertical(
