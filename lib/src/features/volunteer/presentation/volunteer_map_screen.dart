@@ -5,7 +5,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos/src/features/volunteer/controller/volunteering_search_controller.dart';
-import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
 import 'package:ser_manos/src/design-system/atoms/icon.dart';
@@ -39,28 +38,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
     final locationOn = useState(BitmapDescriptor.defaultMarker);
     final locationOnOutlined = useState(BitmapDescriptor.defaultMarker);
     final volunteerings = ref.watch(volunteeringSearchControllerProvider);
-
-    void onPageChanged(
-      int index,
-      CarouselPageChangedReason reason,
-      List<Volunteering> volunteers,
-    ) {
-      final voluntary = volunteers[index];
-      final marker = markers.value.firstWhere(
-        (element) => element.markerId.value == voluntary.name,
-      );
-
-      mapController.value!.animateCamera(
-        CameraUpdate.newLatLng(marker.position),
-      );
-
-      markers.value = markers.value.map((e) {
-        if (e.markerId.value == voluntary.name) {
-          return e.copyWith(iconParam: locationOn.value);
-        }
-        return e.copyWith(iconParam: locationOnOutlined.value);
-      }).toSet();
-    }
+    final currentIndex = useState(0);
 
     void initMarkers() async {
       locationOn.value = await const SMIcon(
@@ -83,30 +61,36 @@ class VolunteerMapScreen extends HookConsumerWidget {
       return null;
     }, const []);
 
-    volunteerings.whenData((volunteers) {
-      markers.value.clear();
-      for (int i = 0; i < volunteers.length; i++) {
-        final marker = Marker(
-          markerId: MarkerId(volunteers[i].name),
-          position: LatLng(
-            volunteers[i].location.lat,
-            volunteers[i].location.lng,
+    volunteerings.whenData(
+      (volunteers) {
+        markers.value.clear();
+        currentIndex.value = currentIndex.value > volunteers.length - 1
+            ? volunteers.length - 1
+            : currentIndex.value;
+        for (int i = 0; i < volunteers.length; i++) {
+          final marker = Marker(
+            markerId: MarkerId(volunteers[i].name),
+            position: LatLng(
+              volunteers[i].location.lat,
+              volunteers[i].location.lng,
+            ),
+            icon: i == currentIndex.value
+                ? locationOn.value
+                : locationOnOutlined.value,
+          );
+          markers.value.add(marker);
+        }
+
+        mapController.value!.animateCamera(
+          CameraUpdate.newLatLng(
+            LatLng(
+              volunteers[currentIndex.value].location.lat,
+              volunteers[currentIndex.value].location.lng,
+            ),
           ),
-          icon: i == 0 ? locationOn.value : locationOnOutlined.value,
         );
-
-        markers.value.add(marker);
-      }
-
-      mapController.value!.animateCamera(
-        CameraUpdate.newLatLng(
-          LatLng(
-            volunteers[0].location.lat,
-            volunteers[0].location.lng,
-          ),
-        ),
-      );
-    });
+      },
+    );
 
     final TextEditingController searchController = useTextEditingController();
 
@@ -187,11 +171,8 @@ class VolunteerMapScreen extends HookConsumerWidget {
                               enableInfiniteScroll: false,
                               height: 236,
                               viewportFraction: 0.87,
-                              onPageChanged: (index, reason) => onPageChanged(
-                                index,
-                                reason,
-                                volunteers,
-                              ),
+                              onPageChanged: (index, reason) =>
+                                  currentIndex.value = index,
                             ),
                           ),
                   ),
