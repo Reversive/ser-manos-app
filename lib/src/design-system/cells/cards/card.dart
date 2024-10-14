@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ser_manos/src/features/news/models/news.dart';
 import 'package:ser_manos/src/features/profile/models/gender.dart';
 import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
@@ -321,6 +322,7 @@ class SMCard extends StatelessWidget {
   factory SMCard.profile({
     Key? key,
     ImageProvider? image,
+    required void Function(XFile? image) onImagePicked,
   }) {
     return SMCard(
       padding: const EdgeInsets.symmetric(
@@ -343,14 +345,14 @@ class SMCard extends StatelessWidget {
               if (image != null)
                 SMButton.shortSmall(
                   "Cambiar foto",
-                  onPressed: () => {},
+                  onPressed: () => _selectImage(onImagePicked),
                 ),
             ],
           ),
           image == null
               ? SMButton.shortSmall(
                   "Subir foto",
-                  onPressed: () => {},
+                  onPressed: () => _selectImage(onImagePicked),
                 )
               : SMComponent.profilePictureSmall(
                   image: image,
@@ -454,5 +456,15 @@ class SMCard extends StatelessWidget {
         child: child,
       ),
     );
+  }
+}
+
+void _selectImage(void Function(XFile? image) onImagePicked) async {
+  final ImagePicker picker = ImagePicker();
+  final XFile? image = await picker.pickImage(
+    source: ImageSource.gallery,
+  );
+  if (image != null) {
+    onImagePicked(image);
   }
 }

@@ -1,6 +1,12 @@
+import 'dart:io';
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
+import 'package:ser_manos/src/features/auth/providers/auth_provider.dart';
+import 'package:ser_manos/src/features/auth/providers/user_provider.dart';
 import 'package:ser_manos/src/features/profile/models/gender.dart';
 import 'package:ser_manos/src/design-system/cells/cards/card.dart';
 import 'package:ser_manos/src/design-system/cells/headers/header.dart';
@@ -12,8 +18,9 @@ import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/grid.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:ser_manos/src/features/profile/presentation/profile_screen.dart';
 
-class EditProfileScreen extends HookWidget {
+class EditProfileScreen extends HookConsumerWidget {
   static const String route = '/home/profile/edit';
   static const String routeName = 'profile_edit';
   EditProfileScreen({super.key});
@@ -21,12 +28,23 @@ class EditProfileScreen extends HookWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isFormValid = useState(false);
     final currentGender = useState(Gender.male);
     final dateController = useTextEditingController();
     final phoneController = useTextEditingController();
     final emailController = useTextEditingController();
+    final imageProvider = useState(null as ImageProvider?);
+    final image = useState(null as XFile?);
+    final userService = ref.watch(userServiceProvider);
+    final currentUser = ref.watch(currentUserProvider);
+
+    void onImagePicked(XFile? file) {
+      if (file != null) {
+        imageProvider.value = Image.file(File(file.path)).image;
+        image.value = file;
+      }
+    }
 
     return Scaffold(
       appBar: SMHeader.modal(),
@@ -57,7 +75,10 @@ class EditProfileScreen extends HookWidget {
                         currentGender.value = value ?? Gender.male,
                   ),
                   const SMGap.vertical(height: 24),
-                  SMCard.profile(),
+                  SMCard.profile(
+                    onImagePicked: onImagePicked,
+                    image: imageProvider.value,
+                  ),
                   const SMGap.vertical(height: 32),
                   SMTypography.headline01("Datos de contacto"),
                   const SMGap.vertical(height: 24),
@@ -82,7 +103,18 @@ class EditProfileScreen extends HookWidget {
                   SMFill.horizontal(
                     child: SMButton.filled(
                       "Guardar datos",
-                      onPressed: () {},
+                      onPressed: () async {
+                        currentUser.whenData((user) async {
+                          await userService.updateUser(
+                              user.uuid,
+                              image.value,
+                              dateController.text,
+                              currentGender.value,
+                              phoneController.text,
+                              emailController.text);
+                        });
+                        Beamer.of(context).beamBack();
+                      },
                       disabled: !isFormValid.value,
                     ),
                   ),

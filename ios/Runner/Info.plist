@@ -10,6 +10,15 @@
 	<string>Our app uses your location to connect you with your local community, allowing you to discover nearby events, groups, and marketplace listings. For example, enabling location helps us show you the neighborhood happenings and items for sale in your vicinity.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need photo library permission to select your profile picture</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need camera permission to take your profile picture</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need micrphone permission to take your profile picture</string>
+
+
 	<key>CFBundleDisplayName</key>
 	<string>Ser Manos</string>
 	<key>CFBundleExecutable</key>

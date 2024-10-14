@@ -1,14 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:ser_manos/src/features/auth/interfaces/auth_repository.dart';
 import 'package:ser_manos/src/features/auth/interfaces/auth_service.dart';
 import 'package:ser_manos/src/features/auth/interfaces/user_service.dart';
+import 'package:ser_manos/src/features/auth/models/user.dart';
 
 class AuthServiceImpl implements AuthService {
   const AuthServiceImpl({
     required this.authRepository,
     required this.userService,
   });
-  final AuthRepository<UserCredential> authRepository;
+  final AuthRepository<fb.UserCredential> authRepository;
   final UserService userService;
 
   @override
@@ -28,7 +29,7 @@ class AuthServiceImpl implements AuthService {
     required String email,
     required String password,
   }) async {
-    UserCredential credential = await authRepository.signUp(
+    fb.UserCredential credential = await authRepository.signUp(
       email,
       password,
     );
@@ -37,5 +38,10 @@ class AuthServiceImpl implements AuthService {
       name,
       surname,
     );
+  }
+
+  @override
+  Future<User> getCurrentUser() {
+    return authRepository.getCurrentUser();
   }
 }

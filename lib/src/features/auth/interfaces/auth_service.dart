@@ -1,3 +1,5 @@
+import 'package:ser_manos/src/features/auth/models/user.dart';
+
 abstract interface class AuthService {
   Future<void> signIn({
     required String email,
@@ -10,4 +12,5 @@ abstract interface class AuthService {
     required String password,
   });
   Future<void> signOut();
+  Future<User> getCurrentUser();
 }

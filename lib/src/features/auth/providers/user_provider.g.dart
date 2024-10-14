@@ -21,7 +21,7 @@ final userRepositoryProvider = Provider<UserRepository>.internal(
 );
 
 typedef UserRepositoryRef = ProviderRef<UserRepository>;
-String _$userServiceHash() => r'e4e287889bc1149e7a3331b2a4f5dc14eefe9909';
+String _$userServiceHash() => r'f9ecb70611589c4f2c92535e53a2a571f8cf905a';
 
 /// See also [userService].
 @ProviderFor(userService)

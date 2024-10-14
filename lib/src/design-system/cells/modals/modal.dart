@@ -8,7 +8,7 @@ import 'package:ser_manos/src/design-system/tokens/typography.dart';
 class SMModal extends Dialog {
   SMModal({
     super.key,
-    required String subtitle,
+    String? subtitle,
     required String title,
     required String cancelText,
     required String confirmText,
@@ -27,8 +27,8 @@ class SMModal extends Dialog {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SMTypography.subtitle01(subtitle),
                 SMTypography.headline02(title),
+                if (subtitle != null) SMTypography.subtitle01(subtitle),
                 const SMGap.vertical(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
