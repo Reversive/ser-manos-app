@@ -45,6 +45,19 @@ class EditProfileScreen extends HookConsumerWidget {
       }
     }
 
+    currentUser.whenData((user) {
+      if (dateController.text.isEmpty) {
+        dateController.text = user.birthdate!;
+      }
+      if (phoneController.text.isEmpty) {
+        phoneController.text = user.phone!;
+      }
+      if (emailController.text.isEmpty) {
+        emailController.text = user.email!;
+      }
+      imageProvider.value ??= NetworkImage(user.image!);
+    });
+
     return Scaffold(
       appBar: SMHeader.modal(),
       backgroundColor: SMColors.neutral0,
