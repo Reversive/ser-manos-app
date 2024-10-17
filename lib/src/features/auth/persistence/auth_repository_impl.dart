@@ -45,7 +45,7 @@ class AuthRepositoryImpl implements AuthRepository<fb.UserCredential> {
   }
 
   @override
-  Future<User> getCurrentUser() {
+  Stream<User> getCurrentUser() {
     final user = auth.currentUser;
     if (user == null) {
       throw Exception('User not found');
@@ -53,14 +53,8 @@ class AuthRepositoryImpl implements AuthRepository<fb.UserCredential> {
     return store
         .collection('users')
         .doc(user.uid)
-        .get()
-        .then((snapshot) {
-      if (snapshot.exists) {
-        return User.fromJson(snapshot.data()!);
-      } else {
-        throw Exception('User not found');
-      }
-    });
+        .snapshots()
+        .map((snapshot) => User.fromJson(snapshot.data()!));
   }
 }
 

@@ -12,5 +12,5 @@ abstract interface class AuthService {
     required String password,
   });
   Future<void> signOut();
-  Future<User> getCurrentUser();
+  Stream<User> getCurrentUser();
 }

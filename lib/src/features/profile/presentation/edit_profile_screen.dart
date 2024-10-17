@@ -18,7 +18,6 @@ import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/grid.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
-import 'package:ser_manos/src/features/profile/presentation/profile_screen.dart';
 
 class EditProfileScreen extends HookConsumerWidget {
   static const String route = '/home/profile/edit';

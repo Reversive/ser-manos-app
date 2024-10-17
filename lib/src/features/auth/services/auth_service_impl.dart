@@ -41,7 +41,7 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  Future<User> getCurrentUser() {
+  Stream<User> getCurrentUser() {
     return authRepository.getCurrentUser();
   }
 }

@@ -7,5 +7,5 @@ abstract interface class AuthRepository<T> {
     String password,
   );
   Future<void> signOut();
-  Future<User> getCurrentUser();
+  Stream<User> getCurrentUser();
 }

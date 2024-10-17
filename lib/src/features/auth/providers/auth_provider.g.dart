@@ -36,11 +36,11 @@ final authServiceProvider = Provider<AuthService>.internal(
 );
 
 typedef AuthServiceRef = ProviderRef<AuthService>;
-String _$currentUserHash() => r'47e399e418fae7833a419b040f4e2c43fd0c2afd';
+String _$currentUserHash() => r'ddef7e7a64f06e04c38c5e82442570f79ce3c4ca';
 
 /// See also [currentUser].
 @ProviderFor(currentUser)
-final currentUserProvider = AutoDisposeFutureProvider<sm.User>.internal(
+final currentUserProvider = AutoDisposeStreamProvider<sm.User>.internal(
   currentUser,
   name: r'currentUserProvider',
   debugGetCreateSourceHash:
@@ -49,6 +49,6 @@ final currentUserProvider = AutoDisposeFutureProvider<sm.User>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef CurrentUserRef = AutoDisposeFutureProviderRef<sm.User>;
+typedef CurrentUserRef = AutoDisposeStreamProviderRef<sm.User>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

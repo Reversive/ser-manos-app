@@ -35,6 +35,6 @@ AuthService authService(AuthServiceRef ref) {
 }
 
 @riverpod
-Future<sm.User> currentUser(CurrentUserRef ref) {
+Stream<sm.User> currentUser(CurrentUserRef ref) {
   return ref.watch(authServiceProvider).getCurrentUser();
 }
