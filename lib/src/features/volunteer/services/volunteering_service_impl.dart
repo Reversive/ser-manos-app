@@ -8,9 +8,9 @@ class VolunteeringServiceImpl implements VolunteeringService {
   final VolunteeringRepository repository;
 
   @override
-  Future<List<Volunteering>> getVolunteerings(Location? location, String? search) async {
+  Future<List<Volunteering>> getVolunteerings(
+      Location? location, String? search) async {
     final volunteerings = await repository.getVolunteerings(search);
-  
     volunteerings.sort((a, b) {
       if (location == null) {
         return b.creationDate.compareTo(a.creationDate);
@@ -22,7 +22,7 @@ class VolunteeringServiceImpl implements VolunteeringService {
       }
       return distanceA.compareTo(distanceB);
     });
-    
+
     return volunteerings;
   }
 
@@ -30,7 +30,7 @@ class VolunteeringServiceImpl implements VolunteeringService {
   Future<Volunteering> getVolunteeringById(String id) {
     return repository.getVolunteeringById(id);
   }
-  
+
   @override
   Stream<int> getVacanciesStreamById(String id) {
     return repository.getVacanciesStreamById(id);

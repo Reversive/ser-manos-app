@@ -4,17 +4,17 @@ import 'package:ser_manos/src/features/profile/models/location.dart';
 
 class LocationRepositoryImpl implements LocationRepository {
   @override
-  Future<Location> getCurrentLocation() async {
+  Future<Location?> getCurrentLocation() async {
     try {
       gl.LocationPermission permission = await _checkPermission();
       if (permission == gl.LocationPermission.denied ||
           permission == gl.LocationPermission.deniedForever) {
-        return Future.error("Permission denied");
+        return null;
       }
       gl.Position? position = await gl.Geolocator.getCurrentPosition();
       return Location.fromCoords(position.latitude, position.longitude);
     } catch (e) {
-      return Future.error(e);
+      return null;
     }
   }
 

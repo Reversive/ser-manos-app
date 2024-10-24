@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:ser_manos/src/core/providers/location_provider.dart';
 import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
 part 'volunteering_search_controller.g.dart';
-
-// TODO: Add location provider
 
 @riverpod
 class VolunteeringSearchController extends _$VolunteeringSearchController {
@@ -18,10 +17,11 @@ class VolunteeringSearchController extends _$VolunteeringSearchController {
         _debounce!.cancel();
       }
     });
-
+    final locationRepo = ref.read(locationRepositoryProvider);
+    final location = await locationRepo.getCurrentLocation();
     return await ref
         .read(volunteeringServiceProvider)
-        .getVolunteerings(null, null);
+        .getVolunteerings(location, null);
   }
 
   Future<void> search(String? search) async {
@@ -32,9 +32,11 @@ class VolunteeringSearchController extends _$VolunteeringSearchController {
     _debounce = Timer(
       const Duration(milliseconds: 300),
       () async {
+        final locationRepo = ref.read(locationRepositoryProvider);
+        final location = await locationRepo.getCurrentLocation();
         state = await AsyncValue.guard(() => ref
             .read(volunteeringServiceProvider)
-            .getVolunteerings(null, search));
+            .getVolunteerings(location, search));
       },
     );
   }

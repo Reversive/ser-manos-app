@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos/src/core/providers/location_provider.dart';
 import 'package:ser_manos/src/features/volunteer/controller/volunteering_search_controller.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
@@ -39,6 +40,16 @@ class VolunteerMapScreen extends HookConsumerWidget {
     final locationOnOutlined = useState(BitmapDescriptor.defaultMarker);
     final volunteerings = ref.watch(volunteeringSearchControllerProvider);
     final currentIndex = useState(0);
+    final currentLocationData = ref.watch(currentLocationProvider);
+    final currentLocation =
+        useState(const LatLng(-34.62283169075434, -58.44644063941437));
+
+    currentLocationData.whenData(
+      (currLocation) {
+        if (currLocation == null) return;
+        currentLocation.value = LatLng(currLocation.lat, currLocation.lng);
+      },
+    );
 
     void initMarkers() async {
       locationOn.value = await const SMIcon(
@@ -100,6 +111,8 @@ class VolunteerMapScreen extends HookConsumerWidget {
           GoogleMap(
             initialCameraPosition: _initialPosition,
             zoomControlsEnabled: false,
+            myLocationEnabled: true,
+            myLocationButtonEnabled: false,
             zoomGesturesEnabled: false,
             markers: markers.value,
             onMapCreated: (controller) {
@@ -133,7 +146,11 @@ class VolunteerMapScreen extends HookConsumerWidget {
                     ),
                     child: SMButton.floating(
                       icon: Icons.near_me,
-                      onPressed: () => {},
+                      onPressed: () => {
+                        mapController.value!.animateCamera(
+                          CameraUpdate.newLatLng(currentLocation.value),
+                        ),
+                      },
                     ),
                   ),
                   const SMGap.vertical(

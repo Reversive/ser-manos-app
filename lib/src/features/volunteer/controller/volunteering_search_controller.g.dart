@@ -7,7 +7,7 @@ part of 'volunteering_search_controller.dart';
 // **************************************************************************
 
 String _$volunteeringSearchControllerHash() =>
-    r'e59f2b09d68e3eec8dec946d2f39ae4024c53238';
+    r'df8399bb4ce1e079a20198adc1ea904afc62c165';
 
 /// See also [VolunteeringSearchController].
 @ProviderFor(VolunteeringSearchController)
