@@ -34,6 +34,9 @@ dependencies:
   hooks_riverpod: ^2.5.2
   geolocator: ^13.0.1
   image_picker: ^1.0.0
+  share_plus: ^10.1.1
+  path_provider: ^2.1.4
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:

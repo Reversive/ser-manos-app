@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/features/news/providers/news_provider.dart';
 import 'package:ser_manos/src/design-system/cells/headers/header.dart';
@@ -8,6 +11,8 @@ import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/grid.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:http/http.dart' as http;
 
 class NewsDetailScreen extends HookConsumerWidget {
   const NewsDetailScreen({super.key, required this.id});
@@ -17,6 +22,15 @@ class NewsDetailScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final newsDetail = ref.watch(newsDetailProvider(id));
+
+    Future<XFile> getImageFileFromUrl(String url) async {
+      var response = await http.get(Uri.parse(url));
+      final documentDirectory = (await getApplicationDocumentsDirectory()).path;
+      File file = File(
+          '$documentDirectory/${DateTime.now().millisecondsSinceEpoch}.png');
+      file.writeAsBytesSync(response.bodyBytes);
+      return XFile(file.path);
+    }
 
     return Scaffold(
       appBar: SMHeader.section(subtitle: "Novedades"),
@@ -63,8 +77,13 @@ class NewsDetailScreen extends HookConsumerWidget {
                       child: SMFill.horizontal(
                         child: SMButton.filled(
                           "Compartir",
-                          onPressed: () {
-                            // TODO: implement share functionality
+                          onPressed: () async {
+                            final img =
+                                await getImageFileFromUrl(news.imageUrl);
+                            Share.shareXFiles(
+                              [img],
+                              text: news.summary,
+                            );
                           },
                         ),
                       ),
