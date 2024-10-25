@@ -5,7 +5,7 @@ import 'package:ser_manos/src/features/news/interfaces/news_service.dart';
 import 'package:ser_manos/src/features/news/models/news.dart';
 import 'package:ser_manos/src/features/news/persistence/news_repository_impl.dart';
 import 'package:ser_manos/src/features/news/services/news_service_impl.dart';
-part 'news_provider.g.dart';
+part 'generated/news_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 NewsRepository newsRepository(NewsRepositoryRef ref) {

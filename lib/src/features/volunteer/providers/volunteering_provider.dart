@@ -7,7 +7,7 @@ import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 import 'package:ser_manos/src/features/volunteer/persistence/volunteering_repository_impl.dart';
 import 'package:ser_manos/src/features/volunteer/services/volunteering_service_impl.dart';
 
-part 'volunteering_provider.g.dart';
+part 'generated/volunteering_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 VolunteeringRepository volunteeringRepository(VolunteeringRepositoryRef ref) {

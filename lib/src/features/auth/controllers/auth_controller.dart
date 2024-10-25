@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ser_manos/src/features/auth/models/auth_state.dart';
 import 'package:ser_manos/src/features/auth/providers/auth_provider.dart';
-part 'auth_controller.g.dart';
+part 'generated/auth_controller.g.dart';
 
 @Riverpod(keepAlive: true)
 class AuthController extends _$AuthController {

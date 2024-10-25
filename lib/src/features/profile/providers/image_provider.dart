@@ -4,7 +4,7 @@ import 'package:ser_manos/src/features/profile/interfaces/image_repository.dart'
 import 'package:ser_manos/src/features/profile/interfaces/image_service.dart';
 import 'package:ser_manos/src/features/profile/persistence/image_repository_impl.dart';
 import 'package:ser_manos/src/features/profile/services/image_service_impl.dart';
-part 'image_provider.g.dart';
+part 'generated/image_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 ImageRepository imageRepository(ImageRepositoryRef ref) {

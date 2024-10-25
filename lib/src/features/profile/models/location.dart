@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'location.freezed.dart';
-part 'location.g.dart';
+part 'generated/location.freezed.dart';
+part 'generated/location.g.dart';
 
 @freezed
 class Location with _$Location {

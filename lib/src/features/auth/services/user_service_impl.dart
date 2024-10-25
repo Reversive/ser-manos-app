@@ -6,8 +6,7 @@ import 'package:ser_manos/src/features/profile/models/gender.dart';
 
 class UserServiceImpl implements UserService {
   const UserServiceImpl(
-      {required this.userRepository,
-      required this.imageService});
+      {required this.userRepository, required this.imageService});
   final UserRepository userRepository;
   final ImageService imageService;
 
@@ -17,12 +16,21 @@ class UserServiceImpl implements UserService {
   }
 
   @override
-  Future<void> updateUser(String uuid, XFile? image, String birthdate, Gender gender,
-      String phone, String email) async {
-    final imageUrl = image != null
-        ? await imageService.postProfileImage(uuid, image)
-        : null;
+  Future<void> updateUser(String uuid, XFile? image, String birthdate,
+      Gender gender, String phone, String email) async {
+    final imageUrl =
+        image != null ? await imageService.postProfileImage(uuid, image) : null;
     return userRepository.updateUser(
         uuid, imageUrl, birthdate, gender, phone, email);
+  }
+
+  @override
+  Future<void> removeFavoriteVolunteering(String uuid, String volunteeringId) {
+    return userRepository.removeFavoriteVolunteering(uuid, volunteeringId);
+  }
+
+  @override
+  Future<void> setFavoriteVolunteering(String uuid, String volunteeringId) {
+    return userRepository.setFavoriteVolunteering(uuid, volunteeringId);
   }
 }

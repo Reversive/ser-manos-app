@@ -141,3 +141,6 @@ app.*.symbols
 
 android/app/src/main/res/values/keys.xml
 ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/APIKey.plist
+
+# Generated files
+lib/**/generated

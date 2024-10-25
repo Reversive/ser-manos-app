@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'news.freezed.dart';
-part 'news.g.dart';
+part 'generated/news.freezed.dart';
+part 'generated/news.g.dart';
 
 @freezed
 class News with _$News {

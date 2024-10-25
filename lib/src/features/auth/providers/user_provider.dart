@@ -5,7 +5,7 @@ import 'package:ser_manos/src/features/auth/persistence/user_repository_impl.dar
 import 'package:ser_manos/src/core/providers/firebase_provider.dart';
 import 'package:ser_manos/src/features/auth/services/user_service_impl.dart';
 import 'package:ser_manos/src/features/profile/providers/image_provider.dart';
-part 'user_provider.g.dart';
+part 'generated/user_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 UserRepository userRepository(UserRepositoryRef ref) {

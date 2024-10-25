@@ -6,7 +6,7 @@ import 'package:ser_manos/src/features/auth/presentation/welcome_screen.dart';
 import 'package:ser_manos/src/features/home/presentation/home_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'auth.g.dart';
+part 'generated/auth.g.dart';
 
 @Riverpod(keepAlive: true)
 BeamGuard authGuard(AuthGuardRef ref) {

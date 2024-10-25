@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ser_manos/src/core/providers/location_provider.dart';
 import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
-part 'volunteering_search_controller.g.dart';
+part 'generated/volunteering_search_controller.g.dart';
 
 @riverpod
 class VolunteeringSearchController extends _$VolunteeringSearchController {

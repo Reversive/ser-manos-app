@@ -1,8 +1,8 @@
 import 'package:ser_manos/src/features/profile/models/location.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'volunteering.freezed.dart';
-part 'volunteering.g.dart';
+part 'generated/volunteering.freezed.dart';
+part 'generated/volunteering.g.dart';
 
 @freezed
 class Volunteering with _$Volunteering {

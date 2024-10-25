@@ -8,7 +8,7 @@ import 'package:ser_manos/src/features/auth/services/auth_service_impl.dart';
 import 'package:ser_manos/src/features/auth/providers/user_provider.dart';
 import 'package:ser_manos/src/features/auth/models/user.dart' as sm;
 
-part 'auth_provider.g.dart';
+part 'generated/auth_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 AuthRepository<UserCredential> authRepository(AuthRepositoryRef ref) {

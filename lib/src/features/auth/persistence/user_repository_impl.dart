@@ -43,4 +43,20 @@ class UserRepositoryImpl implements UserRepository {
       'completed': true,
     });
   }
+
+  @override
+  Future<void> removeFavoriteVolunteering(String uuid, String volunteeringId) {
+    final ref = store.collection(userCollection).doc(uuid);
+    return ref.update({
+      'favoriteVolunteerings': FieldValue.arrayRemove([volunteeringId]),
+    });
+  }
+
+  @override
+  Future<void> setFavoriteVolunteering(String uuid, String volunteeringId) {
+    final ref = store.collection(userCollection).doc(uuid);
+    return ref.update({
+      'favoriteVolunteerings': FieldValue.arrayUnion([volunteeringId]),
+    });
+  }
 }

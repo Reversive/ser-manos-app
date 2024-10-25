@@ -6,7 +6,7 @@ import 'package:ser_manos/src/features/auth/presentation/beam/sign_up_location.d
 import 'package:ser_manos/src/features/auth/presentation/beam/splash_location.dart';
 import 'package:ser_manos/src/features/auth/presentation/beam/welcome_location.dart';
 import 'package:ser_manos/src/features/home/presentation/beam/home_location.dart';
-part 'router.g.dart';
+part 'generated/router.g.dart';
 
 @Riverpod(keepAlive: true)
 Raw<BeamerDelegate> routerDelegate(RouterDelegateRef ref) {
