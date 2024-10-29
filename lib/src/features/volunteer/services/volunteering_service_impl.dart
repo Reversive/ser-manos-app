@@ -72,4 +72,9 @@ class VolunteeringServiceImpl implements VolunteeringService {
   Stream<bool> isVolunteering(String uuid, String volunteeringId) {
     return repository.isVolunteering(uuid, volunteeringId);
   }
+
+  @override
+  Future<void> abandonCurrentVolunteering(String uuid) {
+    return repository.abandonCurrentVolunteering(uuid);
+  }
 }

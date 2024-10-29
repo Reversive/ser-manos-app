@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
+import 'package:ser_manos/src/design-system/cells/modals/modal.dart';
 import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
 import 'package:ser_manos/src/features/auth/providers/auth_provider.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
@@ -134,14 +135,26 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                                       "Postularme",
                                       disabled:
                                           vacancies == 0 || shouldDisable.value,
-                                      onPressed: () async {
-                                        shouldDisable.value = true;
-                                        await ref
-                                            .watch(volunteeringServiceProvider)
-                                            .applyToVolunteering(
-                                                volunteering.id);
-                                        shouldDisable.value = false;
-                                      },
+                                      onPressed: () => showDialog(
+                                        context: context,
+                                        builder: (BuildContext ctx) =>
+                                            SModalFlip(
+                                          title: volunteering.name,
+                                          subtitle: "Te estas por postular a",
+                                          cancelText: "Cancelar",
+                                          confirmText: "Confirmar",
+                                          context: context,
+                                          onConfirm: () async {
+                                            shouldDisable.value = true;
+                                            await ref
+                                                .watch(
+                                                    volunteeringServiceProvider)
+                                                .applyToVolunteering(
+                                                    volunteering.id);
+                                            shouldDisable.value = false;
+                                          },
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -153,14 +166,27 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                                         "Pronto la organizacion se pondra en contacto contigo y te inscribira como participante",
                                     btnText: "Retirar postulacion",
                                     shouldDisable: shouldDisable.value,
-                                    onBtnPressed: () async {
-                                      shouldDisable.value = true;
-                                      await ref
-                                          .watch(volunteeringServiceProvider)
-                                          .cancelApplicationToVolunteering(
-                                              volunteering.id);
-                                      shouldDisable.value = false;
-                                    })
+                                    onBtnPressed: () => showDialog(
+                                      context: context,
+                                      builder: (BuildContext ctx) => SModalFlip(
+                                        title: volunteering.name,
+                                        subtitle:
+                                            "¿Estas seguro que queres retirar tu postulacion?",
+                                        cancelText: "Cancelar",
+                                        confirmText: "Confirmar",
+                                        context: context,
+                                        onConfirm: () async {
+                                          shouldDisable.value = true;
+                                          await ref
+                                              .watch(
+                                                  volunteeringServiceProvider)
+                                              .cancelApplicationToVolunteering(
+                                                  volunteering.id);
+                                          shouldDisable.value = false;
+                                        },
+                                      ),
+                                    ),
+                                  )
                                 : isVolunteering
                                     ? SMCard.volunteerPostulationDetails(
                                         title: "Estas participando",
@@ -168,21 +194,54 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                                             "La organizacion confirmo que ya estas participando de este voluntariado",
                                         btnText: "Abandonar voluntariado",
                                         shouldDisable: shouldDisable.value,
-                                        onBtnPressed: () async {
-                                          shouldDisable.value = true;
-                                          await ref
-                                              .watch(
-                                                  volunteeringServiceProvider)
-                                              .abandonVolunteering(
-                                                  volunteering.id);
-                                          shouldDisable.value = false;
-                                        })
+                                        onBtnPressed: () => showDialog(
+                                          context: context,
+                                          builder: (BuildContext ctx) =>
+                                              SModalFlip(
+                                            title: volunteering.name,
+                                            subtitle:
+                                                "¿Estas seguro que queres abandonar tu voluntariado?",
+                                            cancelText: "Cancelar",
+                                            confirmText: "Confirmar",
+                                            context: context,
+                                            onConfirm: () async {
+                                              shouldDisable.value = true;
+                                              await ref
+                                                  .watch(
+                                                      volunteeringServiceProvider)
+                                                  .abandonVolunteering(
+                                                      volunteering.id);
+                                              shouldDisable.value = false;
+                                            },
+                                          ),
+                                        ),
+                                      )
                                     : SMCard.volunteerPostulationDetails(
                                         content:
                                             "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este",
                                         btnText:
                                             "Abandonar voluntariado actual",
-                                        onBtnPressed: () => {}), // TODO
+                                        onBtnPressed: () => showDialog(
+                                          context: context,
+                                          builder: (BuildContext ctx) =>
+                                              SModalFlip(
+                                            subtitle:
+                                                "¿Estas seguro que queres abandonar tu voluntariado actual?",
+                                            cancelText: "Cancelar",
+                                            confirmText: "Confirmar",
+                                            context: context,
+                                            onConfirm: () async {
+                                              shouldDisable.value = true;
+                                              await ref
+                                                  .watch(
+                                                      volunteeringServiceProvider)
+                                                  .abandonCurrentVolunteering(
+                                                      uuid.value);
+                                              shouldDisable.value = false;
+                                            },
+                                          ),
+                                        ),
+                                      ),
                       ],
                     ),
                   ),

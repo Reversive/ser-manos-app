@@ -11,4 +11,5 @@ abstract interface class VolunteeringService {
   Stream<bool> isPostulatedOrVolunteering(String uuid);
   Stream<bool> isPostulated(String uuid, String volunteeringId);
   Stream<bool> isVolunteering(String uuid, String volunteeringId);
+  Future<void> abandonCurrentVolunteering(String uuid);
 }

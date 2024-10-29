@@ -107,4 +107,22 @@ class VolunteeringRepositoryImpl implements VolunteeringRepository {
       return volunteering.members.contains(uuid);
     });
   }
+
+  @override
+  Future<void> abandonCurrentVolunteering(String uuid) {
+    final collection = store.collection(collectionName);
+    return collection.get().then((snapshot) {
+      for (final document in snapshot.docs) {
+        final volunteering = Volunteering.fromJson(document.data());
+        if (volunteering.members.contains(uuid) ||
+            volunteering.postulations.contains(uuid)) {
+          return collection.doc(document.id).update({
+            'members': FieldValue.arrayRemove([uuid]),
+            'postulations': FieldValue.arrayRemove([uuid]),
+            'vacancies': FieldValue.increment(1),
+          });
+        }
+      }
+    });
+  }
 }

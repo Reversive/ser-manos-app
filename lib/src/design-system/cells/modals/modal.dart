@@ -49,3 +49,51 @@ class SMModal extends Dialog {
           ),
         );
 }
+
+class SModalFlip extends Dialog {
+  SModalFlip({
+    super.key,
+    String? title,
+    required String subtitle,
+    required String cancelText,
+    required String confirmText,
+    required BuildContext context,
+    required VoidCallback onConfirm,
+  }) : super(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              boxShadow: SMShadows.shadow3,
+              color: SMColors.neutral0,
+            ),
+            width: 280,
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SMTypography.subtitle01(subtitle),
+                if (title != null) SMTypography.headline02(title),
+                const SMGap.vertical(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SMButton.text(
+                      cancelText,
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    const SMGap.horizontal(width: 8),
+                    SMButton.text(
+                      confirmText,
+                      onPressed: () {
+                        onConfirm();
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+}
