@@ -15,6 +15,7 @@ class UserRepositoryImpl implements UserRepository {
       uuid: uuid,
       name: name,
       surname: surname,
+      favoriteVolunteerings: [],
     );
     final ref = store.collection(userCollection).doc(uuid);
     return ref.set(user.toJson());

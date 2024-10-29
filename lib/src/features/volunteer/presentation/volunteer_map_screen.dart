@@ -5,6 +5,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos/src/core/providers/location_provider.dart';
+import 'package:ser_manos/src/features/auth/models/user.dart';
+import 'package:ser_manos/src/features/auth/providers/auth_provider.dart';
+import 'package:ser_manos/src/features/auth/providers/user_provider.dart';
 import 'package:ser_manos/src/features/volunteer/controller/volunteering_search_controller.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
@@ -15,6 +18,7 @@ import 'package:ser_manos/src/design-system/molecules/inputs/search_input.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:ser_manos/src/features/volunteer/services/map_service.dart';
 import 'package:widget_to_marker/widget_to_marker.dart';
 
 class VolunteerMapScreen extends HookConsumerWidget {
@@ -43,6 +47,11 @@ class VolunteerMapScreen extends HookConsumerWidget {
     final currentLocationData = ref.watch(currentLocationProvider);
     final currentLocation =
         useState(const LatLng(-34.62283169075434, -58.44644063941437));
+    final currentUser = useState(null as User?);
+
+    ref.watch(currentUserProvider).whenData((user) {
+      currentUser.value = user;
+    });
 
     currentLocationData.whenData(
       (currLocation) {
@@ -167,10 +176,40 @@ class VolunteerMapScreen extends HookConsumerWidget {
                             items: volunteers
                                 .map(
                                   (voluntary) => SMCard.volunteer(
+                                    onFavorite: () async {
+                                      if (currentUser.value == null) return;
+                                      if (currentUser
+                                          .value!.favoriteVolunteerings
+                                          .contains(voluntary.id)) {
+                                        await ref
+                                            .read(userRepositoryProvider)
+                                            .removeFavoriteVolunteering(
+                                              currentUser.value!.uuid,
+                                              voluntary.id,
+                                            );
+                                      } else {
+                                        await ref
+                                            .read(userRepositoryProvider)
+                                            .setFavoriteVolunteering(
+                                              currentUser.value!.uuid,
+                                              voluntary.id,
+                                            );
+                                      }
+                                    },
+                                    onLocation: () =>
+                                        MapService.launchMap(
+                                      voluntary.location.lat,
+                                      voluntary.location.lng,
+                                    ),
+                                    isFavorite: currentUser.value != null
+                                        ? currentUser
+                                            .value!.favoriteVolunteerings
+                                            .contains(voluntary.id)
+                                        : false,
                                     volunteer: voluntary,
                                     margin: const EdgeInsets.only(right: 8),
                                     onTap: () => Beamer.of(context).beamToNamed(
-                                      '${VolunteerScreen.route}?id=${volunteers.indexOf(voluntary)}',
+                                      '${VolunteerScreen.route}?id=${voluntary.id}',
                                       beamBackOnPop: true,
                                     ),
                                     vacancies: ref

@@ -32,7 +32,7 @@ class NewsScreen extends HookConsumerWidget {
                   return SMCard.news(
                     news: news[index],
                     onPressed: () => Beamer.of(context).beamToNamed(
-                      "${NewsScreen.route}?id=$index",
+                      "${NewsScreen.route}?id=${news[index].id}",
                       beamBackOnPop: true,
                     ),
                   );

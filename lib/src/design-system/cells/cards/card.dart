@@ -366,8 +366,11 @@ class SMCard extends StatelessWidget {
     Key? key,
     required Volunteering volunteer,
     required int vacancies,
+    required bool isFavorite,
     EdgeInsetsGeometry? margin,
     void Function()? onTap,
+    void Function()? onFavorite,
+    void Function()? onLocation,
   }) {
     return SMCard(
       key: key,
@@ -415,19 +418,32 @@ class SMCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Row(
+                Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SMIcon(
-                      icon: Icons.favorite_border,
-                      active: true,
+                    IconButton(
+                      onPressed: onFavorite,
+                      padding: EdgeInsets.zero,
+                      visualDensity:
+                          const VisualDensity(horizontal: -4, vertical: -4),
+                      icon: SMIcon(
+                        icon:
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                        active: true,
+                      ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 16,
                     ),
-                    SMIcon(
-                      icon: Icons.location_on,
-                      active: true,
+                    IconButton(
+                      onPressed: onLocation,
+                      padding: EdgeInsets.zero,
+                      visualDensity:
+                          const VisualDensity(horizontal: -4, vertical: -4),
+                      icon: const SMIcon(
+                        icon: Icons.location_on,
+                        active: true,
+                      ),
                     )
                   ],
                 )
