@@ -13,4 +13,5 @@ abstract interface class AuthService {
   });
   Future<void> signOut();
   Stream<User> getCurrentUser();
+  Future<User> getCurrentUserAsync();
 }

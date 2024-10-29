@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
+import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
+import 'package:ser_manos/src/features/auth/providers/auth_provider.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
 import 'package:ser_manos/src/design-system/cells/cards/card.dart';
 import 'package:ser_manos/src/design-system/cells/headers/header.dart';
-import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
 import 'package:ser_manos/src/design-system/molecules/components/component.dart';
 import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
@@ -20,6 +22,38 @@ class VolunteerDetailScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final volunteeringDetail = ref.watch(volunteeringDetailProvider(id));
+    final shouldDisable = useState(false);
+
+    final uuid = useState('');
+    ref.watch(currentUserProvider).whenData((u) => uuid.value = u.uuid);
+
+    final isPostulatedOrVolunteering = ref
+        .watch(volunteeringIsPostulatedOrVolunteeringProvider(uuid.value))
+        .when(
+          data: (isPostulatedOrVolunteering) => isPostulatedOrVolunteering,
+          error: (e, s) => false,
+          loading: () => false,
+        );
+
+    final isPostulated =
+        ref.watch(volunteeringIsPostulatedProvider(uuid.value, id)).when(
+              data: (isPostulated) => isPostulated,
+              error: (e, s) => false,
+              loading: () => false,
+            );
+
+    final isVolunteering =
+        ref.watch(volunteeringIsVolunteeringProvider(uuid.value, id)).when(
+              data: (isVolunteering) => isVolunteering,
+              error: (e, s) => false,
+              loading: () => false,
+            );
+
+    final vacancies = ref.watch(volunteeringVacanciesProvider(id)).when(
+          data: (vacancies) => vacancies,
+          error: (e, s) => 0,
+          loading: () => 0,
+        );
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -84,22 +118,71 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                           items: volunteering.availability,
                         ),
                         const SMGap.vertical(height: 8),
-                        SMComponent.vacancy(
-                            vacancies: ref
-                                .watch(volunteeringVacanciesProvider(
-                                    volunteering.id))
-                                .when(
-                                  data: (vacancies) => vacancies,
-                                  error: (e, s) => 0,
-                                  loading: () => 0,
-                                )),
+                        SMComponent.vacancy(vacancies: vacancies),
                         const SMGap.vertical(height: 24),
-                        SMFill.horizontal(
-                          child: SMButton.filled(
-                            "Postularme",
-                            onPressed: () {},
-                          ),
-                        ),
+                        !isPostulatedOrVolunteering
+                            ? Column(
+                                children: [
+                                  if (vacancies == 0)
+                                    SMTypography.body01(
+                                        "No hay vacantes disponibles para postularse",
+                                        align: TextAlign.center),
+                                  if (vacancies == 0)
+                                    const SMGap.vertical(height: 24),
+                                  SMFill.horizontal(
+                                    child: SMButton.filled(
+                                      "Postularme",
+                                      disabled:
+                                          vacancies == 0 || shouldDisable.value,
+                                      onPressed: () async {
+                                        shouldDisable.value = true;
+                                        await ref
+                                            .watch(volunteeringServiceProvider)
+                                            .applyToVolunteering(
+                                                volunteering.id);
+                                        shouldDisable.value = false;
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : isPostulated
+                                ? SMCard.volunteerPostulationDetails(
+                                    title: "Te has postulado",
+                                    content:
+                                        "Pronto la organizacion se pondra en contacto contigo y te inscribira como participante",
+                                    btnText: "Retirar postulacion",
+                                    shouldDisable: shouldDisable.value,
+                                    onBtnPressed: () async {
+                                      shouldDisable.value = true;
+                                      await ref
+                                          .watch(volunteeringServiceProvider)
+                                          .cancelApplicationToVolunteering(
+                                              volunteering.id);
+                                      shouldDisable.value = false;
+                                    })
+                                : isVolunteering
+                                    ? SMCard.volunteerPostulationDetails(
+                                        title: "Estas participando",
+                                        content:
+                                            "La organizacion confirmo que ya estas participando de este voluntariado",
+                                        btnText: "Abandonar voluntariado",
+                                        shouldDisable: shouldDisable.value,
+                                        onBtnPressed: () async {
+                                          shouldDisable.value = true;
+                                          await ref
+                                              .watch(
+                                                  volunteeringServiceProvider)
+                                              .abandonVolunteering(
+                                                  volunteering.id);
+                                          shouldDisable.value = false;
+                                        })
+                                    : SMCard.volunteerPostulationDetails(
+                                        content:
+                                            "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este",
+                                        btnText:
+                                            "Abandonar voluntariado actual",
+                                        onBtnPressed: () => {}), // TODO
                       ],
                     ),
                   ),

@@ -8,4 +8,5 @@ abstract interface class AuthRepository<T> {
   );
   Future<void> signOut();
   Stream<User> getCurrentUser();
+  Future<User> getCurrentUserAsync();
 }

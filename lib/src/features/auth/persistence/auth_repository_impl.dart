@@ -56,6 +56,19 @@ class AuthRepositoryImpl implements AuthRepository<fb.UserCredential> {
         .snapshots()
         .map((snapshot) => User.fromJson(snapshot.data()!));
   }
+  
+  @override
+  Future<User> getCurrentUserAsync() {
+    final user = auth.currentUser;
+    if (user == null) {
+      throw Exception('User not found');
+    }
+    return store
+        .collection('users')
+        .doc(user.uid)
+        .get()
+        .then((snapshot) => User.fromJson(snapshot.data()!));
+  }
 }
 
 String translateErrorMessage(fb.FirebaseAuthException e) {

@@ -20,7 +20,8 @@ class VolunteeringRepositoryImpl implements VolunteeringRepository {
     search = search?.toLowerCase();
     return volunteerings.docs
         .map((document) => document.data())
-        .where((volunteering) => search == null ||
+        .where((volunteering) =>
+            search == null ||
             volunteering.name.toLowerCase().contains(search) ||
             volunteering.about.toLowerCase().contains(search) ||
             volunteering.purpose.toLowerCase().contains(search))
@@ -44,5 +45,66 @@ class VolunteeringRepositoryImpl implements VolunteeringRepository {
     return document.snapshots().map(
           (snapshot) => Volunteering.fromJson(snapshot.data()!).vacancies,
         );
+  }
+
+  @override
+  Future<void> applyToVolunteering(String uuid, String volunteeringId) {
+    final collection = store.collection(collectionName);
+    return collection.doc(volunteeringId).update({
+      'postulations': FieldValue.arrayUnion([uuid]),
+      'vacancies': FieldValue.increment(-1),
+    });
+  }
+
+  @override
+  Future<void> cancelApplicationToVolunteering(
+      String uuid, String volunteeringId) {
+    final collection = store.collection(collectionName);
+    return collection.doc(volunteeringId).update({
+      'vacancies': FieldValue.increment(1),
+      'postulations': FieldValue.arrayRemove([uuid]),
+    });
+  }
+
+  @override
+  Future<void> abandonVolunteering(String uuid, String volunteeringId) {
+    final collection = store.collection(collectionName);
+    return collection.doc(volunteeringId).update({
+      'vacancies': FieldValue.increment(1),
+      'members': FieldValue.arrayRemove([uuid]),
+    });
+  }
+
+  @override
+  Stream<bool> isPostulatedOrVolunteering(String uuid) {
+    final collection = store.collection(collectionName);
+    return collection.snapshots().map((snapshot) {
+      for (final document in snapshot.docs) {
+        final volunteering = Volunteering.fromJson(document.data());
+        if (volunteering.postulations.contains(uuid) ||
+            volunteering.members.contains(uuid)) {
+          return true;
+        }
+      }
+      return false;
+    });
+  }
+
+  @override
+  Stream<bool> isPostulated(String uuid, String volunteeringId) {
+    final collection = store.collection(collectionName);
+    return collection.doc(volunteeringId).snapshots().map((snapshot) {
+      final volunteering = Volunteering.fromJson(snapshot.data()!);
+      return volunteering.postulations.contains(uuid);
+    });
+  }
+
+  @override
+  Stream<bool> isVolunteering(String uuid, String volunteeringId) {
+    final collection = store.collection(collectionName);
+    return collection.doc(volunteeringId).snapshots().map((snapshot) {
+      final volunteering = Volunteering.fromJson(snapshot.data()!);
+      return volunteering.members.contains(uuid);
+    });
   }
 }

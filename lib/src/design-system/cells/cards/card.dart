@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/features/news/models/news.dart';
 import 'package:ser_manos/src/features/profile/models/gender.dart';
 import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
@@ -291,6 +292,39 @@ class SMCard extends StatelessWidget {
                     )
                   ],
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  factory SMCard.volunteerPostulationDetails(
+      {Key? key,
+      String? title,
+      required String content,
+      required String btnText,
+      required Function() onBtnPressed,
+      bool shouldDisable = false}) {
+    return SMCard(
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (title != null) SMTypography.headline02(title),
+            if (title != null) const SMGap.vertical(height: 8),
+            SMTypography.body01(
+              content,
+              align: TextAlign.center,
+            ),
+            const SMGap.vertical(height: 8),
+            SMFill.horizontal(
+              child: SMButton.text(
+                btnText,
+                disabled: shouldDisable,
+                onPressed: onBtnPressed,
               ),
             ),
           ],
