@@ -96,6 +96,18 @@ class SMHeader extends AppBar {
           scrolledUnderElevation: 0,
           backgroundColor: SMColors.transparent,
           elevation: 0,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  SMColors.neutral100,
+                  SMColors.transparent,
+                ],
+              ),
+            ),
+          ),
           leading: const BackButton(
             color: SMColors.neutral0,
           ),
