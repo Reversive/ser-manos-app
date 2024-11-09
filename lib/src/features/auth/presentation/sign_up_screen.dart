@@ -28,6 +28,7 @@ class SignUpScreen extends HookConsumerWidget {
     final passwordController = useTextEditingController();
     final nameController = useTextEditingController();
     final lastNameController = useTextEditingController();
+    final isLoading = useState(false);
     final authState = useState(const AuthState.initial());
 
     ref.listen(authControllerProvider, ((previous, current) {
@@ -36,12 +37,14 @@ class SignUpScreen extends HookConsumerWidget {
 
     void onSignUp() async {
       if (_formKey.currentState?.validate() ?? false) {
+        isLoading.value = true;
         await ref.read(authControllerProvider.notifier).signUp(
               email: emailController.text,
               password: passwordController.text,
               name: nameController.text,
               surname: lastNameController.text,
             );
+        isLoading.value = false;
         if (!context.mounted) return;
         if (!authState.value.isAuthenticated) return;
         Beamer.of(context).beamToNamed(WelcomeScreen.route);
@@ -82,6 +85,7 @@ class SignUpScreen extends HookConsumerWidget {
           child: SMButton.filled(
             "Registrarse",
             onPressed: onSignUp,
+            disabled: isLoading.value,
           ),
         ),
         const SMGap.vertical(

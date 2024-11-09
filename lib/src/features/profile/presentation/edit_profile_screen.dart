@@ -37,6 +37,7 @@ class EditProfileScreen extends HookConsumerWidget {
     final image = useState(null as XFile?);
     final userService = ref.watch(userServiceProvider);
     final currentUser = ref.watch(currentUserProvider);
+    final isLoading = useState(false);
 
     void onImagePicked(XFile? file) {
       if (file != null) {
@@ -117,6 +118,7 @@ class EditProfileScreen extends HookConsumerWidget {
                       "Guardar datos",
                       onPressed: () async {
                         currentUser.whenData((user) async {
+                          isLoading.value = true;
                           await userService.updateUser(
                               user.uuid,
                               image.value,
@@ -125,9 +127,10 @@ class EditProfileScreen extends HookConsumerWidget {
                               phoneController.text,
                               emailController.text);
                         });
+                        isLoading.value = false;
                         Beamer.of(context).beamBack();
                       },
-                      disabled: !isFormValid.value,
+                      disabled: !isFormValid.value || isLoading.value,
                     ),
                   ),
                 ],

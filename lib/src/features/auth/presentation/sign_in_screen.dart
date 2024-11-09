@@ -27,6 +27,7 @@ class SignInScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
+    final isLoading = useState(false);
 
     final authState = useState(const AuthState.initial());
     final authController = ref.read(authControllerProvider.notifier);
@@ -37,10 +38,12 @@ class SignInScreen extends HookConsumerWidget {
 
     void onSignIn() async {
       if (_formKey.currentState?.validate() ?? false) {
+        isLoading.value = true;
         await authController.signIn(
           email: emailController.text,
           password: passwordController.text,
         );
+        isLoading.value = false;
         if (!context.mounted) return;
         if (!authState.value.isAuthenticated) return;
         Beamer.of(context).beamToNamed(VolunteerScreen.route);
@@ -92,6 +95,7 @@ class SignInScreen extends HookConsumerWidget {
             child: SMButton.filled(
               "Iniciar Sesión",
               onPressed: onSignIn,
+              disabled: isLoading.value,
             ),
           ),
           const SMGap.vertical(

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
@@ -22,6 +23,7 @@ class NewsDetailScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final newsDetail = ref.watch(newsDetailProvider(id));
+    final isLoading = useState(false);
 
     Future<XFile> getImageFileFromUrl(String url) async {
       var response = await http.get(Uri.parse(url));
@@ -78,13 +80,16 @@ class NewsDetailScreen extends HookConsumerWidget {
                         child: SMButton.filled(
                           "Compartir",
                           onPressed: () async {
+                            isLoading.value = true;
                             final img =
                                 await getImageFileFromUrl(news.imageUrl);
                             Share.shareXFiles(
                               [img],
                               text: news.summary,
                             );
+                            isLoading.value = false;
                           },
+                          disabled: isLoading.value,
                         ),
                       ),
                     )
