@@ -152,12 +152,12 @@ class EditProfileScreen extends HookConsumerWidget {
                                 confirmText: "Confirmar",
                                 context: context,
                                 onConfirm: () async {
-                                  await ref
-                                      .watch(volunteeringServiceProvider)
-                                      .applyToVolunteering(volunteering.id);
                                   Beamer.of(context).beamToNamed(
                                     "${VolunteerDetailScreen.route}?id=$volunteeringIndex",
                                   );
+                                  await ref
+                                      .watch(volunteeringServiceProvider)
+                                      .applyToVolunteering(volunteering.id);
                                 },
                               ),
                             );
