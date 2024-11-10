@@ -91,6 +91,7 @@ class EditProfileScreen extends HookConsumerWidget {
                   SMCard.profile(
                     onImagePicked: onImagePicked,
                     image: imageProvider.value,
+                    context: context,
                   ),
                   const SMGap.vertical(height: 32),
                   SMTypography.headline01("Datos de contacto"),

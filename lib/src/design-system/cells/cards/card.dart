@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -357,6 +358,7 @@ class SMCard extends StatelessWidget {
     Key? key,
     ImageProvider? image,
     required void Function(XFile? image) onImagePicked,
+    required BuildContext context,
   }) {
     return SMCard(
       padding: const EdgeInsets.symmetric(
@@ -379,14 +381,14 @@ class SMCard extends StatelessWidget {
               if (image != null)
                 SMButton.shortSmall(
                   "Cambiar foto",
-                  onPressed: () => _selectImage(onImagePicked),
+                  onPressed: () => showOptions(context, onImagePicked),
                 ),
             ],
           ),
           image == null
               ? SMButton.shortSmall(
                   "Subir foto",
-                  onPressed: () => _selectImage(onImagePicked),
+                  onPressed: () => showOptions(context, onImagePicked),
                 )
               : SMComponent.profilePictureSmall(
                   image: image,
@@ -509,7 +511,44 @@ class SMCard extends StatelessWidget {
   }
 }
 
-void _selectImage(void Function(XFile? image) onImagePicked) async {
+showOptions(BuildContext context, void Function(XFile? image) onImagePicked) {
+  showCupertinoModalPopup(
+    context: context,
+    builder: (context) => CupertinoActionSheet(
+      actions: [
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.of(context).pop();
+            _selectImage(onImagePicked);
+          },
+          child: SMTypography.body01('Galería'),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.of(context).pop();
+            _selectCameraImage(onImagePicked);
+          },
+          child: SMTypography.body01('Camara'),
+        ),
+      ],
+      cancelButton: CupertinoActionSheetAction(
+        onPressed: () => Navigator.of(context).pop(),
+        child: SMTypography.body01('Cancelar'),
+      ),
+    ),
+  );
+}
+
+void _selectCameraImage(void Function(XFile? image) onImagePicked) {
+  final ImagePicker picker = ImagePicker();
+  picker.pickImage(source: ImageSource.camera).then((image) {
+    if (image != null) {
+      onImagePicked(image);
+    }
+  });
+}
+
+_selectImage(void Function(XFile? image) onImagePicked) async {
   final ImagePicker picker = ImagePicker();
   final XFile? image = await picker.pickImage(
     source: ImageSource.gallery,
