@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "769881776819",
+    "project_id": "ser-manos-app",
+    "storage_bucket": "ser-manos-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769881776819:android:f0ad4e9183174182e846c6",
+        "android_client_info": {
+          "package_name": "ar.edu.itba.sermanos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX8RdiQ63DwcO_1AIipcj_FqaAQtuvtrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

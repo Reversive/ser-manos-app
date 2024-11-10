@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:ser_manos/src/features/auth/presentation/base_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/sign_in_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/sign_up_screen.dart';
-import 'package:ser_manos/src/shared/atoms/logo.dart';
-import 'package:ser_manos/src/shared/molecules/buttons/button.dart';
-import 'package:ser_manos/src/shared/tokens/fill.dart';
-import 'package:ser_manos/src/shared/tokens/gap.dart';
-import 'package:ser_manos/src/shared/tokens/typography.dart';
+import 'package:ser_manos/src/design-system/atoms/logo.dart';
+import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
+import 'package:ser_manos/src/design-system/tokens/fill.dart';
+import 'package:ser_manos/src/design-system/tokens/gap.dart';
+import 'package:ser_manos/src/design-system/tokens/typography.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String route = "/splash";
@@ -27,6 +27,7 @@ class SplashScreen extends StatelessWidget {
             const SMGap.vertical(height: 32),
             SMTypography.subtitle01(
               "“El esfuerzo desinteresado para llevar alegría a los demás será el comienzo de una vida más feliz para nosotros”",
+              align: TextAlign.center,
             ),
           ],
         ),
@@ -36,7 +37,8 @@ class SplashScreen extends StatelessWidget {
             SMFill.horizontal(
               child: SMButton.filled(
                 "Iniciar Sesión",
-                onPressed: () => Beamer.of(context).beamToNamed(SignInScreen.route),
+                onPressed: () =>
+                    Beamer.of(context).beamToNamed(SignInScreen.route),
               ),
             ),
             const SMGap.vertical(
@@ -45,7 +47,8 @@ class SplashScreen extends StatelessWidget {
             SMFill.horizontal(
               child: SMButton.text(
                 "Registrarse",
-                onPressed: () => Beamer.of(context).beamToNamed(SignUpScreen.route),
+                onPressed: () =>
+                    Beamer.of(context).beamToNamed(SignUpScreen.route),
               ),
             ),
             const SMGap.vertical(

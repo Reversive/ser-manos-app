@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
-import 'package:ser_manos/src/shared/cells/headers/header.dart';
-import 'package:ser_manos/src/shared/tokens/grid.dart';
+import 'package:ser_manos/src/design-system/cells/headers/header.dart';
+import 'package:ser_manos/src/design-system/tokens/grid.dart';
 
 class BaseScreen extends Scaffold {
   BaseScreen({
