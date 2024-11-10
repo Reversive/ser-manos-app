@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -5,6 +6,7 @@ import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/design-system/cells/modals/modal.dart';
 import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
 import 'package:ser_manos/src/features/auth/providers/auth_provider.dart';
+import 'package:ser_manos/src/features/profile/presentation/edit_profile_screen.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
 import 'package:ser_manos/src/design-system/cells/cards/card.dart';
 import 'package:ser_manos/src/design-system/cells/headers/header.dart';
@@ -36,6 +38,12 @@ class VolunteerDetailScreen extends HookConsumerWidget {
           loading: () => false,
         );
 
+    final currentUser = ref.watch(currentUserProvider).when(
+          data: (user) => user,
+          error: (e, s) => null,
+          loading: () => null,
+        );
+
     final isPostulated =
         ref.watch(volunteeringIsPostulatedProvider(uuid.value, id)).when(
               data: (isPostulated) => isPostulated,
@@ -55,7 +63,6 @@ class VolunteerDetailScreen extends HookConsumerWidget {
           error: (e, s) => 0,
           loading: () => 0,
         );
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
@@ -135,26 +142,56 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                                       "Postularme",
                                       disabled:
                                           vacancies == 0 || shouldDisable.value,
-                                      onPressed: () => showDialog(
-                                        context: context,
-                                        builder: (BuildContext ctx) =>
-                                            SModalFlip(
-                                          title: volunteering.name,
-                                          subtitle: "Te estas por postular a",
-                                          cancelText: "Cancelar",
-                                          confirmText: "Confirmar",
-                                          context: context,
-                                          onConfirm: () async {
-                                            shouldDisable.value = true;
-                                            await ref
-                                                .watch(
-                                                    volunteeringServiceProvider)
-                                                .applyToVolunteering(
-                                                    volunteering.id);
-                                            shouldDisable.value = false;
+                                      onPressed: () => {
+                                        if (!currentUser!.completed)
+                                          {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext ctx) =>
+                                                  SModalFlip(
+                                                subtitle:
+                                                    "Para postularte a un voluntariado debes completar tus datos.",
+                                                cancelText: "Cancelar",
+                                                confirmText: "Completar datos",
+                                                context: context,
+                                                onConfirm: () =>
+                                                    Beamer.of(context)
+                                                        .beamToNamed(
+                                                  EditProfileScreen.route,
+                                                  data: {
+                                                    'volunteeringIndex':
+                                                        volunteering.id
+                                                  },
+                                                  beamBackOnPop: true,
+                                                ),
+                                              ),
+                                            ),
+                                          }
+                                        else
+                                          {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext ctx) =>
+                                                  SModalFlip(
+                                                title: volunteering.name,
+                                                subtitle:
+                                                    "Te estas por postular a",
+                                                cancelText: "Cancelar",
+                                                confirmText: "Confirmar",
+                                                context: context,
+                                                onConfirm: () async {
+                                                  shouldDisable.value = true;
+                                                  await ref
+                                                      .watch(
+                                                          volunteeringServiceProvider)
+                                                      .applyToVolunteering(
+                                                          volunteering.id);
+                                                  shouldDisable.value = false;
+                                                },
+                                              ),
+                                            ),
                                           },
-                                        ),
-                                      ),
+                                      },
                                     ),
                                   ),
                                 ],

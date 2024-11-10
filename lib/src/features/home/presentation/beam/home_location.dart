@@ -14,6 +14,10 @@ class HomeLocation extends BeamLocation {
   List<BeamPage> buildPages(
       BuildContext context, RouteInformationSerializable state) {
     final uri = state.routeInformation.uri;
+    final currentData =
+        Beamer.of(context).currentBeamLocation.data as Map<String, dynamic>?;
+    final volunteeringIndex =
+        currentData != null ? currentData["volunteeringIndex"] ?? '' : '';
     return [
       if (uri.path.contains(VolunteerScreen.route) ||
           uri.path.contains(HomeScreen.route))
@@ -44,7 +48,9 @@ class HomeLocation extends BeamLocation {
         BeamPage(
           key: const ValueKey(EditProfileScreen.routeName),
           title: 'Profile edit',
-          child: EditProfileScreen(),
+          child: EditProfileScreen(
+            volunteeringIndex: volunteeringIndex,
+          ),
         ),
       if (uri.path.contains(NewsScreen.route))
         const BeamPage(
