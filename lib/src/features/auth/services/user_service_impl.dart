@@ -3,6 +3,7 @@ import 'package:ser_manos/src/features/auth/interfaces/user_repository.dart';
 import 'package:ser_manos/src/features/auth/interfaces/user_service.dart';
 import 'package:ser_manos/src/features/profile/interfaces/image_service.dart';
 import 'package:ser_manos/src/features/profile/models/gender.dart';
+import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 
 class UserServiceImpl implements UserService {
   const UserServiceImpl(
@@ -32,5 +33,10 @@ class UserServiceImpl implements UserService {
   @override
   Future<void> setFavoriteVolunteering(String uuid, String volunteeringId) {
     return userRepository.setFavoriteVolunteering(uuid, volunteeringId);
+  }
+
+  @override
+  Future<Volunteering?> getActiveVolunteering(String uuid) {
+    return userRepository.getActiveVolunteering(uuid);
   }
 }

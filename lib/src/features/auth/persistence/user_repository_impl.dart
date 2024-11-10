@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ser_manos/src/features/auth/interfaces/user_repository.dart';
 import 'package:ser_manos/src/features/auth/models/user.dart';
 import 'package:ser_manos/src/features/profile/models/gender.dart';
+import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 
 class UserRepositoryImpl implements UserRepository {
   const UserRepositoryImpl({required this.store});
   final FirebaseFirestore store;
 
   static const String userCollection = 'users';
+  static const String volunteeringCollection = 'volunteerings';
 
   @override
   Future<void> postUser(String uuid, String name, String surname) {
@@ -58,6 +60,20 @@ class UserRepositoryImpl implements UserRepository {
     final ref = store.collection(userCollection).doc(uuid);
     return ref.update({
       'favoriteVolunteerings': FieldValue.arrayUnion([volunteeringId]),
+    });
+  }
+
+  @override
+  Future<Volunteering?> getActiveVolunteering(String uuid) {
+    return store
+        .collection(volunteeringCollection)
+        .where('postulations', arrayContains: uuid)
+        .get()
+        .then((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        return Volunteering.fromJson(snapshot.docs.first.data());
+      }
+      return null;
     });
   }
 }

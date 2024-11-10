@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -16,6 +17,7 @@ import 'package:ser_manos/src/design-system/tokens/shadows.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
 import 'package:ser_manos/src/features/profile/models/location.dart';
 import 'package:ser_manos/src/features/auth/models/information.dart';
+import 'package:ser_manos/src/features/volunteer/presentation/volunteer_detail_screen.dart';
 
 class SMCard extends StatelessWidget {
   const SMCard({
@@ -30,6 +32,7 @@ class SMCard extends StatelessWidget {
   factory SMCard.currentVolunteer({
     Key? key,
     required Volunteering volunteering,
+    required BuildContext context,
   }) {
     return SMCard(
       decoration: BoxDecoration(
@@ -60,9 +63,16 @@ class SMCard extends StatelessWidget {
                 ],
               ),
             ),
-            const SMIcon(icon: Icons.location_on),
+            const SMIcon(
+              icon: Icons.location_on,
+              active: true,
+            ),
           ],
         ),
+      ),
+      onTap: () => Beamer.of(context).beamToNamed(
+        "${VolunteerDetailScreen.route}?id=${volunteering.id}",
+        beamBackOnPop: true,
       ),
     );
   }

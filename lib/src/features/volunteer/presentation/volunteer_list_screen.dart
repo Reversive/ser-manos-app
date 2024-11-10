@@ -6,6 +6,7 @@ import 'package:ser_manos/src/features/auth/models/user.dart';
 import 'package:ser_manos/src/features/auth/providers/auth_provider.dart';
 import 'package:ser_manos/src/features/auth/providers/user_provider.dart';
 import 'package:ser_manos/src/features/volunteer/controller/volunteering_search_controller.dart';
+import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
 import 'package:ser_manos/src/design-system/cells/cards/card.dart';
@@ -28,26 +29,30 @@ class VolunteerListScreen extends HookConsumerWidget {
     final searchController = useTextEditingController();
     final volunteerings = ref.watch(volunteeringSearchControllerProvider);
     final currentUser = useState(null as User?);
+    final currentVolunteer = useState(null as Volunteering?);
 
     ref.watch(currentUserProvider).whenData((user) {
       currentUser.value = user;
+      ref.watch(activeVolunteeringProvider(user.uuid)).whenData((volunteer) {
+        currentVolunteer.value = volunteer;
+      });
     });
 
     return volunteerings.when(
       data: (volunteers) => RefreshIndicator(
-        onRefresh: () async =>
-            ref.refresh(volunteeringSearchControllerProvider),
+        onRefresh: () async {
+          ref.refresh(volunteeringSearchControllerProvider);
+          ref.refresh(activeVolunteeringProvider(currentUser.value!.uuid));
+        },
         color: SMColors.primary100,
         child: Material(
           color: SMColors.secondary10,
-          child: SMGrid(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SMGap.vertical(
-                  height: 24,
-                ),
-                SMSearchInput(
+          child: Column(
+            children: [
+              const SMGap.vertical(height: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SMSearchInput(
                   controller: searchController,
                   onIconPressed: onIconPressed,
                   suffixIcon: Icons.map_outlined,
@@ -55,77 +60,98 @@ class VolunteerListScreen extends HookConsumerWidget {
                       .read(volunteeringSearchControllerProvider.notifier)
                       .search(searchController.text),
                 ),
-                const SMGap.vertical(
-                  height: 24,
-                ),
-                SMTypography.headline01(
-                  "Voluntariados",
-                  align: TextAlign.start,
-                ),
-                SizedBox(
-                  height: volunteers.isEmpty ? 16 : 24,
-                ),
-                volunteers.isEmpty
-                    ? SMCard.noVolunteerings()
-                    : Expanded(
-                        child: ListView.separated(
-                          itemBuilder: (_, index) {
-                            return SMCard.volunteer(
-                              onFavorite: () async {
-                                if (currentUser.value == null) return;
-                                if (currentUser.value!.favoriteVolunteerings
-                                    .contains(volunteers[index].id)) {
-                                  await ref
-                                      .read(userRepositoryProvider)
-                                      .removeFavoriteVolunteering(
-                                        currentUser.value!.uuid,
-                                        volunteers[index].id,
-                                      );
-                                } else {
-                                  await ref
-                                      .read(userRepositoryProvider)
-                                      .setFavoriteVolunteering(
-                                        currentUser.value!.uuid,
-                                        volunteers[index].id,
-                                      );
-                                }
-                              },
-                              onLocation: () => MapService.launchMap(
-                                volunteers[index].location.lat,
-                                volunteers[index].location.lng,
-                              ),
-                              isFavorite: currentUser.value != null
-                                  ? currentUser.value!.favoriteVolunteerings
-                                      .contains(volunteers[index].id)
-                                  : false,
-                              volunteer: volunteers[index],
-                              onTap: () {
-                                Beamer.of(context).beamToNamed(
-                                  '${VolunteerScreen.route}?id=${volunteers[index].id}',
-                                  beamBackOnPop: true,
-                                );
-                              },
-                              vacancies: ref
-                                  .watch(volunteeringVacanciesProvider(
-                                      volunteers[index].id))
-                                  .when(
-                                    data: (vacancies) => vacancies,
-                                    error: (e, s) => 0,
-                                    loading: () => 0,
-                                  ),
-                            );
-                          },
-                          separatorBuilder: (context, index) =>
-                              const SMGap.vertical(
-                            height: 25,
+              ),
+              SMGap.vertical(
+                height: currentVolunteer.value != null ? 24 : 32,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const ClampingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics(),
+                  ),
+                  child: SMGrid(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (currentVolunteer.value != null) ...[
+                          SMTypography.headline01("Tu actividad"),
+                          const SMGap.vertical(height: 16),
+                          SMCard.currentVolunteer(
+                            volunteering: currentVolunteer.value!,
+                            context: context,
+                            
                           ),
-                          itemCount: volunteers.length,
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
+                        ],
+                        SMGap.vertical(
+                            height: currentVolunteer.value != null ? 24 : 0),
+                        SMTypography.headline01(
+                          "Voluntariados",
+                          align: TextAlign.start,
                         ),
-                      ),
-              ],
-            ),
+                        SMGap.vertical(height: volunteers.isEmpty ? 16 : 24),
+                        volunteers.isEmpty
+                            ? SMCard.noVolunteerings()
+                            : ListView.separated(
+                                itemBuilder: (_, index) {
+                                  return SMCard.volunteer(
+                                    onFavorite: () async {
+                                      if (currentUser.value == null) return;
+                                      if (currentUser
+                                          .value!.favoriteVolunteerings
+                                          .contains(volunteers[index].id)) {
+                                        await ref
+                                            .read(userRepositoryProvider)
+                                            .removeFavoriteVolunteering(
+                                              currentUser.value!.uuid,
+                                              volunteers[index].id,
+                                            );
+                                      } else {
+                                        await ref
+                                            .read(userRepositoryProvider)
+                                            .setFavoriteVolunteering(
+                                              currentUser.value!.uuid,
+                                              volunteers[index].id,
+                                            );
+                                      }
+                                    },
+                                    onLocation: () => MapService.launchMap(
+                                      volunteers[index].location.lat,
+                                      volunteers[index].location.lng,
+                                    ),
+                                    isFavorite: currentUser.value != null
+                                        ? currentUser
+                                            .value!.favoriteVolunteerings
+                                            .contains(volunteers[index].id)
+                                        : false,
+                                    volunteer: volunteers[index],
+                                    onTap: () {
+                                      Beamer.of(context).beamToNamed(
+                                        '${VolunteerScreen.route}?id=${volunteers[index].id}',
+                                        beamBackOnPop: true,
+                                      );
+                                    },
+                                    vacancies: ref
+                                        .watch(volunteeringVacanciesProvider(
+                                            volunteers[index].id))
+                                        .when(
+                                          data: (vacancies) => vacancies,
+                                          error: (e, s) => 0,
+                                          loading: () => 0,
+                                        ),
+                                  );
+                                },
+                                separatorBuilder: (context, index) =>
+                                    const SMGap.vertical(height: 25),
+                                itemCount: volunteers.length,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                              ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

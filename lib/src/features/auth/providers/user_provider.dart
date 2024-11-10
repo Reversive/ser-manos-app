@@ -5,6 +5,7 @@ import 'package:ser_manos/src/features/auth/persistence/user_repository_impl.dar
 import 'package:ser_manos/src/core/providers/firebase_provider.dart';
 import 'package:ser_manos/src/features/auth/services/user_service_impl.dart';
 import 'package:ser_manos/src/features/profile/providers/image_provider.dart';
+import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 part 'generated/user_provider.g.dart';
 
 @Riverpod(keepAlive: true)
@@ -25,4 +26,9 @@ UserService userService(UserServiceRef ref) {
       imageServiceProvider,
     ),
   );
+}
+
+@riverpod
+Future<Volunteering?> activeVolunteering(ActiveVolunteeringRef ref, String uuid) {
+  return ref.watch(userServiceProvider).getActiveVolunteering(uuid);
 }
