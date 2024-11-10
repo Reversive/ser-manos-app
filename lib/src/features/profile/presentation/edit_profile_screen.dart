@@ -38,6 +38,7 @@ class EditProfileScreen extends HookConsumerWidget {
     final userService = ref.watch(userServiceProvider);
     final currentUser = ref.watch(currentUserProvider);
     final isLoading = useState(false);
+    final alreadyPopulated = useState(false);
 
     void onImagePicked(XFile? file) {
       if (file != null) {
@@ -47,16 +48,17 @@ class EditProfileScreen extends HookConsumerWidget {
     }
 
     currentUser.whenData((user) {
-      if (dateController.text.isEmpty) {
+      if (dateController.text.isEmpty && !alreadyPopulated.value) {
         dateController.text = user.birthdate!;
       }
-      if (phoneController.text.isEmpty) {
+      if (phoneController.text.isEmpty && !alreadyPopulated.value) {
         phoneController.text = user.phone!;
       }
-      if (emailController.text.isEmpty) {
+      if (emailController.text.isEmpty && !alreadyPopulated.value) {
         emailController.text = user.email!;
       }
       imageProvider.value ??= NetworkImage(user.image!);
+      alreadyPopulated.value = true;
     });
 
     return Scaffold(
