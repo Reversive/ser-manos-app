@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos/src/core/providers/firebase_provider.dart';
 import 'package:ser_manos/src/core/providers/location_provider.dart';
 import 'package:ser_manos/src/features/auth/models/user.dart';
 import 'package:ser_manos/src/features/auth/providers/auth_provider.dart';
@@ -42,6 +43,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
     final markers = useState(<Marker>{});
     final locationOn = useState(BitmapDescriptor.defaultMarker);
     final locationOnOutlined = useState(BitmapDescriptor.defaultMarker);
+    final isFavoriteEnabled = useState(true);
     final volunteerings = ref.watch(volunteeringSearchControllerProvider);
     final currentIndex = useState(0);
     final currentLocationData = ref.watch(currentLocationProvider);
@@ -52,6 +54,10 @@ class VolunteerMapScreen extends HookConsumerWidget {
     ref.watch(currentUserProvider).whenData((user) {
       currentUser.value = user;
     });
+
+    ref.watch(remoteConfigProvider).whenData(
+          (rc) => isFavoriteEnabled.value = rc.enableVolunteeringFavorite,
+        );
 
     currentLocationData.whenData(
       (currLocation) {
@@ -176,6 +182,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
                             items: volunteers
                                 .map(
                                   (voluntary) => SMCard.volunteer(
+                                    isFavoriteEnabled: isFavoriteEnabled.value,
                                     onFavorite: () async {
                                       if (currentUser.value == null) return;
                                       if (currentUser
@@ -196,8 +203,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
                                             );
                                       }
                                     },
-                                    onLocation: () =>
-                                        MapService.launchMap(
+                                    onLocation: () => MapService.launchMap(
                                       voluntary.location.lat,
                                       voluntary.location.lng,
                                     ),

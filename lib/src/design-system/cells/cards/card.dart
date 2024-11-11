@@ -417,6 +417,7 @@ class SMCard extends StatelessWidget {
     void Function()? onTap,
     void Function()? onFavorite,
     void Function()? onLocation,
+    bool isFavoriteEnabled = true,
   }) {
     return SMCard(
       key: key,
@@ -467,20 +468,23 @@ class SMCard extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    IconButton(
-                      onPressed: onFavorite,
-                      padding: EdgeInsets.zero,
-                      visualDensity:
-                          const VisualDensity(horizontal: -4, vertical: -4),
-                      icon: SMIcon(
-                        icon:
-                            isFavorite ? Icons.favorite : Icons.favorite_border,
-                        active: true,
+                    if (isFavoriteEnabled)
+                      IconButton(
+                        onPressed: onFavorite,
+                        padding: EdgeInsets.zero,
+                        visualDensity:
+                            const VisualDensity(horizontal: -4, vertical: -4),
+                        icon: SMIcon(
+                          icon: isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          active: true,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
+                    if (isFavoriteEnabled)
+                      const SizedBox(
+                        width: 16,
+                      ),
                     IconButton(
                       onPressed: onLocation,
                       padding: EdgeInsets.zero,

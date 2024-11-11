@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:ser_manos/src/core/providers/firebase_provider.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/features/news/providers/news_provider.dart';
 import 'package:ser_manos/src/design-system/cells/headers/header.dart';
@@ -24,6 +25,11 @@ class NewsDetailScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final newsDetail = ref.watch(newsDetailProvider(id));
     final isLoading = useState(false);
+    final isSharingEnabled = useState(true);
+
+    ref
+        .watch(remoteConfigProvider)
+        .whenData((rc) => isSharingEnabled.value = rc.enableNewsSharing);
 
     Future<XFile> getImageFileFromUrl(String url) async {
       var response = await http.get(Uri.parse(url));
@@ -69,30 +75,32 @@ class NewsDetailScreen extends HookConsumerWidget {
                     const SMGap.vertical(height: 16),
                     SMTypography.body01(news.content),
                     const SMGap.vertical(height: 16),
-                    Align(
-                      alignment: Alignment.center,
-                      child: SMTypography.headline02("Comparte esta nota"),
-                    ),
-                    const SMGap.vertical(height: 16),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 32),
-                      child: SMFill.horizontal(
-                        child: SMButton.filled(
-                          "Compartir",
-                          onPressed: () async {
-                            isLoading.value = true;
-                            final img =
-                                await getImageFileFromUrl(news.imageUrl);
-                            Share.shareXFiles(
-                              [img],
-                              text: news.summary,
-                            );
-                            isLoading.value = false;
-                          },
-                          disabled: isLoading.value,
-                        ),
+                    if (isSharingEnabled.value)
+                      Align(
+                        alignment: Alignment.center,
+                        child: SMTypography.headline02("Comparte esta nota"),
                       ),
-                    )
+                    const SMGap.vertical(height: 16),
+                    if (isSharingEnabled.value)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 32),
+                        child: SMFill.horizontal(
+                          child: SMButton.filled(
+                            "Compartir",
+                            onPressed: () async {
+                              isLoading.value = true;
+                              final img =
+                                  await getImageFileFromUrl(news.imageUrl);
+                              Share.shareXFiles(
+                                [img],
+                                text: news.summary,
+                              );
+                              isLoading.value = false;
+                            },
+                            disabled: isLoading.value,
+                          ),
+                        ),
+                      )
                   ],
                 ),
               ),

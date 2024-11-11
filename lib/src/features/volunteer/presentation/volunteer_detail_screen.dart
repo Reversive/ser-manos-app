@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos/src/core/providers/firebase_provider.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/design-system/cells/modals/modal.dart';
 import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
 import 'package:ser_manos/src/features/auth/providers/auth_provider.dart';
+import 'package:ser_manos/src/features/auth/providers/user_provider.dart';
 import 'package:ser_manos/src/features/profile/presentation/edit_profile_screen.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
 import 'package:ser_manos/src/design-system/cells/cards/card.dart';
@@ -15,6 +19,8 @@ import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/grid.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+
+import '../../auth/models/user.dart';
 
 class VolunteerDetailScreen extends HookConsumerWidget {
   const VolunteerDetailScreen({super.key, required this.id});
@@ -26,6 +32,7 @@ class VolunteerDetailScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final volunteeringDetail = ref.watch(volunteeringDetailProvider(id));
     final shouldDisable = useState(false);
+    final shouldShowFavoriteButton = useState(false);
 
     final uuid = useState('');
     ref.watch(currentUserProvider).whenData((u) => uuid.value = u.uuid);
@@ -63,10 +70,51 @@ class VolunteerDetailScreen extends HookConsumerWidget {
           error: (e, s) => 0,
           loading: () => 0,
         );
+
+    final analyticsService = ref.watch(analyticsServiceProvider);
+
+    showFavoriteSnackbar(isRemoved) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: SMTypography.body01(
+            "Voluntariado ${isRemoved ? 'eliminado de' : 'agregado a'} favoritos",
+            color: SMColors.neutral0,
+          ),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
-      appBar: SMHeader.transparent(),
+      appBar: SMHeader.transparent(
+        isFavorite: currentUser != null
+            ? currentUser.favoriteVolunteerings.contains(id)
+            : false,
+        onPressed: () async {
+          if (currentUser == null) return;
+          if (currentUser.favoriteVolunteerings.contains(id)) {
+            showFavoriteSnackbar(true);
+            await ref.read(userRepositoryProvider).removeFavoriteVolunteering(
+                  currentUser.uuid,
+                  id,
+                );
+            await analyticsService.logVolunteeringUnfavorite(
+              id,
+            );
+          } else {
+            showFavoriteSnackbar(false);
+            await ref.read(userRepositoryProvider).setFavoriteVolunteering(
+                  currentUser.uuid,
+                  id,
+                );
+            await analyticsService.logVolunteeringFavorite(
+              id,
+            );
+          }
+        },
+      ),
       backgroundColor: SMColors.neutral0,
       body: volunteeringDetail.when(
         data: (volunteering) => RefreshIndicator(

@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:ser_manos/src/design-system/atoms/icon.dart';
 import 'package:ser_manos/src/design-system/atoms/logo.dart';
 import 'package:ser_manos/src/design-system/cells/headers/styles/suos_light.dart';
 import 'package:ser_manos/src/design-system/cells/headers/styles/suos_secondary.dart';
@@ -96,25 +97,34 @@ class SMHeader extends AppBar {
               : null,
         );
 
-  SMHeader.transparent({super.key})
+  SMHeader.transparent({super.key, required bool isFavorite, required onPressed})
       : super(
-          scrolledUnderElevation: 0,
-          backgroundColor: SMColors.transparent,
-          elevation: 0,
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  SMColors.neutral100,
-                  SMColors.transparent,
-                ],
+            scrolledUnderElevation: 0,
+            backgroundColor: SMColors.transparent,
+            elevation: 0,
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    SMColors.neutral100,
+                    SMColors.transparent,
+                  ],
+                ),
               ),
             ),
-          ),
-          leading: const BackButton(
-            color: SMColors.neutral0,
-          ),
-        );
+            leading: const BackButton(
+              color: SMColors.neutral0,
+            ),
+            actions: [
+              IconButton(
+                onPressed: onPressed,
+                icon: SMIcon(
+                  icon: isFavorite ? Icons.favorite : Icons.favorite_border,
+                  activeColor: SMColors.neutral0,
+                  active: true,
+                ),
+              )
+            ]);
 }

@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos/src/core/providers/firebase_provider.dart';
 import 'package:ser_manos/src/features/auth/models/user.dart';
 import 'package:ser_manos/src/features/auth/providers/auth_provider.dart';
 import 'package:ser_manos/src/features/auth/providers/user_provider.dart';
@@ -30,6 +31,11 @@ class VolunteerListScreen extends HookConsumerWidget {
     final volunteerings = ref.watch(volunteeringSearchControllerProvider);
     final currentUser = useState(null as User?);
     final currentVolunteer = useState(null as Volunteering?);
+    final isFavoriteEnabled = useState(true);
+    final analyticsService = ref.watch(analyticsServiceProvider);
+
+    ref.watch(remoteConfigProvider).whenData(
+        (rc) => isFavoriteEnabled.value = rc.enableVolunteeringFavorite);
 
     ref.watch(currentUserProvider).whenData((user) {
       currentUser.value = user;
@@ -79,7 +85,6 @@ class VolunteerListScreen extends HookConsumerWidget {
                           SMCard.currentVolunteer(
                             volunteering: currentVolunteer.value!,
                             context: context,
-                            
                           ),
                         ],
                         SMGap.vertical(
@@ -94,6 +99,7 @@ class VolunteerListScreen extends HookConsumerWidget {
                             : ListView.separated(
                                 itemBuilder: (_, index) {
                                   return SMCard.volunteer(
+                                    isFavoriteEnabled: isFavoriteEnabled.value,
                                     onFavorite: () async {
                                       if (currentUser.value == null) return;
                                       if (currentUser
@@ -105,6 +111,10 @@ class VolunteerListScreen extends HookConsumerWidget {
                                               currentUser.value!.uuid,
                                               volunteers[index].id,
                                             );
+                                        await analyticsService
+                                            .logVolunteeringUnfavorite(
+                                          volunteers[index].id,
+                                        );
                                       } else {
                                         await ref
                                             .read(userRepositoryProvider)
@@ -112,6 +122,10 @@ class VolunteerListScreen extends HookConsumerWidget {
                                               currentUser.value!.uuid,
                                               volunteers[index].id,
                                             );
+                                        await analyticsService
+                                            .logVolunteeringFavorite(
+                                          volunteers[index].id,
+                                        );
                                       }
                                     },
                                     onLocation: () => MapService.launchMap(
