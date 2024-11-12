@@ -47,7 +47,9 @@ class VolunteerListScreen extends HookConsumerWidget {
     return volunteerings.when(
       data: (volunteers) => RefreshIndicator(
         onRefresh: () async {
+          // ignore: unused_result
           ref.refresh(volunteeringSearchControllerProvider);
+          // ignore: unused_result
           ref.refresh(activeVolunteeringProvider(currentUser.value!.uuid));
         },
         color: SMColors.primary100,

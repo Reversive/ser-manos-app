@@ -11,6 +11,6 @@ LocationRepository locationRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-Future<Location?> currentLocation(CurrentLocationRef ref) async {
+Future<Location?> currentLocation(Ref ref) async {
   return await ref.read(locationRepositoryProvider).getCurrentLocation();
 }

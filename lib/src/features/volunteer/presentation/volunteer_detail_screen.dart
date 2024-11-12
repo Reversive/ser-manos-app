@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +19,6 @@ import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/grid.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
 
-import '../../auth/models/user.dart';
-
 class VolunteerDetailScreen extends HookConsumerWidget {
   const VolunteerDetailScreen({super.key, required this.id});
   static const String route = '/home/volunteers/:id';
@@ -32,7 +29,6 @@ class VolunteerDetailScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final volunteeringDetail = ref.watch(volunteeringDetailProvider(id));
     final shouldDisable = useState(false);
-    final shouldShowFavoriteButton = useState(false);
 
     final uuid = useState('');
     ref.watch(currentUserProvider).whenData((u) => uuid.value = u.uuid);

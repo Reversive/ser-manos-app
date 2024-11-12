@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ser_manos/src/features/auth/interfaces/auth_repository.dart';
 import 'package:ser_manos/src/features/auth/interfaces/auth_service.dart';
@@ -11,7 +12,7 @@ import 'package:ser_manos/src/features/auth/models/user.dart' as sm;
 part 'generated/auth_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-AuthRepository<UserCredential> authRepository(AuthRepositoryRef ref) {
+AuthRepository<UserCredential> authRepository(Ref ref) {
   return AuthRepositoryImpl(
     auth: ref.watch(
       firebaseAuthProvider,
@@ -23,7 +24,7 @@ AuthRepository<UserCredential> authRepository(AuthRepositoryRef ref) {
 }
 
 @Riverpod(keepAlive: true)
-AuthService authService(AuthServiceRef ref) {
+AuthService authService(Ref ref) {
   return AuthServiceImpl(
     authRepository: ref.watch(
       authRepositoryProvider,
@@ -35,6 +36,6 @@ AuthService authService(AuthServiceRef ref) {
 }
 
 @riverpod
-Stream<sm.User> currentUser(CurrentUserRef ref) {
+Stream<sm.User> currentUser(Ref ref) {
   return ref.watch(authServiceProvider).getCurrentUser();
 }

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ser_manos/src/core/providers/firebase_provider.dart';
 import 'package:ser_manos/src/features/news/interfaces/news_repository.dart';
@@ -8,21 +9,21 @@ import 'package:ser_manos/src/features/news/services/news_service_impl.dart';
 part 'generated/news_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-NewsRepository newsRepository(NewsRepositoryRef ref) {
+NewsRepository newsRepository(Ref ref) {
   return NewsRepositoryImpl(source: ref.watch(firebaseFirestoreProvider));
 }
 
 @Riverpod(keepAlive: true)
-NewsService newsService(NewsServiceRef ref) {
+NewsService newsService(Ref ref) {
   return NewsServiceImpl(repository: ref.watch(newsRepositoryProvider));
 }
 
 @riverpod
-Future<List<News>> newsList(NewsListRef ref) {
+Future<List<News>> newsList(Ref ref) {
   return ref.watch(newsServiceProvider).getNews();
 }
 
 @riverpod
-Future<News> newsDetail(NewsDetailRef ref, String id) {
+Future<News> newsDetail(Ref ref, String id) {
   return ref.watch(newsServiceProvider).getNewsById(id);
 }

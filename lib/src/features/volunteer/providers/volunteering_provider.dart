@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ser_manos/src/core/providers/firebase_provider.dart';
 import 'package:ser_manos/src/features/auth/providers/auth_provider.dart';
@@ -11,14 +12,14 @@ import 'package:ser_manos/src/features/volunteer/services/volunteering_service_i
 part 'generated/volunteering_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-VolunteeringRepository volunteeringRepository(VolunteeringRepositoryRef ref) {
+VolunteeringRepository volunteeringRepository(Ref ref) {
   return VolunteeringRepositoryImpl(
     store: ref.watch(firebaseFirestoreProvider),
   );
 }
 
 @Riverpod(keepAlive: true)
-VolunteeringService volunteeringService(VolunteeringServiceRef ref) {
+VolunteeringService volunteeringService(Ref ref) {
   return VolunteeringServiceImpl(
     repository: ref.watch(volunteeringRepositoryProvider),
     authService: ref.watch(authServiceProvider),
@@ -27,7 +28,7 @@ VolunteeringService volunteeringService(VolunteeringServiceRef ref) {
 
 @riverpod
 Future<List<Volunteering>> volunteeringList(
-  VolunteeringListRef ref,
+  Ref ref,
   Location? location,
   String? search,
 ) {
@@ -38,18 +39,18 @@ Future<List<Volunteering>> volunteeringList(
 }
 
 @riverpod
-Future<Volunteering> volunteeringDetail(VolunteeringDetailRef ref, String id) {
+Future<Volunteering> volunteeringDetail(Ref ref, String id) {
   return ref.watch(volunteeringServiceProvider).getVolunteeringById(id);
 }
 
 @riverpod
-Stream<int> volunteeringVacancies(VolunteeringVacanciesRef ref, String id) {
+Stream<int> volunteeringVacancies(Ref ref, String id) {
   return ref.watch(volunteeringServiceProvider).getVacanciesStreamById(id);
 }
 
 @riverpod
 Stream<bool> volunteeringIsPostulatedOrVolunteering(
-    VolunteeringIsPostulatedOrVolunteeringRef ref, String uuid) {
+    Ref ref, String uuid) {
   return ref
       .watch(volunteeringServiceProvider)
       .isPostulatedOrVolunteering(uuid);
@@ -57,7 +58,7 @@ Stream<bool> volunteeringIsPostulatedOrVolunteering(
 
 @riverpod
 Stream<bool> volunteeringIsPostulated(
-    VolunteeringIsPostulatedRef ref, String uuid, String volunteeringId) {
+    Ref ref, String uuid, String volunteeringId) {
   return ref
       .watch(volunteeringServiceProvider)
       .isPostulated(uuid, volunteeringId);
@@ -65,7 +66,7 @@ Stream<bool> volunteeringIsPostulated(
 
 @riverpod
 Stream<bool> volunteeringIsVolunteering(
-    VolunteeringIsVolunteeringRef ref, String uuid, String volunteeringId) {
+    Ref ref, String uuid, String volunteeringId) {
   return ref
       .watch(volunteeringServiceProvider)
       .isVolunteering(uuid, volunteeringId);

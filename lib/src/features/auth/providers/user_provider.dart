@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ser_manos/src/features/auth/interfaces/user_repository.dart';
 import 'package:ser_manos/src/features/auth/interfaces/user_service.dart';
@@ -9,7 +10,7 @@ import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 part 'generated/user_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-UserRepository userRepository(UserRepositoryRef ref) {
+UserRepository userRepository(Ref ref) {
   return UserRepositoryImpl(
       store: ref.watch(
     firebaseFirestoreProvider,
@@ -17,7 +18,7 @@ UserRepository userRepository(UserRepositoryRef ref) {
 }
 
 @Riverpod(keepAlive: true)
-UserService userService(UserServiceRef ref) {
+UserService userService(Ref ref) {
   return UserServiceImpl(
     userRepository: ref.watch(
       userRepositoryProvider,
@@ -29,6 +30,6 @@ UserService userService(UserServiceRef ref) {
 }
 
 @riverpod
-Future<Volunteering?> activeVolunteering(ActiveVolunteeringRef ref, String uuid) {
+Future<Volunteering?> activeVolunteering(Ref ref, String uuid) {
   return ref.watch(userServiceProvider).getActiveVolunteering(uuid);
 }

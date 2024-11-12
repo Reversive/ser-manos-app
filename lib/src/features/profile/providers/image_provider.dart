@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ser_manos/src/core/providers/firebase_provider.dart';
 import 'package:ser_manos/src/features/profile/interfaces/image_repository.dart';
@@ -7,7 +8,7 @@ import 'package:ser_manos/src/features/profile/services/image_service_impl.dart'
 part 'generated/image_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-ImageRepository imageRepository(ImageRepositoryRef ref) {
+ImageRepository imageRepository(Ref ref) {
   return ImageRepositoryImpl(
     storage: ref.watch(
       firebaseStorageProvider,
@@ -16,7 +17,7 @@ ImageRepository imageRepository(ImageRepositoryRef ref) {
 }
 
 @Riverpod(keepAlive: true)
-ImageService imageService(ImageServiceRef ref) {
+ImageService imageService(Ref ref) {
   return ImageServiceImpl(
     imageRepository: ref.watch(
       imageRepositoryProvider,
