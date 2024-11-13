@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'ser-manos-app.appspot.com',
     iosBundleId: 'ar.edu.itba.serManos',
   );
+
 }
