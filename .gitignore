@@ -146,3 +146,4 @@ ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/APIKey.plist
 lib/**/generated
 *.mocks.dart
 test/**/*.png
+ios/Runner/APIKey.plist
