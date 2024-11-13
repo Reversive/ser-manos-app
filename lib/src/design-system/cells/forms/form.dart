@@ -47,12 +47,14 @@ class SMForm extends StatelessWidget {
       formKey: formKey,
       children: [
         SMTextInput(
+          key: const Key('email_field'),
           controller: emailController,
           labelText: "Email",
           validator: SMValidator.email,
         ),
         const SMGap.vertical(height: 24),
         SMPasswordInput(
+          key: const Key('password_field'),
           controller: passwordController,
           labelText: "Contraseña",
         ),
