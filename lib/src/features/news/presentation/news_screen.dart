@@ -30,6 +30,7 @@ class NewsScreen extends HookConsumerWidget {
               child: ListView.separated(
                 itemBuilder: (context, index) {
                   return SMCard.news(
+                    context: context,
                     news: news[index],
                     onPressed: () => Beamer.of(context).beamToNamed(
                       "${NewsScreen.route}?id=${news[index].id}",

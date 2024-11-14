@@ -15,6 +15,7 @@ import 'package:ser_manos/src/design-system/tokens/grid.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewsDetailScreen extends HookConsumerWidget {
   const NewsDetailScreen({super.key, required this.id});
@@ -41,7 +42,7 @@ class NewsDetailScreen extends HookConsumerWidget {
     }
 
     return Scaffold(
-      appBar: SMHeader.section(subtitle: "Novedades"),
+      appBar: SMHeader.section(subtitle: AppLocalizations.of(context)!.news),
       backgroundColor: SMColors.neutral0,
       body: newsDetail.when(
         data: (news) => RefreshIndicator(
@@ -78,7 +79,7 @@ class NewsDetailScreen extends HookConsumerWidget {
                     if (isSharingEnabled.value)
                       Align(
                         alignment: Alignment.center,
-                        child: SMTypography.headline02("Comparte esta nota"),
+                        child: SMTypography.headline02(AppLocalizations.of(context)!.shareNews),
                       ),
                     const SMGap.vertical(height: 16),
                     if (isSharingEnabled.value)
@@ -86,7 +87,7 @@ class NewsDetailScreen extends HookConsumerWidget {
                         padding: const EdgeInsets.only(bottom: 32),
                         child: SMFill.horizontal(
                           child: SMButton.filled(
-                            "Compartir",
+                            AppLocalizations.of(context)!.share,
                             onPressed: () async {
                               isLoading.value = true;
                               final img =

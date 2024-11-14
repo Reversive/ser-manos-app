@@ -1,4 +1,3 @@
-
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -18,6 +17,7 @@ import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/grid.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VolunteerDetailScreen extends HookConsumerWidget {
   const VolunteerDetailScreen({super.key, required this.id});
@@ -73,7 +73,10 @@ class VolunteerDetailScreen extends HookConsumerWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: SMTypography.body01(
-            "Voluntariado ${isRemoved ? 'eliminado de' : 'agregado a'} favoritos",
+            AppLocalizations.of(context)!.volunteeringsFavoriteSnackbar(
+                isRemoved
+                    ? AppLocalizations.of(context)!.volunteeringsRemovedFrom
+                    : AppLocalizations.of(context)!.volunteeringsAddedTo),
             color: SMColors.neutral0,
           ),
           duration: const Duration(seconds: 2),
@@ -135,7 +138,7 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SMTypography.overline(
-                          "ACCIÓN SOCIAL",
+                          AppLocalizations.of(context)!.socialAction,
                           color: SMColors.neutral75,
                         ),
                         SMTypography.headline01(volunteering.name),
@@ -145,45 +148,54 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                           color: SMColors.secondary200,
                         ),
                         const SMGap.vertical(height: 24),
-                        SMTypography.headline02("Sobre la actividad"),
+                        SMTypography.headline02(
+                            AppLocalizations.of(context)!.aboutActivity),
                         const SMGap.vertical(height: 8),
                         SMTypography.body01(
                           volunteering.about,
                         ),
                         const SMGap.vertical(height: 24),
                         SMCard.location(
+                          context: context,
                           hasEmbeddedMap: true,
                           location: volunteering.location,
                         ),
                         const SMGap.vertical(height: 32),
-                        SMTypography.headline02("Participar del voluntariado"),
+                        SMTypography.headline02(
+                            AppLocalizations.of(context)!.applyToVolunteer),
                         const SMGap.vertical(height: 8),
-                        SMTypography.subtitle01("Requisitos"),
+                        SMTypography.subtitle01(
+                            AppLocalizations.of(context)!.requirements),
                         const SMGap.vertical(height: 8),
                         SMComponent.bulletList(
                           items: volunteering.requirements,
                         ),
                         const SMGap.vertical(height: 8),
-                        SMTypography.subtitle01("Dispobilidad"),
+                        SMTypography.subtitle01(
+                            AppLocalizations.of(context)!.availability),
                         const SMGap.vertical(height: 8),
                         SMComponent.bulletList(
                           items: volunteering.availability,
                         ),
                         const SMGap.vertical(height: 8),
-                        SMComponent.vacancy(vacancies: vacancies),
+                        SMComponent.vacancy(
+                          vacancies: vacancies,
+                          context: context,
+                        ),
                         const SMGap.vertical(height: 24),
                         !isPostulatedOrVolunteering
                             ? Column(
                                 children: [
                                   if (vacancies == 0)
                                     SMTypography.body01(
-                                        "No hay vacantes disponibles para postularse",
+                                        AppLocalizations.of(context)!
+                                            .noVacanciesAbailableToApply,
                                         align: TextAlign.center),
                                   if (vacancies == 0)
                                     const SMGap.vertical(height: 24),
                                   SMFill.horizontal(
                                     child: SMButton.filled(
-                                      "Postularme",
+                                      AppLocalizations.of(context)!.apply,
                                       disabled:
                                           vacancies == 0 || shouldDisable.value,
                                       onPressed: () => {
@@ -193,10 +205,15 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                                               context: context,
                                               builder: (BuildContext ctx) =>
                                                   SModalFlip(
-                                                subtitle:
-                                                    "Para postularte a un voluntariado debes completar tus datos.",
-                                                cancelText: "Cancelar",
-                                                confirmText: "Completar datos",
+                                                subtitle: AppLocalizations.of(
+                                                        context)!
+                                                    .applyConditionData,
+                                                cancelText: AppLocalizations.of(
+                                                        context)!
+                                                    .cancel,
+                                                confirmText: AppLocalizations
+                                                        .of(context)!
+                                                    .applyConditionDataButton,
                                                 context: context,
                                                 onConfirm: () =>
                                                     Beamer.of(context)
@@ -218,10 +235,16 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                                               builder: (BuildContext ctx) =>
                                                   SModalFlip(
                                                 title: volunteering.name,
-                                                subtitle:
-                                                    "Te estas por postular a",
-                                                cancelText: "Cancelar",
-                                                confirmText: "Confirmar",
+                                                subtitle: AppLocalizations.of(
+                                                        context)!
+                                                    .aboutToVolunteer,
+                                                cancelText: AppLocalizations.of(
+                                                        context)!
+                                                    .cancel,
+                                                confirmText:
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .confirm,
                                                 context: context,
                                                 onConfirm: () async {
                                                   shouldDisable.value = true;
@@ -242,19 +265,25 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                               )
                             : isPostulated
                                 ? SMCard.volunteerPostulationDetails(
-                                    title: "Te has postulado",
-                                    content:
-                                        "Pronto la organizacion se pondra en contacto contigo y te inscribira como participante",
-                                    btnText: "Retirar postulacion",
+                                    title:
+                                        AppLocalizations.of(context)!.applied,
+                                    content: AppLocalizations.of(context)!
+                                        .appliedMessage,
+                                    btnText: AppLocalizations.of(context)!
+                                        .removeApplication,
                                     shouldDisable: shouldDisable.value,
                                     onBtnPressed: () => showDialog(
                                       context: context,
                                       builder: (BuildContext ctx) => SModalFlip(
                                         title: volunteering.name,
-                                        subtitle:
-                                            "¿Estas seguro que queres retirar tu postulacion?",
-                                        cancelText: "Cancelar",
-                                        confirmText: "Confirmar",
+                                        subtitle: AppLocalizations.of(context)!
+                                            .removeApplicationPrompt,
+                                        cancelText:
+                                            AppLocalizations.of(context)!
+                                                .cancel,
+                                        confirmText:
+                                            AppLocalizations.of(context)!
+                                                .confirm,
                                         context: context,
                                         onConfirm: () async {
                                           shouldDisable.value = true;
@@ -270,10 +299,12 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                                   )
                                 : isVolunteering
                                     ? SMCard.volunteerPostulationDetails(
-                                        title: "Estas participando",
-                                        content:
-                                            "La organizacion confirmo que ya estas participando de este voluntariado",
-                                        btnText: "Abandonar voluntariado",
+                                        title: AppLocalizations.of(context)!
+                                            .participating,
+                                        content: AppLocalizations.of(context)!
+                                            .participationMessage,
+                                        btnText: AppLocalizations.of(context)!
+                                            .abandonVolunteering,
                                         shouldDisable: shouldDisable.value,
                                         onBtnPressed: () => showDialog(
                                           context: context,
@@ -281,9 +312,14 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                                               SModalFlip(
                                             title: volunteering.name,
                                             subtitle:
-                                                "¿Estas seguro que queres abandonar tu voluntariado?",
-                                            cancelText: "Cancelar",
-                                            confirmText: "Confirmar",
+                                                AppLocalizations.of(context)!
+                                                    .abandonVolunteeringPrompt,
+                                            cancelText:
+                                                AppLocalizations.of(context)!
+                                                    .cancel,
+                                            confirmText:
+                                                AppLocalizations.of(context)!
+                                                    .confirm,
                                             context: context,
                                             onConfirm: () async {
                                               shouldDisable.value = true;
@@ -298,18 +334,23 @@ class VolunteerDetailScreen extends HookConsumerWidget {
                                         ),
                                       )
                                     : SMCard.volunteerPostulationDetails(
-                                        content:
-                                            "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este",
-                                        btnText:
-                                            "Abandonar voluntariado actual",
+                                        content: AppLocalizations.of(context)!
+                                            .alreadyParticipatingInOtherVolunteering,
+                                        btnText: AppLocalizations.of(context)!
+                                            .abandonCurrentVolunteering,
                                         onBtnPressed: () => showDialog(
                                           context: context,
                                           builder: (BuildContext ctx) =>
                                               SModalFlip(
-                                            subtitle:
-                                                "¿Estas seguro que queres abandonar tu voluntariado actual?",
-                                            cancelText: "Cancelar",
-                                            confirmText: "Confirmar",
+                                            subtitle: AppLocalizations.of(
+                                                    context)!
+                                                .abandonCurrentVolunteeringPrompt,
+                                            cancelText:
+                                                AppLocalizations.of(context)!
+                                                    .cancel,
+                                            confirmText:
+                                                AppLocalizations.of(context)!
+                                                    .confirm,
                                             context: context,
                                             onConfirm: () async {
                                               shouldDisable.value = true;

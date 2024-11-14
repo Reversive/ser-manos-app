@@ -8,6 +8,8 @@ import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
 import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class SplashScreen extends StatelessWidget {
   static const String route = "/splash";
@@ -26,7 +28,7 @@ class SplashScreen extends StatelessWidget {
             const SquaredLogo(),
             const SMGap.vertical(height: 32),
             SMTypography.subtitle01(
-              "“El esfuerzo desinteresado para llevar alegría a los demás será el comienzo de una vida más feliz para nosotros”",
+              AppLocalizations.of(context)!.splashPhrase,
               align: TextAlign.center,
             ),
           ],
@@ -36,7 +38,7 @@ class SplashScreen extends StatelessWidget {
           children: [
             SMFill.horizontal(
               child: SMButton.filled(
-                "Iniciar Sesión",
+                AppLocalizations.of(context)!.login,
                 onPressed: () =>
                     Beamer.of(context).beamToNamed(SignInScreen.route),
               ),
@@ -46,7 +48,7 @@ class SplashScreen extends StatelessWidget {
             ),
             SMFill.horizontal(
               child: SMButton.text(
-                "Registrarse",
+                AppLocalizations.of(context)!.register,
                 onPressed: () =>
                     Beamer.of(context).beamToNamed(SignUpScreen.route),
               ),

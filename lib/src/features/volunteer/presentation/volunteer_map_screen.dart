@@ -176,12 +176,15 @@ class VolunteerMapScreen extends HookConsumerWidget {
                     child: volunteers.isEmpty
                         ? Padding(
                             padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                            child: SMCard.noVolunteerings(),
+                            child: SMCard.noVolunteerings(
+                              context: context,
+                            ),
                           )
                         : CarouselSlider(
                             items: volunteers
                                 .map(
                                   (voluntary) => SMCard.volunteer(
+                                    context: context,
                                     isFavoriteEnabled: isFavoriteEnabled.value,
                                     onFavorite: () async {
                                       if (currentUser.value == null) return;

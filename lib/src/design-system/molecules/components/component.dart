@@ -3,6 +3,7 @@ import 'package:ser_manos/src/design-system/atoms/icon.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SMComponent extends StatelessWidget {
   const SMComponent({
@@ -17,6 +18,7 @@ class SMComponent extends StatelessWidget {
   factory SMComponent.vacancy({
     Key? key,
     required int vacancies,
+    required BuildContext context,
   }) {
     return SMComponent(
       decoration: BoxDecoration(
@@ -27,7 +29,7 @@ class SMComponent extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SMTypography.body02("Vacantes:"),
+          SMTypography.body02(AppLocalizations.of(context)!.vacancies),
           const SMGap.horizontal(
             width: 8.0,
           ),

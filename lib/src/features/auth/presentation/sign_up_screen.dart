@@ -14,6 +14,7 @@ import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
 import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUpScreen extends HookConsumerWidget {
   static const String route = "/sign-up";
@@ -63,6 +64,7 @@ class SignUpScreen extends HookConsumerWidget {
           nameController: nameController,
           passwordController: passwordController,
           formKey: _formKey,
+          context: context,
         ),
         ...authState.value.maybeWhen(
           loading: () => [
@@ -83,7 +85,7 @@ class SignUpScreen extends HookConsumerWidget {
         const Spacer(),
         SMFill.horizontal(
           child: SMButton.filled(
-            "Registrarse",
+            AppLocalizations.of(context)!.register,
             onPressed: onSignUp,
             disabled: isLoading.value,
           ),
@@ -93,7 +95,7 @@ class SignUpScreen extends HookConsumerWidget {
         ),
         SMFill.horizontal(
           child: SMButton.text(
-            "Ya tengo cuenta",
+            AppLocalizations.of(context)!.haveAccount,
             onPressed: () => Beamer.of(context).beamToNamed(SignInScreen.route),
           ),
         ),
