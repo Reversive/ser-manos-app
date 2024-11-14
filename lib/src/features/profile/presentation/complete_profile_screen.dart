@@ -15,6 +15,8 @@ import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/grid.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class CompleteProfileScreen extends HookConsumerWidget {
   const CompleteProfileScreen({super.key});
@@ -37,7 +39,7 @@ class CompleteProfileScreen extends HookConsumerWidget {
                 ),
                 const SMGap.vertical(height: 16),
                 SMTypography.overline(
-                  "VOLUNTARIO",
+                  AppLocalizations.of(context)!.volunteer,
                   color: SMColors.neutral75,
                 ),
                 const SMGap.vertical(height: 2),
@@ -50,27 +52,27 @@ class CompleteProfileScreen extends HookConsumerWidget {
                 const SMGap.vertical(height: 32),
                 SMCard.information(
                   information: Information(
-                    title: "Información personal",
-                    label1: "Fecha de nacimiento",
+                    title: AppLocalizations.of(context)!.personalInfo,
+                    label1: AppLocalizations.of(context)!.dateOfBirth,
                     content1: "10/08/1990",
-                    label2: "Género",
+                    label2: AppLocalizations.of(context)!.genre,
                     content2: userData.gender!.value,
                   ),
                 ),
                 const SMGap.vertical(height: 32),
                 SMCard.information(
                   information: Information(
-                    title: "Datos de contacto",
-                    label1: "Teléfono",
+                    title: AppLocalizations.of(context)!.contactDetails,
+                    label1: AppLocalizations.of(context)!.phone,
                     content1: userData.phone!,
-                    label2: "E-mail",
+                    label2: AppLocalizations.of(context)!.email,
                     content2: userData.email!,
                   ),
                 ),
                 const SMGap.vertical(height: 32),
                 SMFill.horizontal(
                   child: SMButton.filled(
-                    "Editar perfil",
+                    AppLocalizations.of(context)!.editProfile,
                     onPressed: () => Beamer.of(context).beamToNamed(
                       EditProfileScreen.route,
                       beamBackOnPop: true,
@@ -80,14 +82,14 @@ class CompleteProfileScreen extends HookConsumerWidget {
                 const SMGap.vertical(height: 8),
                 SMFill.horizontal(
                   child: SMButton.text(
-                    "Cerrar sesión",
+                    AppLocalizations.of(context)!.signOut,
                     color: SMColors.error100,
                     onPressed: () => showDialog(
                       context: context,
                       builder: (BuildContext ctx) => SMModal(
-                        title: "¿Estas seguro que quieres cerrar sesión?",
-                        cancelText: "Cancelar",
-                        confirmText: "Cerrar sesión",
+                        title: AppLocalizations.of(context)!.signOutPrompt,
+                        cancelText: AppLocalizations.of(context)!.cancel,
+                        confirmText: AppLocalizations.of(context)!.signOut,
                         context: context,
                         onConfirm: () {
                           authController.signOut();

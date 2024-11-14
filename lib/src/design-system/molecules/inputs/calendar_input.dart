@@ -5,6 +5,7 @@ import 'package:ser_manos/src/design-system/atoms/icon.dart';
 import 'package:ser_manos/src/design-system/molecules/inputs/base_input.dart';
 import 'package:ser_manos/src/design-system/molecules/inputs/formatters/date_formatter.dart';
 import 'package:ser_manos/src/design-system/molecules/inputs/validators/validator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SMCalendarInput extends HookWidget {
   const SMCalendarInput({
@@ -19,7 +20,6 @@ class SMCalendarInput extends HookWidget {
   final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
-
     void onSuffixIconPressed() async {
       FocusScope.of(context).requestFocus(FocusNode());
       final DateTime? picked = await showDatePicker(
@@ -37,11 +37,11 @@ class SMCalendarInput extends HookWidget {
 
     return BaseInput(
       controller: controller,
-      validator: SMValidator.required,
+      validator: (value) => SMValidator.required(value, context),
       keyboardType: TextInputType.datetime,
       hintText: hintText,
       labelText: labelText,
-      helperText: "Día / Mes / Año",
+      helperText: AppLocalizations.of(context)!.calendarHelperText,
       permaShowSuffixIcon: true,
       onSuffixIconPressed: onSuffixIconPressed,
       suffixIcon: const SMIcon(

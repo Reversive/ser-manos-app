@@ -17,6 +17,7 @@ import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/grid.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
 import 'package:ser_manos/src/features/volunteer/services/map_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VolunteerListScreen extends HookConsumerWidget {
   const VolunteerListScreen({
@@ -82,7 +83,8 @@ class VolunteerListScreen extends HookConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         if (currentVolunteer.value != null) ...[
-                          SMTypography.headline01("Tu actividad"),
+                          SMTypography.headline01(
+                              AppLocalizations.of(context)!.yourActivity),
                           const SMGap.vertical(height: 16),
                           SMCard.currentVolunteer(
                             volunteering: currentVolunteer.value!,
@@ -92,15 +94,18 @@ class VolunteerListScreen extends HookConsumerWidget {
                         SMGap.vertical(
                             height: currentVolunteer.value != null ? 24 : 0),
                         SMTypography.headline01(
-                          "Voluntariados",
+                          AppLocalizations.of(context)!.volunteerings,
                           align: TextAlign.start,
                         ),
                         SMGap.vertical(height: volunteers.isEmpty ? 16 : 24),
                         volunteers.isEmpty
-                            ? SMCard.noVolunteerings()
+                            ? SMCard.noVolunteerings(
+                                context: context,
+                              )
                             : ListView.separated(
                                 itemBuilder: (_, index) {
                                   return SMCard.volunteer(
+                                    context: context,
                                     isFavoriteEnabled: isFavoriteEnabled.value,
                                     onFavorite: () async {
                                       if (currentUser.value == null) return;

@@ -13,6 +13,7 @@ import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/grid.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashProfileScreen extends HookConsumerWidget {
   const SplashProfileScreen({super.key});
@@ -35,14 +36,14 @@ class SplashProfileScreen extends HookConsumerWidget {
             ),
             const SMGap.vertical(height: 16),
             SMTypography.overline(
-              "VOLUNTARIO",
+              AppLocalizations.of(context)!.volunteer,
               color: SMColors.neutral75,
             ),
             const SMGap.vertical(height: 8),
             SMTypography.subtitle01('${user.name} ${user.surname}'),
             const SMGap.vertical(height: 8),
             SMTypography.body01(
-              "¡Completá tu perfil para tener acceso a mejores oportunidades!",
+              AppLocalizations.of(context)!.completeProfile,
               align: TextAlign.center,
               color: SMColors.neutral75,
             ),
@@ -51,7 +52,7 @@ class SplashProfileScreen extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SMButton.short(
-                  "Completar",
+                  AppLocalizations.of(context)!.complete,
                   icon: const SMIcon(
                     icon: Icons.add,
                     active: true,
@@ -69,14 +70,14 @@ class SplashProfileScreen extends HookConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 26),
                 child: SMButton.text(
-                  "Cerrar sesión",
+                  AppLocalizations.of(context)!.signOut,
                   color: SMColors.error100,
                   onPressed: () => showDialog(
                     context: context,
                     builder: (BuildContext ctx) => SMModal(
-                      title: "¿Estas seguro que quieres cerrar sesión?",
-                      cancelText: "Cancelar",
-                      confirmText: "Cerrar sesión",
+                      title: AppLocalizations.of(context)!.signOutPrompt,
+                      cancelText: AppLocalizations.of(context)!.cancel,
+                      confirmText: AppLocalizations.of(context)!.signOut,
                       context: context,
                       onConfirm: () {
                         authController.signOut();

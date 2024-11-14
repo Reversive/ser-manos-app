@@ -24,7 +24,10 @@ class HomeScreen extends HookWidget {
       initialIndex: initialIndex,
     );
     return Scaffold(
-      appBar: SMHeader.tab(tabController: tabController),
+      appBar: SMHeader.tab(
+        tabController: tabController,
+        context: context,
+      ),
       resizeToAvoidBottomInset: false,
       body: TabBarView(
         controller: tabController,

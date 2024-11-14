@@ -21,6 +21,7 @@ import 'package:ser_manos/src/design-system/tokens/grid.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_detail_screen.dart';
 import 'package:ser_manos/src/features/volunteer/providers/volunteering_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProfileScreen extends HookConsumerWidget {
   static const String route = '/home/profile/edit';
@@ -81,16 +82,18 @@ class EditProfileScreen extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SMTypography.headline01("Datos de perfil"),
+                  SMTypography.headline01(
+                      AppLocalizations.of(context)!.profileData),
                   const SMGap.vertical(height: 24),
                   SMCalendarInput(
                     controller: dateController,
                     hintText: "DD/MM/YYYY",
-                    labelText: "Fecha de nacimiento",
+                    labelText: AppLocalizations.of(context)!.dateOfBirth,
                   ),
                   const SMGap.vertical(height: 24),
                   SMCard.input(
-                    title: "Información de perfil",
+                    context: context,
+                    title: AppLocalizations.of(context)!.profileInfo,
                     groupValue: currentGender.value,
                     onChanged: (Gender? value) =>
                         currentGender.value = value ?? Gender.male,
@@ -102,29 +105,30 @@ class EditProfileScreen extends HookConsumerWidget {
                     context: context,
                   ),
                   const SMGap.vertical(height: 32),
-                  SMTypography.headline01("Datos de contacto"),
+                  SMTypography.headline01(
+                      AppLocalizations.of(context)!.contactDetails),
                   const SMGap.vertical(height: 24),
                   SMTypography.subtitle01(
-                    "Estos datos serán compartidos con la organización para ponerse en contacto contigo",
+                    AppLocalizations.of(context)!.contactRemark,
                   ),
                   const SMGap.vertical(height: 24),
                   SMTextInput(
                     controller: phoneController,
-                    labelText: "Teléfono",
-                    hintText: "+5491141625944",
-                    validator: SMValidator.required,
+                    labelText: AppLocalizations.of(context)!.phone,
+                    hintText: AppLocalizations.of(context)!.phoneExample,
+                    validator: (value) => SMValidator.required(value, context),
                   ),
                   const SMGap.vertical(height: 24),
                   SMTextInput(
                     controller: emailController,
-                    labelText: "Mail",
-                    hintText: "mimail@mail.com",
-                    validator: SMValidator.email,
+                    labelText: AppLocalizations.of(context)!.email,
+                    hintText: AppLocalizations.of(context)!.emailExample,
+                    validator: (value) => SMValidator.email(value, context),
                   ),
                   const SMGap.vertical(height: 32),
                   SMFill.horizontal(
                     child: SMButton.filled(
-                      "Guardar datos",
+                      AppLocalizations.of(context)!.saveData,
                       onPressed: () async {
                         currentUser.whenData((user) async {
                           isLoading.value = true;
@@ -147,9 +151,12 @@ class EditProfileScreen extends HookConsumerWidget {
                               context: context,
                               builder: (BuildContext ctx) => SModalFlip(
                                 title: volunteering.name,
-                                subtitle: "Te estas por postular a",
-                                cancelText: "Cancelar",
-                                confirmText: "Confirmar",
+                                subtitle: AppLocalizations.of(context)!
+                                    .aboutToVolunteer,
+                                cancelText:
+                                    AppLocalizations.of(context)!.cancel,
+                                confirmText:
+                                    AppLocalizations.of(context)!.confirm,
                                 context: context,
                                 onConfirm: () async {
                                   Beamer.of(context).beamToNamed(

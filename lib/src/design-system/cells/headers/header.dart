@@ -6,12 +6,14 @@ import 'package:ser_manos/src/design-system/cells/headers/styles/suos_light.dart
 import 'package:ser_manos/src/design-system/cells/headers/styles/suos_secondary.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SMHeader extends AppBar {
   SMHeader.tab({
     super.key,
     required TabController tabController,
     Function(int)? onTap,
+    required BuildContext context,
   }) : super(
           scrolledUnderElevation: 0,
           systemOverlayStyle: const SUOSSecondary(),
@@ -45,15 +47,15 @@ class SMHeader extends AppBar {
                   ),
                   color: SMColors.secondary200,
                 ),
-                tabs: const [
+                tabs: [
                   Tab(
-                    text: "Postularse",
+                    text: AppLocalizations.of(context)!.apply,
                   ),
                   Tab(
-                    text: "Mi perfil",
+                    text: AppLocalizations.of(context)!.myProfile,
                   ),
                   Tab(
-                    text: "Novedades",
+                    text: AppLocalizations.of(context)!.news,
                   ),
                 ],
               ),

@@ -7,6 +7,7 @@ import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
 import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeScreen extends StatelessWidget {
   static const String route = "/welcome";
@@ -24,12 +25,12 @@ class WelcomeScreen extends StatelessWidget {
             const SMGap.vertical(
               height: 32,
             ),
-            SMTypography.headline01("¡Bienvenido!"),
+            SMTypography.headline01(AppLocalizations.of(context)!.welcome),
             const SMGap.vertical(
               height: 48,
             ),
             SMTypography.subtitle01(
-              "Nunca subestimes tu habilidad para mejorar la vida de alguien.",
+              AppLocalizations.of(context)!.welcomePhrase,
               align: TextAlign.center,
             ),
           ],
@@ -37,7 +38,7 @@ class WelcomeScreen extends StatelessWidget {
         const Spacer(),
         SMFill.horizontal(
           child: SMButton.filled(
-            "Comenzar",
+            AppLocalizations.of(context)!.begin,
             onPressed: () =>
                 Beamer.of(context).beamToNamed(VolunteerScreen.route),
           ),

@@ -5,6 +5,7 @@ import 'package:ser_manos/src/design-system/atoms/icon.dart';
 import 'package:ser_manos/src/design-system/molecules/inputs/base_input.dart';
 import 'package:ser_manos/src/design-system/tokens/shadows.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SMSearchInput extends HookWidget {
   const SMSearchInput({
@@ -69,7 +70,7 @@ class SMSearchInput extends HookWidget {
           prefixIcon: const SMIcon(
             icon: Icons.search,
           ),
-          hintText: 'Buscar',
+          hintText: AppLocalizations.of(context)!.search,
           hintStyle: SMTypography.subtitle01Style(),
         ),
       ),

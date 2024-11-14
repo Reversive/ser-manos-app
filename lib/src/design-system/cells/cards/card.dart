@@ -18,6 +18,7 @@ import 'package:ser_manos/src/design-system/tokens/typography.dart';
 import 'package:ser_manos/src/features/profile/models/location.dart';
 import 'package:ser_manos/src/features/auth/models/information.dart';
 import 'package:ser_manos/src/features/volunteer/presentation/volunteer_detail_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SMCard extends StatelessWidget {
   const SMCard({
@@ -56,7 +57,7 @@ class SMCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SMTypography.overline(
-                    "ACCIÓN SOCIAL",
+                    AppLocalizations.of(context)!.socialAction,
                     color: SMColors.neutral75,
                   ),
                   SMTypography.subtitle01(volunteering.name),
@@ -112,6 +113,7 @@ class SMCard extends StatelessWidget {
     required String title,
     required Gender groupValue,
     required void Function(Gender?) onChanged,
+    required BuildContext context,
   }) {
     return SMCard(
       child: SMComponent.heading(
@@ -123,7 +125,7 @@ class SMCard extends StatelessWidget {
             children: [
               RadioListTile<Gender>(
                 title: SMTypography.body01(
-                  "Hombre",
+                  AppLocalizations.of(context)!.male,
                   color: SMColors.neutral100,
                 ),
                 dense: true,
@@ -138,7 +140,7 @@ class SMCard extends StatelessWidget {
               ),
               RadioListTile<Gender>(
                 title: SMTypography.body01(
-                  "Mujer",
+                  AppLocalizations.of(context)!.female,
                   color: SMColors.neutral100,
                 ),
                 groupValue: groupValue,
@@ -153,7 +155,7 @@ class SMCard extends StatelessWidget {
               ),
               RadioListTile<Gender>(
                 title: SMTypography.body01(
-                  "No binario",
+                  AppLocalizations.of(context)!.nonBinary,
                   color: SMColors.neutral100,
                 ),
                 groupValue: groupValue,
@@ -177,10 +179,11 @@ class SMCard extends StatelessWidget {
     Key? key,
     required Location location,
     bool hasEmbeddedMap = false,
+    required BuildContext context,
   }) {
     return SMCard(
       child: SMComponent.heading(
-        title: "Información de perfil",
+        title: AppLocalizations.of(context)!.ubication,
         child: Container(
           decoration: const BoxDecoration(
             color: SMColors.neutral10,
@@ -226,7 +229,7 @@ class SMCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: SMComponent.labeledContent(
-                        label: "dirección",
+                        label: AppLocalizations.of(context)!.address,
                         content:
                             '${location.street} ${location.number}, ${location.city}, ${location.state}.',
                       ),
@@ -251,6 +254,7 @@ class SMCard extends StatelessWidget {
     Key? key,
     required News news,
     required VoidCallback onPressed,
+    required BuildContext context,
   }) {
     return SMCard(
       decoration: BoxDecoration(
@@ -295,7 +299,7 @@ class SMCard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
                           child: SMButton.text(
-                            "Leer Más",
+                            AppLocalizations.of(context)!.readMore,
                             onPressed: onPressed,
                           ),
                         ),
@@ -346,6 +350,7 @@ class SMCard extends StatelessWidget {
 
   factory SMCard.noVolunteerings({
     Key? key,
+    required BuildContext context,
   }) {
     return SMCard(
       decoration: BoxDecoration(
@@ -356,7 +361,7 @@ class SMCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: SMTypography.subtitle01(
-            "No hay voluntariados vigentes para tu búsqueda.",
+            AppLocalizations.of(context)!.noVolunteerings,
             align: TextAlign.center,
           ),
         ),
@@ -386,19 +391,19 @@ class SMCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SMTypography.subtitle01("Foto de perfil"),
+              SMTypography.subtitle01(AppLocalizations.of(context)!.profilePic),
               if (image != null) const SMGap.vertical(height: 8),
               if (image != null)
                 SMButton.shortSmall(
-                  "Cambiar foto",
-                  onPressed: () => showOptions(context, onImagePicked),
+                  AppLocalizations.of(context)!.changePic,
+                  onPressed: () => showOptions(context, onImagePicked, context),
                 ),
             ],
           ),
           image == null
               ? SMButton.shortSmall(
-                  "Subir foto",
-                  onPressed: () => showOptions(context, onImagePicked),
+                  AppLocalizations.of(context)!.uploadPic,
+                  onPressed: () => showOptions(context, onImagePicked, context),
                 )
               : SMComponent.profilePictureSmall(
                   image: image,
@@ -418,6 +423,7 @@ class SMCard extends StatelessWidget {
     void Function()? onFavorite,
     void Function()? onLocation,
     bool isFavoriteEnabled = true,
+    required BuildContext context,
   }) {
     return SMCard(
       key: key,
@@ -452,7 +458,7 @@ class SMCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SMTypography.overline(
-                        "ACCIÓN SOCIAL",
+                        AppLocalizations.of(context)!.socialAction,
                         color: SMColors.neutral75,
                       ),
                       SMTypography.subtitle01(volunteer.name),
@@ -460,6 +466,7 @@ class SMCard extends StatelessWidget {
                         height: 4,
                       ),
                       SMComponent.vacancy(
+                        context: context,
                         vacancies: vacancies,
                       ),
                     ],
@@ -525,7 +532,8 @@ class SMCard extends StatelessWidget {
   }
 }
 
-showOptions(BuildContext context, void Function(XFile? image) onImagePicked) {
+showOptions(BuildContext context, void Function(XFile? image) onImagePicked,
+    BuildContext buildContext) {
   showCupertinoModalPopup(
     context: context,
     builder: (context) => CupertinoActionSheet(
@@ -535,19 +543,19 @@ showOptions(BuildContext context, void Function(XFile? image) onImagePicked) {
             Navigator.of(context).pop();
             _selectImage(onImagePicked);
           },
-          child: SMTypography.body01('Galería'),
+          child: SMTypography.body01(AppLocalizations.of(context)!.galery),
         ),
         CupertinoActionSheetAction(
           onPressed: () {
             Navigator.of(context).pop();
             _selectCameraImage(onImagePicked);
           },
-          child: SMTypography.body01('Camara'),
+          child: SMTypography.body01(AppLocalizations.of(context)!.camera),
         ),
       ],
       cancelButton: CupertinoActionSheetAction(
         onPressed: () => Navigator.of(context).pop(),
-        child: SMTypography.body01('Cancelar'),
+        child: SMTypography.body01(AppLocalizations.of(context)!.cancel),
       ),
     ),
   );

@@ -27,7 +27,7 @@ class SMPasswordInput extends HookWidget {
       hintText: hintText,
       labelText: labelText,
       enabled: enabled,
-      validator: SMValidator.password,
+      validator: (value) => SMValidator.password(value, context),
       suffixIcon: passwordVisible.value
           ? const SMIcon(icon: Icons.visibility)
           : const SMIcon(icon: Icons.visibility_off),
