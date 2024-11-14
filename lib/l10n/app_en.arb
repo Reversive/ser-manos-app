@@ -83,6 +83,6 @@
     "requiredField": "Required field",
     "invalidEmail": "Invalid email",
     "invalidPassword": "The password must contain at least 8 characters",
-    "ubication": "Ubication"
+    "ubication": "Location"
 
 }
