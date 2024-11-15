@@ -90,4 +90,14 @@ To execute tests, run the following command in the root of the project:
 ```
 flutter test
 ```
-If you do not possess the golden test files, append `--update-goldens` to the above command
+If you do not possess the golden test files, append `--update-goldens` to the above command.
+It is also possible to target tests by tag by inputting the following command:
+```
+flutter test -t tag
+```
+The available tags are:
+- golden
+- auth
+- entry
+- news
+- profile
