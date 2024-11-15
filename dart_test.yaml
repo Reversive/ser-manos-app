@@ -1,0 +1,11 @@
+tags:
+  golden:
+  auth:
+  entry:
+  news:
+  profile:
+  
+test:
+  verbosity: 1
+  include:
+    - test/**
