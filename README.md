@@ -72,8 +72,18 @@ $> flutter run
 
 
 ## 📊 Event Monitoring
+There are several events that track the main app usage:
+- `news_shared` -> parameters: `news_id`, the idea behind it is to track which news are being shared the most
+- `volunteering_favorite` -> parameters: `volunteering_id`, the idea behind it is to track which volunteerings are the most liked
+- `volunteering_applied` -> parameters: `volunteering_id`, the idea behind it is to track which volunteerings are being applied the most to
+  
 ### Feature-flagging
+There are two features that can be toggled:
+- Sharing of news
+- Favorite volunteerings
+
 ### A/B Testing
+There is a current experiment being tested where a favorite button is added to the volunteering details to see if it triggers more favorites from users.
 
 ## 🎯 Testing
 To execute tests, run the following command in the root of the project:
