@@ -99,8 +99,12 @@ class SMHeader extends AppBar {
               : null,
         );
 
-  SMHeader.transparent({super.key, required bool isFavorite, required onPressed})
-      : super(
+  SMHeader.transparent({
+    super.key,
+    required bool isFavorite,
+    required onPressed,
+    required bool enableActions,
+  }) : super(
             scrolledUnderElevation: 0,
             backgroundColor: SMColors.transparent,
             elevation: 0,
@@ -120,13 +124,14 @@ class SMHeader extends AppBar {
               color: SMColors.neutral0,
             ),
             actions: [
-              IconButton(
-                onPressed: onPressed,
-                icon: SMIcon(
-                  icon: isFavorite ? Icons.favorite : Icons.favorite_border,
-                  activeColor: SMColors.neutral0,
-                  active: true,
-                ),
-              )
+              if (enableActions)
+                IconButton(
+                  onPressed: onPressed,
+                  icon: SMIcon(
+                    icon: isFavorite ? Icons.favorite : Icons.favorite_border,
+                    activeColor: SMColors.neutral0,
+                    active: true,
+                  ),
+                )
             ]);
 }

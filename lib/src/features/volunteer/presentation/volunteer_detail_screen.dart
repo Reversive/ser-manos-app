@@ -29,6 +29,10 @@ class VolunteerDetailScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final volunteeringDetail = ref.watch(volunteeringDetailProvider(id));
     final shouldDisable = useState(false);
+    final isFavoriteEnabled = useState(false);
+
+    ref.watch(remoteConfigProvider).whenData(
+        (rc) => isFavoriteEnabled.value = rc.enableDetailFavoriteButton);
 
     final uuid = useState('');
     ref.watch(currentUserProvider).whenData((u) => uuid.value = u.uuid);
@@ -88,6 +92,7 @@ class VolunteerDetailScreen extends HookConsumerWidget {
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: SMHeader.transparent(
+        enableActions: isFavoriteEnabled.value,
         isFavorite: currentUser != null
             ? currentUser.favoriteVolunteerings.contains(id)
             : false,
