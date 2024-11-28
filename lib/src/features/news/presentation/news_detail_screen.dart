@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:ser_manos/src/core/providers/firebase_provider.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
 import 'package:ser_manos/src/design-system/atoms/cached_image.dart';
+import 'package:ser_manos/src/design-system/cells/cards/card.dart';
 import 'package:ser_manos/src/features/news/providers/news_provider.dart';
 import 'package:ser_manos/src/design-system/cells/headers/header.dart';
 import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
@@ -113,9 +114,9 @@ class NewsDetailScreen extends HookConsumerWidget {
           ),
         ),
         error: (e, _) => Center(
-          child: SMTypography.body01(
-            'Error: $e',
-            color: SMColors.error100,
+          child: SMCard.noVolunteerings(
+            message: AppLocalizations.of(context)!.newsDoesntExist,
+            context: context,
           ),
         ),
         loading: () => const Center(

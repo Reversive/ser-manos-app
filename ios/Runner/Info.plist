@@ -19,6 +19,16 @@
 	<string>We need micrphone permission to take your profile picture</string>
 
 
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>sermanos</string>
+			</array>
+		</dict>
+	</array>
+
 	<key>CFBundleDisplayName</key>
 	<string>Ser Manos</string>
 	<key>CFBundleExecutable</key>

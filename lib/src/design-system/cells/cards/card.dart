@@ -351,6 +351,7 @@ class SMCard extends StatelessWidget {
 
   factory SMCard.noVolunteerings({
     Key? key,
+    required String message,
     required BuildContext context,
   }) {
     return SMCard(
@@ -362,7 +363,7 @@ class SMCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: SMTypography.subtitle01(
-            AppLocalizations.of(context)!.noVolunteerings,
+            message,
             align: TextAlign.center,
           ),
         ),

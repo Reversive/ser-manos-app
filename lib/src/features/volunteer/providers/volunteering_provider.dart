@@ -49,8 +49,7 @@ Stream<int> volunteeringVacancies(Ref ref, String id) {
 }
 
 @riverpod
-Stream<bool> volunteeringIsPostulatedOrVolunteering(
-    Ref ref, String uuid) {
+Stream<bool> volunteeringIsPostulatedOrVolunteering(Ref ref, String uuid) {
   return ref
       .watch(volunteeringServiceProvider)
       .isPostulatedOrVolunteering(uuid);

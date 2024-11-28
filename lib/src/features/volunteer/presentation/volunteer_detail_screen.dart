@@ -381,9 +381,11 @@ class VolunteerDetailScreen extends HookConsumerWidget {
           child: CircularProgressIndicator(),
         ),
         error: (error, stackTrace) => Center(
-          child: SMTypography.body01(
-            'Error: $error',
-            color: SMColors.error100,
+          child: Center(
+            child: SMCard.noVolunteerings(
+              message: AppLocalizations.of(context)!.volunteeringDoesntExist,
+              context: context,
+            ),
           ),
         ),
       ),

@@ -100,6 +100,7 @@ class VolunteerListScreen extends HookConsumerWidget {
                         SMGap.vertical(height: volunteers.isEmpty ? 16 : 24),
                         volunteers.isEmpty
                             ? SMCard.noVolunteerings(
+                              message: AppLocalizations.of(context)!.noVolunteerings,
                                 context: context,
                               )
                             : ListView.separated(
