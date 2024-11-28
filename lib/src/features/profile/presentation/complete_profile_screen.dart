@@ -92,6 +92,7 @@ class CompleteProfileScreen extends HookConsumerWidget {
                         context: context,
                         onConfirm: () async {
                           await authController.signOut();
+                          // ignore: use_build_context_synchronously
                           Beamer.of(context).beamToNamed(SplashScreen.route);
                         },
                       ),

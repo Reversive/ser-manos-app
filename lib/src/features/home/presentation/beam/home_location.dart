@@ -18,8 +18,6 @@ class HomeLocation extends BeamLocation {
         Beamer.of(context).currentBeamLocation.data as Map<String, dynamic>?;
     final volunteeringIndex =
         currentData != null ? currentData["volunteeringIndex"] ?? '' : '';
-    print(
-        "DEBUG::: uri path is ${uri.path} --- ${uri.path.contains(NewsScreen.route)}");
     return [
       if (uri.path.contains(VolunteerScreen.route) ||
           uri.path.contains(HomeScreen.route))

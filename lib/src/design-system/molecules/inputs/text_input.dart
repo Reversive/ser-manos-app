@@ -11,6 +11,7 @@ class SMTextInput extends HookWidget {
     required this.validator,
     this.enabled = true,
     required this.controller,
+    this.keyboardType = TextInputType.text,
   });
 
   final String? hintText;
@@ -18,6 +19,7 @@ class SMTextInput extends HookWidget {
   final bool enabled;
   final Function(String?) validator;
   final TextEditingController controller;
+  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class SMTextInput extends HookWidget {
       suffixIcon: const SMIcon(icon: Icons.clear),
       permaShowSuffixIcon: false,
       onSuffixIconPressed: () => controller.clear(),
+      keyboardType: keyboardType,
     );
   }
 }

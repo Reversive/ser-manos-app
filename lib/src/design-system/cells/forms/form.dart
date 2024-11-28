@@ -27,6 +27,7 @@ class SMForm extends StatelessWidget {
           labelText: AppLocalizations.of(context)!.phone,
           hintText: AppLocalizations.of(context)!.phoneExample,
           validator: (value) => SMValidator.required(value, context),
+          keyboardType: TextInputType.phone,
         ),
         const SMGap.vertical(height: 24.0),
         SMTextInput(
@@ -34,6 +35,7 @@ class SMForm extends StatelessWidget {
           validator: (value) => SMValidator.email(value, context),
           labelText: AppLocalizations.of(context)!.email,
           hintText: AppLocalizations.of(context)!.emailExample,
+          keyboardType: TextInputType.emailAddress,
         )
       ],
     );
@@ -53,6 +55,7 @@ class SMForm extends StatelessWidget {
           controller: emailController,
           labelText: AppLocalizations.of(context)!.email,
           validator: (value) => SMValidator.email(value, context),
+          keyboardType: TextInputType.emailAddress,
         ),
         const SMGap.vertical(height: 24),
         SMPasswordInput(
@@ -94,6 +97,7 @@ class SMForm extends StatelessWidget {
           labelText: AppLocalizations.of(context)!.email,
           validator: (value) => SMValidator.email(value, context),
           hintText: AppLocalizations.of(context)!.emailExample,
+          keyboardType: TextInputType.emailAddress,
         ),
         const SMGap.vertical(height: 24),
         SMPasswordInput(

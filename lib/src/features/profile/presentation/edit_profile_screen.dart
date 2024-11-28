@@ -44,6 +44,8 @@ class EditProfileScreen extends HookConsumerWidget {
     final currentUser = ref.watch(currentUserProvider);
     final isLoading = useState(false);
     final alreadyPopulated = useState(false);
+    final hasImageChanged = useState(false);
+    final hasGenderChanged = useState(false);
     final volunteeringDetail =
         ref.watch(volunteeringDetailProvider(volunteeringIndex));
 
@@ -51,6 +53,7 @@ class EditProfileScreen extends HookConsumerWidget {
       if (file != null) {
         imageProvider.value = Image.file(File(file.path)).image;
         image.value = file;
+        hasImageChanged.value = true;
       }
     }
 
@@ -64,6 +67,7 @@ class EditProfileScreen extends HookConsumerWidget {
       if (emailController.text.isEmpty && !alreadyPopulated.value) {
         emailController.text = user.email!;
       }
+
       imageProvider.value ??= NetworkImage(user.image!);
       alreadyPopulated.value = true;
     });
@@ -92,12 +96,13 @@ class EditProfileScreen extends HookConsumerWidget {
                   ),
                   const SMGap.vertical(height: 24),
                   SMCard.input(
-                    context: context,
-                    title: AppLocalizations.of(context)!.profileInfo,
-                    groupValue: currentGender.value,
-                    onChanged: (Gender? value) =>
-                        currentGender.value = value ?? Gender.male,
-                  ),
+                      context: context,
+                      title: AppLocalizations.of(context)!.profileInfo,
+                      groupValue: currentGender.value,
+                      onChanged: (Gender? value) {
+                        currentGender.value = value ?? Gender.male;
+                        hasGenderChanged.value = true;
+                      }),
                   const SMGap.vertical(height: 24),
                   SMCard.profile(
                     onImagePicked: onImagePicked,
@@ -117,6 +122,7 @@ class EditProfileScreen extends HookConsumerWidget {
                     labelText: AppLocalizations.of(context)!.phone,
                     hintText: AppLocalizations.of(context)!.phoneExample,
                     validator: (value) => SMValidator.required(value, context),
+                    keyboardType: TextInputType.phone,
                   ),
                   const SMGap.vertical(height: 24),
                   SMTextInput(
@@ -124,55 +130,60 @@ class EditProfileScreen extends HookConsumerWidget {
                     labelText: AppLocalizations.of(context)!.email,
                     hintText: AppLocalizations.of(context)!.emailExample,
                     validator: (value) => SMValidator.email(value, context),
+                    keyboardType: TextInputType.emailAddress,
                   ),
                   const SMGap.vertical(height: 32),
                   SMFill.horizontal(
-                    child: SMButton.filled(
-                      AppLocalizations.of(context)!.saveData,
-                      onPressed: () async {
-                        currentUser.whenData((user) async {
+                    child:
+                        SMButton.filled(AppLocalizations.of(context)!.saveData,
+                            onPressed: () async {
+                      currentUser.whenData(
+                        (user) async {
                           isLoading.value = true;
                           await userService.updateUser(
-                              user.uuid,
-                              image.value,
-                              dateController.text,
-                              currentGender.value,
-                              phoneController.text,
-                              emailController.text);
-                        });
-                        isLoading.value = false;
-                        if (volunteeringIndex == '') {
-                          Beamer.of(context).beamBack();
-                        } else {
-                          Beamer.of(context).currentBeamLocation.data = null;
+                            user.uuid,
+                            image.value,
+                            dateController.text,
+                            currentGender.value,
+                            phoneController.text,
+                            emailController.text,
+                          );
+                        },
+                      );
+                      isLoading.value = false;
+                      if (volunteeringIndex == '') {
+                        Beamer.of(context).beamBack();
+                      } else {
+                        Beamer.of(context).currentBeamLocation.data = null;
 
-                          volunteeringDetail.whenData((volunteering) {
-                            showDialog(
+                        volunteeringDetail.whenData((volunteering) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext ctx) => SModalFlip(
+                              title: volunteering.name,
+                              subtitle: AppLocalizations.of(context)!
+                                  .aboutToVolunteer,
+                              cancelText: AppLocalizations.of(context)!.cancel,
+                              confirmText:
+                                  AppLocalizations.of(context)!.confirm,
                               context: context,
-                              builder: (BuildContext ctx) => SModalFlip(
-                                title: volunteering.name,
-                                subtitle: AppLocalizations.of(context)!
-                                    .aboutToVolunteer,
-                                cancelText:
-                                    AppLocalizations.of(context)!.cancel,
-                                confirmText:
-                                    AppLocalizations.of(context)!.confirm,
-                                context: context,
-                                onConfirm: () async {
-                                  Beamer.of(context).beamToNamed(
-                                    "${VolunteerDetailScreen.route}?id=$volunteeringIndex",
-                                  );
-                                  await ref
-                                      .watch(volunteeringServiceProvider)
-                                      .applyToVolunteering(volunteering.id);
-                                },
-                              ),
-                            );
-                          });
-                        }
-                      },
-                      disabled: !isFormValid.value || isLoading.value,
-                    ),
+                              onConfirm: () async {
+                                Beamer.of(context).beamToNamed(
+                                  "${VolunteerDetailScreen.route}?id=$volunteeringIndex",
+                                );
+                                await ref
+                                    .watch(volunteeringServiceProvider)
+                                    .applyToVolunteering(volunteering.id);
+                              },
+                            ),
+                          );
+                        });
+                      }
+                    },
+                            disabled: (!isFormValid.value &&
+                                    !hasImageChanged.value &&
+                                    !hasGenderChanged.value) ||
+                                isLoading.value),
                   ),
                 ],
               ),
