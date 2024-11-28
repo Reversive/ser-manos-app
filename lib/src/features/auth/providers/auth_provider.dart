@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:ser_manos/src/features/auth/interfaces/auth_facade.dart';
 import 'package:ser_manos/src/features/auth/interfaces/auth_repository.dart';
 import 'package:ser_manos/src/features/auth/interfaces/auth_service.dart';
 import 'package:ser_manos/src/features/auth/persistence/auth_repository_impl.dart';
 import 'package:ser_manos/src/core/providers/firebase_provider.dart';
+import 'package:ser_manos/src/features/auth/services/auth_facade_impl.dart';
 import 'package:ser_manos/src/features/auth/services/auth_service_impl.dart';
 import 'package:ser_manos/src/features/auth/providers/user_provider.dart';
 import 'package:ser_manos/src/features/auth/models/user.dart' as sm;
@@ -38,4 +40,9 @@ AuthService authService(Ref ref) {
 @riverpod
 Stream<sm.User> currentUser(Ref ref) {
   return ref.watch(authServiceProvider).getCurrentUser();
+}
+
+@Riverpod(keepAlive: true)
+AuthFacade authFacade(Ref ref) {
+  return AuthFacadeImpl(ref.watch(firebaseAuthProvider));
 }

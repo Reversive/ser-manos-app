@@ -46,22 +46,20 @@ class AuthRepositoryImpl implements AuthRepository<fb.UserCredential> {
 
   @override
   Stream<User> getCurrentUser() {
-    final user = auth.currentUser;
-    if (user == null) {
-      throw Exception('User not found');
-    }
-    return store
-        .collection('users')
-        .doc(user.uid)
-        .snapshots()
-        .map((snapshot) => User.fromJson(snapshot.data()!));
+    return auth.authStateChanges().asyncMap((firebaseUser) async {
+      if (firebaseUser == null) {
+        throw AuthException('');
+      }
+      final doc = await store.collection('users').doc(firebaseUser.uid).get();
+      return User.fromJson(doc.data()!);
+    });
   }
-  
+
   @override
   Future<User> getCurrentUserAsync() {
     final user = auth.currentUser;
     if (user == null) {
-      throw Exception('User not found');
+      throw AuthException('User not found');
     }
     return store
         .collection('users')
