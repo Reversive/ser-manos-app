@@ -7,7 +7,12 @@ part 'generated/auth_controller.g.dart';
 class AuthController extends _$AuthController {
   @override
   AuthState build() {
-    return const AuthState.initial();
+    return ref.watch(currentUserProvider).when(
+          data: (_) => const AuthState.authenticated(),
+          error: (error, _) =>
+              AuthState.unauthenticated(message: error.toString()),
+          loading: () => const AuthState.loading(),
+        );
   }
 
   Future<void> signIn({

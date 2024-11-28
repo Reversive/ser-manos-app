@@ -21,6 +21,7 @@ import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
 import 'package:ser_manos/src/features/volunteer/services/map_service.dart';
 import 'package:widget_to_marker/widget_to_marker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VolunteerMapScreen extends HookConsumerWidget {
   const VolunteerMapScreen({
@@ -177,6 +178,8 @@ class VolunteerMapScreen extends HookConsumerWidget {
                         ? Padding(
                             padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                             child: SMCard.noVolunteerings(
+                              message:
+                                  AppLocalizations.of(context)!.noVolunteerings,
                               context: context,
                             ),
                           )

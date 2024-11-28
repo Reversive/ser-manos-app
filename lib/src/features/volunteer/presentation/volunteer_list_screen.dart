@@ -40,18 +40,18 @@ class VolunteerListScreen extends HookConsumerWidget {
 
     ref.watch(currentUserProvider).whenData((user) {
       currentUser.value = user;
-      ref.watch(activeVolunteeringProvider(user.uuid)).whenData((volunteer) {
-        currentVolunteer.value = volunteer;
-      });
+    });
+
+    ref
+        .watch(activeVolunteeringProvider(currentUser.value?.uuid ?? ''))
+        .whenData((volunteer) {
+      currentVolunteer.value = volunteer;
     });
 
     return volunteerings.when(
       data: (volunteers) => RefreshIndicator(
         onRefresh: () async {
-          // ignore: unused_result
-          ref.refresh(volunteeringSearchControllerProvider);
-          // ignore: unused_result
-          ref.refresh(activeVolunteeringProvider(currentUser.value!.uuid));
+          return ref.refresh(volunteeringSearchControllerProvider);
         },
         color: SMColors.primary100,
         child: Material(
@@ -100,6 +100,8 @@ class VolunteerListScreen extends HookConsumerWidget {
                         SMGap.vertical(height: volunteers.isEmpty ? 16 : 24),
                         volunteers.isEmpty
                             ? SMCard.noVolunteerings(
+                                message: AppLocalizations.of(context)!
+                                    .noVolunteerings,
                                 context: context,
                               )
                             : ListView.separated(

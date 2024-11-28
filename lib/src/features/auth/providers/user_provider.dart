@@ -30,6 +30,6 @@ UserService userService(Ref ref) {
 }
 
 @riverpod
-Future<Volunteering?> activeVolunteering(Ref ref, String uuid) {
+Stream<Volunteering?> activeVolunteering(Ref ref, String uuid) {
   return ref.watch(userServiceProvider).getActiveVolunteering(uuid);
 }

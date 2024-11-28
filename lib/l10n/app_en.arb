@@ -83,6 +83,8 @@
     "requiredField": "Required field",
     "invalidEmail": "Invalid email",
     "invalidPassword": "The password must contain at least 8 characters",
-    "ubication": "Location"
+    "ubication": "Location",
+    "volunteeringDoesntExist": "The volunteering you are looking for does not exist",
+    "newsDoesntExist": "The news you are looking for does not exist"
 
 }

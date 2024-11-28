@@ -7,13 +7,15 @@ import 'package:ser_manos/src/features/auth/presentation/beam/sign_up_location.d
 import 'package:ser_manos/src/features/auth/presentation/beam/splash_location.dart';
 import 'package:ser_manos/src/features/auth/presentation/beam/welcome_location.dart';
 import 'package:ser_manos/src/features/home/presentation/beam/home_location.dart';
+import 'package:ser_manos/src/features/volunteer/presentation/volunteer_screen.dart';
 part 'generated/router.g.dart';
 
 @Riverpod(keepAlive: true)
 Raw<BeamerDelegate> routerDelegate(Ref ref) {
   final authGuard = ref.read(authGuardProvider);
-  return BeamerDelegate(
-    initialPath: "/splash",
+  final entryGuard = ref.read(entryGuardProvider);
+  final delegate = BeamerDelegate(
+    initialPath: VolunteerScreen.route,
     locationBuilder: BeamerLocationBuilder(
       beamLocations: [
         SplashLocation(),
@@ -23,8 +25,7 @@ Raw<BeamerDelegate> routerDelegate(Ref ref) {
         HomeLocation(),
       ],
     ).call,
-    guards: [
-      authGuard,
-    ],
+    guards: [entryGuard, authGuard],
   );
+  return delegate;
 }

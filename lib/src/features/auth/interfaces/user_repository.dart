@@ -6,5 +6,5 @@ abstract interface class UserRepository {
   Future<void> updateUser(String uuid, String? image, String birthdate, Gender gender, String phone, String email);
   Future<void> setFavoriteVolunteering(String uuid, String volunteeringId);
   Future<void> removeFavoriteVolunteering(String uuid, String volunteeringId);
-  Future<Volunteering?> getActiveVolunteering(String uuid);
+  Stream<Volunteering?> getActiveVolunteering(String uuid);
 }

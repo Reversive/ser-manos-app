@@ -42,36 +42,62 @@ class SMComponent extends StatelessWidget {
     );
   }
 
-  factory SMComponent.profilePictureSmall({
-    Key? key,
-    required ImageProvider image,
-  }) {
-    return SMComponent(
-      height: 84,
-      width: 84,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          image: image,
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
   factory SMComponent.profilePictureBig({
     Key? key,
-    required ImageProvider image,
+    required ImageProvider? image,
   }) {
     return SMComponent(
       height: 110,
       width: 110,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         shape: BoxShape.circle,
-        image: DecorationImage(
-          image: image,
-          fit: BoxFit.cover,
-        ),
+      ),
+      child: ClipOval(
+        child: image != null
+            ? Image(
+                image: image,
+                fit: BoxFit.cover,
+                height: 110,
+                width: 110,
+              )
+            : Container(
+                color: SMColors.secondary100,
+                child: const Icon(
+                  Icons.account_circle,
+                  size: 110,
+                  color: SMColors.neutral0,
+                ),
+              ),
+      ),
+    );
+  }
+
+  factory SMComponent.profilePictureSmall({
+    Key? key,
+    required ImageProvider? image,
+  }) {
+    return SMComponent(
+      height: 84,
+      width: 84,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+      ),
+      child: ClipOval(
+        child: image != null
+            ? Image(
+                image: image,
+                fit: BoxFit.cover,
+                height: 84,
+                width: 84,
+              )
+            : Container(
+                color: SMColors.secondary100,
+                child: const Icon(
+                  Icons.account_circle,
+                  size: 84,
+                  color: SMColors.neutral0,
+                ),
+              ),
       ),
     );
   }

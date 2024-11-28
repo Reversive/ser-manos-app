@@ -17,7 +17,6 @@ import 'package:ser_manos/src/design-system/tokens/grid.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class CompleteProfileScreen extends HookConsumerWidget {
   const CompleteProfileScreen({super.key});
 
@@ -91,8 +90,8 @@ class CompleteProfileScreen extends HookConsumerWidget {
                         cancelText: AppLocalizations.of(context)!.cancel,
                         confirmText: AppLocalizations.of(context)!.signOut,
                         context: context,
-                        onConfirm: () {
-                          authController.signOut();
+                        onConfirm: () async {
+                          await authController.signOut();
                           Beamer.of(context).beamToNamed(SplashScreen.route);
                         },
                       ),

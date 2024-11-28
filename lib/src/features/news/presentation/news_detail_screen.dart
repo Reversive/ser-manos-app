@@ -6,6 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:ser_manos/src/core/providers/firebase_provider.dart';
 import 'package:ser_manos/src/core/theme/colors.dart';
+import 'package:ser_manos/src/design-system/atoms/cached_image.dart';
+import 'package:ser_manos/src/design-system/cells/cards/card.dart';
 import 'package:ser_manos/src/features/news/providers/news_provider.dart';
 import 'package:ser_manos/src/design-system/cells/headers/header.dart';
 import 'package:ser_manos/src/design-system/molecules/buttons/button.dart';
@@ -63,9 +65,11 @@ class NewsDetailScreen extends HookConsumerWidget {
                     const SMGap.vertical(height: 16),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(6),
-                      child: Image.network(
-                        news.imageUrl,
-                        fit: BoxFit.fitWidth,
+                      child: SMCachedImage(
+                        imageUrl: news.imageUrl,
+                        fit: BoxFit.cover,
+                        width: MediaQuery.of(context).size.width,
+                        height: 160,
                       ),
                     ),
                     const SMGap.vertical(height: 16),
@@ -79,7 +83,8 @@ class NewsDetailScreen extends HookConsumerWidget {
                     if (isSharingEnabled.value)
                       Align(
                         alignment: Alignment.center,
-                        child: SMTypography.headline02(AppLocalizations.of(context)!.shareNews),
+                        child: SMTypography.headline02(
+                            AppLocalizations.of(context)!.shareNews),
                       ),
                     const SMGap.vertical(height: 16),
                     if (isSharingEnabled.value)
@@ -109,9 +114,9 @@ class NewsDetailScreen extends HookConsumerWidget {
           ),
         ),
         error: (e, _) => Center(
-          child: SMTypography.body01(
-            'Error: $e',
-            color: SMColors.error100,
+          child: SMCard.noVolunteerings(
+            message: AppLocalizations.of(context)!.newsDoesntExist,
+            context: context,
           ),
         ),
         loading: () => const Center(

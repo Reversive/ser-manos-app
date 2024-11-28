@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ser_manos/src/features/auth/models/auth_exception.dart';
 import 'package:ser_manos/src/features/volunteer/interfaces/volunteering_repository.dart';
 import 'package:ser_manos/src/features/volunteer/models/volunteering.dart';
 
@@ -35,7 +36,7 @@ class VolunteeringRepositoryImpl implements VolunteeringRepository {
     if (document.exists) {
       return Volunteering.fromJson(document.data()!);
     }
-    throw Exception('Volunteering not found');
+    throw AuthException('Volunteering not found!');
   }
 
   @override

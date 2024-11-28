@@ -83,5 +83,7 @@
     "requiredField": "Campo requerido",
     "invalidEmail": "Email no válido",
     "invalidPassword": "La contraseña debe tener al menos 8 caracteres",
-    "ubication": "Ubicación"
+    "ubication": "Ubicación",
+    "volunteeringDoesntExist": "El voluntariado que buscas no existe",
+    "newsDoesntExist": "La noticia que buscas no existe"
 }

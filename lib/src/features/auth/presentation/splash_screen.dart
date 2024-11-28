@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos/src/features/auth/presentation/base_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/sign_in_screen.dart';
 import 'package:ser_manos/src/features/auth/presentation/sign_up_screen.dart';
@@ -10,8 +11,7 @@ import 'package:ser_manos/src/design-system/tokens/gap.dart';
 import 'package:ser_manos/src/design-system/tokens/typography.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends HookConsumerWidget {
   static const String route = "/splash";
   static const String routeName = "Splash";
   const SplashScreen({
@@ -19,7 +19,8 @@ class SplashScreen extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
     return BaseScreen(
       content: [
         const Spacer(),

@@ -8,6 +8,7 @@ part 'generated/volunteering_search_controller.g.dart';
 @riverpod
 class VolunteeringSearchController extends _$VolunteeringSearchController {
   Timer? _debounce;
+  String? _currentSearch;
 
   @override
   Future<List<Volunteering>> build() async {
@@ -16,11 +17,15 @@ class VolunteeringSearchController extends _$VolunteeringSearchController {
         _debounce!.cancel();
       }
     });
+    return _fetchVolunteerings(_currentSearch);
+  }
+
+  Future<List<Volunteering>> _fetchVolunteerings(String? search) async {
     final locationRepo = ref.read(locationRepositoryProvider);
     final location = await locationRepo.getCurrentLocation();
     return await ref
         .read(volunteeringServiceProvider)
-        .getVolunteerings(location, null);
+        .getVolunteerings(location, search);
   }
 
   Future<void> search(String? search) async {
@@ -31,11 +36,8 @@ class VolunteeringSearchController extends _$VolunteeringSearchController {
     _debounce = Timer(
       const Duration(milliseconds: 300),
       () async {
-        final locationRepo = ref.read(locationRepositoryProvider);
-        final location = await locationRepo.getCurrentLocation();
-        state = await AsyncValue.guard(() => ref
-            .read(volunteeringServiceProvider)
-            .getVolunteerings(location, search));
+        _currentSearch = search;
+        state = await AsyncValue.guard(() => _fetchVolunteerings(search));
       },
     );
   }

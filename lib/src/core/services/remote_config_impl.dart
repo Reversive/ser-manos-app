@@ -12,7 +12,7 @@ class RemoteConfigImpl implements RemoteConfig {
     await _remoteConfig.setConfigSettings(
       RemoteConfigSettings(
         fetchTimeout: const Duration(seconds: 5),
-        minimumFetchInterval: const Duration(seconds: 0),
+        minimumFetchInterval: const Duration(seconds: 5),
       ),
     );
     await _remoteConfig.fetchAndActivate();
