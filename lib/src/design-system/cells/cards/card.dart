@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ser_manos/src/design-system/atoms/cached_image.dart';
 import 'package:ser_manos/src/design-system/tokens/fill.dart';
 import 'package:ser_manos/src/features/news/models/news.dart';
 import 'package:ser_manos/src/features/profile/models/gender.dart';
@@ -266,8 +267,8 @@ class SMCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Image(
-              image: NetworkImage(news.imageUrl),
+            SMCachedImage(
+              imageUrl: news.imageUrl,
               fit: BoxFit.cover,
               width: 118,
             ),
@@ -440,8 +441,8 @@ class SMCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(2),
-            child: Image(
-              image: NetworkImage(volunteer.imageUrl),
+            child: SMCachedImage(
+              imageUrl: volunteer.imageUrl,
               fit: BoxFit.cover,
               height: 138,
             ),
