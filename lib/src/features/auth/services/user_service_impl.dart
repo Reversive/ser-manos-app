@@ -36,7 +36,7 @@ class UserServiceImpl implements UserService {
   }
 
   @override
-  Future<Volunteering?> getActiveVolunteering(String uuid) {
+  Stream<Volunteering?> getActiveVolunteering(String uuid) {
     return userRepository.getActiveVolunteering(uuid);
   }
 }

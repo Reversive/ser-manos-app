@@ -64,16 +64,16 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Volunteering?> getActiveVolunteering(String uuid) {
+  Stream<Volunteering?> getActiveVolunteering(String uuid) {
     return store
         .collection(volunteeringCollection)
         .where('postulations', arrayContains: uuid)
-        .get()
-        .then((snapshot) {
-      if (snapshot.docs.isNotEmpty) {
-        return Volunteering.fromJson(snapshot.docs.first.data());
+        .snapshots()
+        .map((snapshot) {
+      if (snapshot.docs.isEmpty) {
+        return null;
       }
-      return null;
+      return Volunteering.fromJson(snapshot.docs.first.data());
     });
   }
 }
