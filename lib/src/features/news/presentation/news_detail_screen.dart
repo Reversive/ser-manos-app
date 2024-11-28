@@ -66,7 +66,9 @@ class NewsDetailScreen extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(6),
                       child: SMCachedImage(
                         imageUrl: news.imageUrl,
-                        fit: BoxFit.fitWidth,
+                        fit: BoxFit.cover,
+                        width: MediaQuery.of(context).size.width,
+                        height: 160,
                       ),
                     ),
                     const SMGap.vertical(height: 16),
