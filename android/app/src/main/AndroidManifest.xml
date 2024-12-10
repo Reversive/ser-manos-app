@@ -32,7 +32,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="sermanos" android:host="app" android:pathPrefix="/home/volunteer" />
+                <data android:scheme="sermanos" android:host="app" android:pathPrefix="/home/volunteers" />
             </intent-filter>
 
             <intent-filter android:autoVerify="true">
@@ -40,6 +40,22 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="sermanos" android:host="app" android:pathPrefix="/home/news" />
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" android:host="sermanos.app" android:pathPrefix="/home/volunteers" />
+                <data android:scheme="https" android:host="sermanos.app" android:pathPrefix="/home/volunteers" />
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" android:host="sermanos.app" android:pathPrefix="/home/news" />
+                <data android:scheme="https" android:host="sermanos.app" android:pathPrefix="/home/news" />
             </intent-filter>
             
         </activity>
